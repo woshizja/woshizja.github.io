@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+
+    
+
+    <title>
+      犀牛书学习笔记（1）：概述及语言核心 | junz91 
+    </title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    
+      <meta name="author" content="Jun Zhao">
+    
+    
+
+    <meta name="description" content="一、概述&amp;emsp;&amp;emsp;我看的是第六版，由淘宝前端团队出版的《JavaScript权威指南》，犀牛书有很多版本，每一本都非常厚，我没有比较过差异（太多了 ），感觉淘宝前端团队写的还是不错的，全书错误极少，代码写的清晰易懂，内容还设计了CSS、HTML5以及jQuery方面的内容，好评！这里的blog只摘录了我在学习过程中觉得比较重要的一些知识点，相当于笔记吧。把书读薄是学生的本分，把薄的书">
+<meta property="og:type" content="article">
+<meta property="og:title" content="犀牛书学习笔记（1）：概述及语言核心 | junz91">
+<meta property="og:url" content="http://yoursite.com/2016/04/28/犀牛书学习笔记（1）：概述及语言核心/index.html">
+<meta property="og:site_name" content="junz91">
+<meta property="og:description" content="一、概述&amp;emsp;&amp;emsp;我看的是第六版，由淘宝前端团队出版的《JavaScript权威指南》，犀牛书有很多版本，每一本都非常厚，我没有比较过差异（太多了 ），感觉淘宝前端团队写的还是不错的，全书错误极少，代码写的清晰易懂，内容还设计了CSS、HTML5以及jQuery方面的内容，好评！这里的blog只摘录了我在学习过程中觉得比较重要的一些知识点，相当于笔记吧。把书读薄是学生的本分，把薄的书">
+<meta property="og:updated_time" content="2016-04-28T13:36:10.620Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="犀牛书学习笔记（1）：概述及语言核心 | junz91">
+<meta name="twitter:description" content="一、概述&amp;emsp;&amp;emsp;我看的是第六版，由淘宝前端团队出版的《JavaScript权威指南》，犀牛书有很多版本，每一本都非常厚，我没有比较过差异（太多了 ），感觉淘宝前端团队写的还是不错的，全书错误极少，代码写的清晰易懂，内容还设计了CSS、HTML5以及jQuery方面的内容，好评！这里的blog只摘录了我在学习过程中觉得比较重要的一些知识点，相当于笔记吧。把书读薄是学生的本分，把薄的书">
+    
+    
+    
+      <link rel="icon" type="image/x-icon" href="/favicon.png">
+    
+    <link rel="stylesheet" href="/css/uno.css">
+    <link rel="stylesheet" href="/css/highlight.css">
+    <link rel="stylesheet" href="/css/archive.css">
+    <link rel="stylesheet" href="/css/china-social-icon.css">
+
+</head>
+<body>
+
+    <span class="mobile btn-mobile-menu">
+        <i class="icon icon-list btn-mobile-menu__icon"></i>
+        <i class="icon icon-x-circle btn-mobile-close__icon hidden"></i>
+    </span>
+
+    
+
+<header class="panel-cover panel-cover--collapsed">
+
+
+  <div class="panel-main">
+
+  
+    <div class="panel-main__inner panel-inverted">
+    <div class="panel-main__content">
+
+        
+
+        <h1 class="panel-cover__title panel-title"><a href="/" title="link to homepage">junz91</a></h1>
+        <hr class="panel-cover__divider" />
+
+        
+
+        <div class="navigation-wrapper">
+
+          <nav class="cover-navigation cover-navigation--primary">
+            <ul class="navigation">
+
+              
+                
+                <li class="navigation__item"><a href="/#blog" title="" class="blog-button">首页</a></li>
+              
+                
+                <li class="navigation__item"><a href="/photo" title="" class="">摄影</a></li>
+              
+                
+                <li class="navigation__item"><a href="/archive" title="" class="">归档</a></li>
+              
+
+            </ul>
+          </nav>
+
+          <!-- ----------------------------
+To add a new social icon simply duplicate one of the list items from below
+and change the class in the <i> tag to match the desired social network
+and then add your link to the <a>. Here is a full list of social network
+classes that you can use:
+
+    icon-social-500px
+    icon-social-behance
+    icon-social-delicious
+    icon-social-designer-news
+    icon-social-deviant-art
+    icon-social-digg
+    icon-social-dribbble
+    icon-social-facebook
+    icon-social-flickr
+    icon-social-forrst
+    icon-social-foursquare
+    icon-social-github
+    icon-social-google-plus
+    icon-social-hi5
+    icon-social-instagram
+    icon-social-lastfm
+    icon-social-linkedin
+    icon-social-medium
+    icon-social-myspace
+    icon-social-path
+    icon-social-pinterest
+    icon-social-rdio
+    icon-social-reddit
+    icon-social-skype
+    icon-social-spotify
+    icon-social-stack-overflow
+    icon-social-steam
+    icon-social-stumbleupon
+    icon-social-treehouse
+    icon-social-tumblr
+    icon-social-twitter
+    icon-social-vimeo
+    icon-social-xbox
+    icon-social-yelp
+    icon-social-youtube
+    icon-social-zerply
+    icon-mail
+
+-------------------------------->
+
+<!-- add social info here -->
+
+
+
+        </div>
+
+      </div>
+
+    </div>
+
+    <div class="panel-cover--overlay"></div>
+  </div>
+</header>
+
+    <div class="content-wrapper">
+        <div class="content-wrapper__inner entry">
+            
+
+<article class="post-container post-container--single">
+
+  <header class="post-header">
+    
+    <h1 class="post-title">犀牛书学习笔记（1）：概述及语言核心</h1>
+
+    
+
+    <div class="post-meta">
+      <time datetime="2016-04-28" class="post-meta__date date">2016-04-28</time> 
+
+      <span class="post-meta__tags tags">
+
+          
+
+          
+             &#8226; 标签:
+            <font class="tags">
+              <a class="tags-link" href="/tags/JS犀牛书/">JS犀牛书</a>
+            </font>
+          
+
+      </span>
+    </div>
+    
+    
+
+  </header>
+
+  <section id="post-content" class="article-content post">
+    <h2 id="一、概述"><a href="#一、概述" class="headerlink" title="一、概述"></a>一、概述</h2><p>&emsp;&emsp;我看的是第六版，由淘宝前端团队出版的《<a href="https://book.douban.com/subject/10549733/" target="_blank" rel="external">JavaScript权威指南</a>》，犀牛书有很多版本，每一本都非常厚，我没有比较过差异（<em>太多了</em> ），感觉淘宝前端团队写的还是不错的，全书错误极少，代码写的清晰易懂，内容还设计了<code>CSS</code>、<code>HTML5</code>以及<code>jQuery</code>方面的内容，好评！这里的blog只摘录了我在学习过程中觉得比较重要的一些知识点，相当于笔记吧。把书读薄是学生的本分，把薄的书读厚的是学霸，读薄读厚再读薄，自然就是大师了。<br>我在学习的过程中还看了另外一本关于JavaScript的书《<a href="https://book.douban.com/subject/26697422/" target="_blank" rel="external">深入理解JavaScript</a>》，此书也是阿里背景，厚度大概是犀牛书的一半。个人感觉书的内容并不像字面那么“深入”，内容讲的不错，但是有点冗余，很多地方都在重复，大体上适合有一定基础的人进阶。<br>&emsp;&emsp;JavaScript是一门脚本语言，语法相对简单，如今前后端统一的趋势下，深入学习JavaScript是必要的。JavaScript也叫”ECMAScript”，由<strong>Brendan Eich</strong>整理提出，语言本身和Java的关系并不大，实际上JavaScript借鉴的了多门语言的优点，比如<code>Java</code>的基本语法、原始值和对象机制，<code>Scheme</code>的一类函数，<code>Self</code>的原型继承，<code>Perl</code>和<code>Python</code>的字符串、数组和正则表达式。<br>&emsp;&emsp;JavaScript基于<strong>Unicode</strong>字符集，虽然html中不区分大小写，但是JavaScript是区分的，举个例在HTML中设置事件处理程序时，可以使用<code>onclick</code>或者<code>onClick</code>，在JavaScript中必须使用小写的<code>onclick</code>。JavaScript的基本语法部分并不难，这里就不再详述了。</p>
+<h2 id="二、类型、值和变量"><a href="#二、类型、值和变量" class="headerlink" title="二、类型、值和变量"></a>二、类型、值和变量</h2><p>JavaScript的数据类型分为两类：</p>
+<h3 id="1-原始类型"><a href="#1-原始类型" class="headerlink" title="1. 原始类型"></a>1. 原始类型</h3><blockquote>
+<ul>
+<li><strong>数字</strong>：不区分整数值和浮点数值，采用64位表示，16进制以0x开头；</li>
+<li><strong>字符串</strong>：由单引号或者双引号括起来的一组不可变的字符有序序列；</li>
+<li><strong>布尔值</strong>：true和false，0、空字符串这些会被转换成false，undefined、null、NaN和false并不相等，除此之外都会转换为true；</li>
+<li><strong>null</strong>：表示数字、字符串或者对象是“无值”的，是空值；</li>
+<li><strong>undefined</strong>：变量的一种取值，表明变量没有初始化或者对象属性不存在；</li>
+</ul>
+</blockquote>
+<h3 id="2-对象类型"><a href="#2-对象类型" class="headerlink" title="2. 对象类型"></a>2. 对象类型</h3><blockquote>
+<ul>
+<li><strong>普通对象</strong>，被{ }包起来的对象，由key/value对组成；</li>
+<li><strong>数组</strong>（有序的对象）；</li>
+<li><strong>函数</strong>：包含可执行代码的对象，如果函数用new来初始化一个新建对象，则称之为构造函数，每个构造函数都定义了一个“类”；</li>
+</ul>
+</blockquote>
+<p>JavaScript的变量是无类型的，可以被赋予任何类型的值，也可以重新被赋予其它类型的值，内存回收由语言引擎自动处理，JavaScript的对象和类也是可以动态改变的，语言非常灵活。</p>
+<h3 id="Tips："><a href="#Tips：" class="headerlink" title="Tips："></a>Tips：</h3><blockquote>
+<ol>
+<li>NaN和任何值都不相等，包括自身，判断是否为NaN的方法是：x！=x（当且仅当x为NaN时返回true）;</li>
+<li>JavaScript中的字符串是固定不变的，所有破坏性方法返回的都是新字符串；</li>
+<li>存取字符串、数字或布尔值的属性时创建的临时对象称作<strong>包装对象</strong>；</li>
+<li>原始类型的属性都是只读的，也不能给它们重新定义新属性；</li>
+<li><p>两个单独的对象或者数组永不严格相等()；</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> s=<span class="string">"hello"</span>;</span><br><span class="line"><span class="keyword">var</span> S=<span class="keyword">new</span> <span class="built_in">String</span>(s);</span><br><span class="line">s===S;  <span class="comment">//false</span></span><br><span class="line">s==S;  <span class="comment">//true</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>JavaScript使用函数作用域，由此引起的闭包非常重要，声明提前机制也值得注意。这里阐述一下我对两者的理解：</p>
+<blockquote>
+<p><strong>闭包</strong>（closure）：心理学上有个闭合律，是说人在只看到目标物一部分的情形下，大脑会自动想象出剩余部分，这是我们认知的自然过程。比如你只看到键盘的一角也能很容易地“脑补”出：这是一个键盘。JS中的闭包与此类似：只通过暴露在外的部分接口，也能够获得内部关联的其余变量。具体来说就是函数能够把它周围的变量关联到自己的作用域内，如果全局的变量引用了这个函数，那么函数周围的变量就会一直存在，不会因为离开定义它的函数而被销毁。<br><strong>声明提前</strong>：JavaScript引擎为了提高执行效率会在程序开始之前进行预处理，预处理阶段会为变量预先分配内存空间以及做一些优化工作。JavaScript的声明提前只是“声明”的提前，具体的定义还是发生在原来定义它的地方。</p>
+</blockquote>
+</li>
+<li>JavaScript对象的比较是引用的比较，而不是值的比较，对象和其本身相等，但和其他任何对象都不相等；</li>
+</ol>
+</blockquote>
+<h2 id="三、对象"><a href="#三、对象" class="headerlink" title="三、对象"></a>三、对象</h2><p>&emsp;&emsp;JavaScript对象类似于静态语言中的结构体，但是是动态的——可以新增属性也可以删除属性。对象包括属性名和属性值，属性名可以是空字符串，但对象中不能存在两个同名属性。属性包含可写、可枚举和可配置三个<strong>属性特性</strong>。JavaScript中主要有三类对象和两类属性：</p>
+<ul>
+<li>内置对象：数组，函数，日期和正则表达式；</li>
+<li>宿主对象：由JavaScript解释器所嵌入的宿主环境（比如web浏览器）定义，相当于内置对象；</li>
+<li>自定义对象：由运行中的代码创建的对象；</li>
+<li>自有属性：直接在对象中定义的属性；</li>
+<li>继承属性：在对象原型中定义的属性；</li>
+</ul>
+<p>访问对象属性的方法有”[]”和”.”两种，前一种是动态的（可以传入一个变量），后一种是静态的，循环增加属性时必须使用[]方法。属性的<code>delete</code>操作只能删除自有的属性，不能删除继承属性，另外delete只是断开了属性和宿主的联系，如果还有变量引用它，这个属性是不会销毁的，可能会造成内存泄露：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> a=&#123;p:&#123;x:<span class="number">1</span>&#125;&#125;; </span><br><span class="line"><span class="keyword">var</span> b=a.p; </span><br><span class="line"><span class="keyword">delete</span> a.p;</span><br><span class="line"><span class="built_in">console</span>.log(b.x);  <span class="comment">//1</span></span><br></pre></td></tr></table></figure></p>
+<p>如果要确保销毁一个对象，需要依次遍历删除。<br>属性检测的三种方法：<br>| 方法        | 定义       |<br>| ——–   | —–:  |<br>| in     | 自有属性或继承属性中包含这个属性则返回true |<br>| hasOwnProperty        |   检测是否为对象自有属性   |<br>| propertyIsEnumerable        |    自有属性且这个属性可枚举时返回true    |</p>
+<h3 id="get和set"><a href="#get和set" class="headerlink" title="get和set"></a>get和set</h3><p>&emsp;&emsp;getter和setter又叫<strong>访问器</strong>，由它们定义的属性称作存取器属性。定义方法：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> obj=&#123;</span><br><span class="line">    get foo()&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">"getter"</span>;</span><br><span class="line">    &#125;,</span><br><span class="line">    set foo(val)&#123;</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="string">"setter: "</span>+val);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="comment">//使用方法</span></span><br><span class="line">obj.foo=<span class="string">"data"</span>;  <span class="comment">//setter: data</span></span><br><span class="line">obj.foo;  <span class="comment">//getter</span></span><br></pre></td></tr></table></figure></p>
+<p>访问器使得一个属性有两种使用方法，有点类似于重载函数，利用好get和set可以一定程度上简化代码，使程序更具可读性。</p>
+<h3 id="JSON"><a href="#JSON" class="headerlink" title="JSON"></a>JSON</h3><p>JSON的全称是：<strong>JavaScript Object Notation</strong>，JavaScript对象表示法。JSON支持对象、数组、字符串、无穷大数字、布尔型和null，但不支持所有的类型（比如函数类型），JS提供两个方法操作JSON对象：<code>JSON.stringify</code>和<code>JSON.parse</code>，分别用来序列化和还原JSON对象。</p>
+<h2 id="四、数组"><a href="#四、数组" class="headerlink" title="四、数组"></a>四、数组</h2><p>&emsp;&emsp;JavaScript数组最大容纳2的32次方个元素，通常访问数组要比访问对象更快，数组元素可以是任何类型，设置数组的length属性为0可以删除所有元素，使用delete删除数组元素后，该元素的索引也会一并删除，数组长度不变。<br>常用破坏性和非破坏性的数组方法列表：</p>
+<blockquote>
+<p>破坏性</p>
+<blockquote>
+<p><strong>shift</strong>：删除第一个元素，返回该元素<br><strong>unshift</strong>：在首部添加一个元素，返回新的数组长度<br><strong>pop</strong>：删除尾部的一个元素，返回该元素<br><strong>push</strong>：在尾部增加一个元素，返回新数组长度<br><strong>splice</strong>：删除指定位置的n个元素，并插入指定元素，返回被移除的元素<br><strong>reverse</strong>：颠倒数组元素的顺序，返回原数组的引用<br><strong>sort</strong>：数组排序，可传入函数形参，返回原数组引用</p>
+</blockquote>
+<p>非破坏性</p>
+<blockquote>
+<p><strong>concat</strong>：创建并返回一个新数组，新数组是所有传入数组连接后的结果<br><strong>slice</strong>：复制指定位置区间的元素组成新数组返回<br><strong>join</strong>：使用指定符号连接数组元素，返回连接后的字符串，默认是’,’<br><strong>indexOf</strong>：查找第一个匹配的结果，返回索引<br><strong>forEach</strong>：遍历数组中的元素，必须传入一个函数，无法提前终止<br><strong>every和some</strong>：所有元素都满足条件则返回true，只要有一个元素满足条件就返回true<br><strong>map和filter</strong>：映射和过滤数组元素</p>
+</blockquote>
+</blockquote>
+
+  </section>
+
+  
+  
+
+<section class="post-comments">
+
+    <div class="ds-thread" data-thread-key="2016/04/28/犀牛书学习笔记（1）：概述及语言核心/"></div>
+
+    <script type="text/javascript">
+      var duoshuoQuery = {short_name:"junz91"};
+      (function() {
+        var ds = document.createElement('script');
+        ds.type = 'text/javascript';ds.async = true;
+        ds.src = '//static.duoshuo.com/embed.js';
+        ds.charset = 'UTF-8';
+        (document.getElementsByTagName('head')[0] 
+        || document.getElementsByTagName('body')[0]).appendChild(ds);
+      })();
+    </script> 
+
+</section>
+
+
+</article>
+
+
+            <footer class="footer">
+
+    <span class="footer__copyright">&copy; 2014-2015. | 由<a href="https://hexo.io/">Hexo</a>强力驱动 | 主题<a href="https://github.com/someus/huno">Huno</a></span>
+    
+</footer>
+        </div>
+    </div>
+
+    <!-- js files -->
+    <script src="/js/jquery.min.js"></script>
+    <script src="/js/main.js"></script>
+    <script src="/js/scale.fix.js"></script>
+    
+
+    
+    
+
+    <script src="/js/awesome-toc.min.js"></script>
+    <script>
+        $(document).ready(function(){
+            $.awesome_toc({
+                overlay: true,
+                contentId: "post-content",
+            });
+        });
+    </script>
+
+
+    
+    
+    <!--kill ie6 -->
+<!--[if IE 6]>
+  <script src="//letskillie6.googlecode.com/svn/trunk/2/zh_CN.js"></script>
+<![endif]-->
+
+</body>
+</html>

@@ -1589,6 +1589,10 @@ input[type="tel"] {
     margin-top: 5px;
     margin-left: 0; } }
 @media all and (max-width: 960px) {
+  #sidebar-toc-Ik4D-toggleBtn{
+    display: none;
+  }
+
   p {
   margin-bottom: 1em;
   line-height: 1.3em; }

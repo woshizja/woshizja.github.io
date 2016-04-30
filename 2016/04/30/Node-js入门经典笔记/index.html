@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+
+    
+
+    <title>
+      Node.js入门经典笔记 | junz91 
+    </title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    
+      <meta name="author" content="Jun Zhao">
+    
+    
+
+    <meta name="description" content="&amp;emsp;&amp;emsp;之前看了朴灵大神的《深入浅出Node.js》，感觉很多地方都一知半解，遂想着找一本入门的书看一看，于是就找到了《Node.js入门经典》一书。开始吧！
+一、Node概述&amp;emsp;&amp;emsp;说几个关键词吧：服务端JS环境，基于V8，支持C++扩展，高性能web服务器，单进程，异步非阻塞，事件驱动。&amp;emsp;&amp;emsp;Node通过npm进行扩展非常方便，这种感觉类似于一">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Node.js入门经典笔记 | junz91">
+<meta property="og:url" content="http://yoursite.com/2016/04/30/Node-js入门经典笔记/index.html">
+<meta property="og:site_name" content="junz91">
+<meta property="og:description" content="&amp;emsp;&amp;emsp;之前看了朴灵大神的《深入浅出Node.js》，感觉很多地方都一知半解，遂想着找一本入门的书看一看，于是就找到了《Node.js入门经典》一书。开始吧！
+一、Node概述&amp;emsp;&amp;emsp;说几个关键词吧：服务端JS环境，基于V8，支持C++扩展，高性能web服务器，单进程，异步非阻塞，事件驱动。&amp;emsp;&amp;emsp;Node通过npm进行扩展非常方便，这种感觉类似于一">
+<meta property="og:updated_time" content="2016-04-30T14:07:20.987Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Node.js入门经典笔记 | junz91">
+<meta name="twitter:description" content="&amp;emsp;&amp;emsp;之前看了朴灵大神的《深入浅出Node.js》，感觉很多地方都一知半解，遂想着找一本入门的书看一看，于是就找到了《Node.js入门经典》一书。开始吧！
+一、Node概述&amp;emsp;&amp;emsp;说几个关键词吧：服务端JS环境，基于V8，支持C++扩展，高性能web服务器，单进程，异步非阻塞，事件驱动。&amp;emsp;&amp;emsp;Node通过npm进行扩展非常方便，这种感觉类似于一">
+    
+    
+    
+      <link rel="icon" type="image/x-icon" href="/favicon.png">
+    
+    <link rel="stylesheet" href="/css/uno.css">
+    <link rel="stylesheet" href="/css/highlight.css">
+    <link rel="stylesheet" href="/css/archive.css">
+    <link rel="stylesheet" href="/css/china-social-icon.css">
+
+</head>
+<body>
+
+    <span class="mobile btn-mobile-menu">
+        <i class="icon icon-list btn-mobile-menu__icon"></i>
+        <i class="icon icon-x-circle btn-mobile-close__icon hidden"></i>
+    </span>
+
+    
+
+<header class="panel-cover panel-cover--collapsed">
+
+
+  <div class="panel-main">
+
+  
+    <div class="panel-main__inner panel-inverted">
+    <div class="panel-main__content">
+
+        
+
+        <h1 class="panel-cover__title panel-title"><a href="/" title="link to homepage">junz91</a></h1>
+        <hr class="panel-cover__divider" />
+
+        
+
+        <div class="navigation-wrapper">
+
+          <nav class="cover-navigation cover-navigation--primary">
+            <ul class="navigation">
+
+              
+                
+                <li class="navigation__item"><a href="/#blog" title="" class="blog-button">首页</a></li>
+              
+                
+                <li class="navigation__item"><a href="/photo" title="" class="">摄影</a></li>
+              
+                
+                <li class="navigation__item"><a href="/archive" title="" class="">归档</a></li>
+              
+
+            </ul>
+          </nav>
+
+          <!-- ----------------------------
+To add a new social icon simply duplicate one of the list items from below
+and change the class in the <i> tag to match the desired social network
+and then add your link to the <a>. Here is a full list of social network
+classes that you can use:
+
+    icon-social-500px
+    icon-social-behance
+    icon-social-delicious
+    icon-social-designer-news
+    icon-social-deviant-art
+    icon-social-digg
+    icon-social-dribbble
+    icon-social-facebook
+    icon-social-flickr
+    icon-social-forrst
+    icon-social-foursquare
+    icon-social-github
+    icon-social-google-plus
+    icon-social-hi5
+    icon-social-instagram
+    icon-social-lastfm
+    icon-social-linkedin
+    icon-social-medium
+    icon-social-myspace
+    icon-social-path
+    icon-social-pinterest
+    icon-social-rdio
+    icon-social-reddit
+    icon-social-skype
+    icon-social-spotify
+    icon-social-stack-overflow
+    icon-social-steam
+    icon-social-stumbleupon
+    icon-social-treehouse
+    icon-social-tumblr
+    icon-social-twitter
+    icon-social-vimeo
+    icon-social-xbox
+    icon-social-yelp
+    icon-social-youtube
+    icon-social-zerply
+    icon-mail
+
+-------------------------------->
+
+<!-- add social info here -->
+
+
+
+        </div>
+
+      </div>
+
+    </div>
+
+    <div class="panel-cover--overlay"></div>
+  </div>
+</header>
+
+    <div class="content-wrapper">
+        <div class="content-wrapper__inner entry">
+            
+
+<article class="post-container post-container--single">
+
+  <header class="post-header">
+    
+    <h1 class="post-title">Node.js入门经典笔记</h1>
+
+    
+
+    <div class="post-meta">
+      <time datetime="2016-04-30" class="post-meta__date date">2016-04-30</time> 
+
+      <span class="post-meta__tags tags">
+
+          
+
+          
+             &#8226; 标签:
+            <font class="tags">
+              <a class="tags-link" href="/tags/Node/">Node</a>
+            </font>
+          
+
+      </span>
+    </div>
+    
+    
+
+  </header>
+
+  <section id="post-content" class="article-content post">
+    <p>&emsp;&emsp;之前看了朴灵大神的《<a href="https://book.douban.com/subject/25768396/" target="_blank" rel="external">深入浅出Node.js</a>》，感觉很多地方都一知半解，遂想着找一本入门的书看一看，于是就找到了《<a href="https://book.douban.com/subject/23780706/" target="_blank" rel="external">Node.js入门经典</a>》一书。开始吧！</p>
+<h2 id="一、Node概述"><a href="#一、Node概述" class="headerlink" title="一、Node概述"></a>一、Node概述</h2><p>&emsp;&emsp;说几个关键词吧：<strong>服务端JS环境</strong>，<strong>基于V8</strong>，<strong>支持C++扩展</strong>，<strong>高性能web服务器</strong>，<strong>单进程</strong>，<strong>异步非阻塞</strong>，<strong>事件驱动</strong>。<br>&emsp;&emsp;Node通过npm进行扩展非常方便，这种感觉类似于一夜暴富，瞬间拥有数不尽的模块插件可以使用，exciting！nodeJS的模块分为三类：<strong>核心模块</strong>，<strong>文件模块</strong>，<strong>第三方模块</strong>。核心模块会预先加载。通过<code>npm install module_name</code>安装的模块默认在项目路径下，使用全局安装需要加参数-g，通常在模块需要全局命令时使用。使用<code>npm doc module_name</code>可以看模块文档。目录下的package.json用于指定依赖关系以及其它模块信息。<br>&emsp;&emsp;Node采用了事件循环机制，不适用于需要大量计算的应用场景。</p>
+<h2 id="二、Node模块"><a href="#二、Node模块" class="headerlink" title="二、Node模块"></a>二、Node模块</h2><h3 id="1-HTTP"><a href="#1-HTTP" class="headerlink" title="1. HTTP"></a>1. HTTP</h3><p>使用Node发送重定向的代码：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> http = <span class="built_in">require</span>(<span class="string">'http'</span>);</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> server = http.createServer(<span class="function"><span class="keyword">function</span>(<span class="params">req,res</span>)</span>&#123;</span><br><span class="line">  res.writeHead(<span class="number">301</span>,&#123;  <span class="comment">//301表示临时重定向，302表示永久重定向</span></span><br><span class="line">                <span class="string">'Location'</span>:<span class="string">'重定向的url'</span></span><br><span class="line">  &#125;);</span><br><span class="line">  res.end();</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure></p>
+<h3 id="2-URL"><a href="#2-URL" class="headerlink" title="2. URL"></a>2. URL</h3><p>URL模块解析的结果如下：</p>
+<blockquote>
+<ul>
+<li>protocol：指定低层使用的协议</li>
+<li>slashes：是否有协议的双斜线：//</li>
+<li>auth：认证</li>
+<li>host：HTTP服务器的IP地址或者域名</li>
+<li>port：端口</li>
+<li>hostname：主机名</li>
+<li>hash：hash值，锚点</li>
+<li>search：查询字符串</li>
+<li>query：发送给http服务器的数据</li>
+<li>pathname：访问资源路径名</li>
+<li>path：访问资源的路径</li>
+<li>href：完整的超链接 </li>
+</ul>
+</blockquote>
+<h2 id="三、Express"><a href="#三、Express" class="headerlink" title="三、Express"></a>三、Express</h2><p>安装express生成器的命令：<code>npm install express-generator -g</code>，该命令可以生成一个通用的基本骨架，包括：</p>
+<blockquote>
+<ul>
+<li><strong>app.js</strong>：包含应用程序配置信息，用来启动应用程序的应用程序文件夹。</li>
+<li><strong>node_modules</strong>：用来保存在package.json中定义并安装的node模块。</li>
+<li><strong>package.json</strong>：包含应用程序信息以及依赖的模块。</li>
+<li><strong>public</strong>：提供给web进行服务的公共文件夹，包括CSS样式、JavaScript和图片，不存在任何程序逻辑。</li>
+<li><strong>routes</strong>：路由，根据请求响应不同的页面。</li>
+<li><strong>views</strong>：视图文件夹定义应用程序的布局。</li>
+</ul>
+</blockquote>
+<h3 id="1-Jade"><a href="#1-Jade" class="headerlink" title="1. Jade"></a>1. Jade</h3><h4 id="缩进"><a href="#缩进" class="headerlink" title="缩进"></a>缩进</h4><p>Jade是一个基于缩进的模板引擎，express默认使用Jade模板引擎将视图编译为HTML文件。下面是一段html片段和Jade的对应：<br><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"wrapper"</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">h1</span>&gt;</span>this is head<span class="tag">&lt;/<span class="name">h1</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">p</span>&gt;</span>hello world!<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">img</span> <span class="attr">src</span>=<span class="string">"xx.jpg"</span> <span class="attr">alt</span>=<span class="string">"Hi!"</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="comment">&lt;!--对应的Jade如下--&gt;</span></span><br><span class="line">div.wrapper</span><br><span class="line">  h1 this is head</span><br><span class="line">  p hello world!</span><br><span class="line">  img (src='xx.jpg', alt='Hi!')</span><br></pre></td></tr></table></figure></p>
+<h4 id="变量"><a href="#变量" class="headerlink" title="变量"></a>变量</h4><p>Jade要比HTML更简洁，Jade使用缩进来定义HTML文档的层次结构。Jade中无需使用或关闭标记，模板编译时会自动加入&lt;&gt;字符。模板语言的真正能力在于操纵数据并输出数据到HTML中。Jade使用字符（-）来告诉随后的代码应当被执行，使用（=）来告诉解释器要对代码进行演算、转移和输出。<code>#{变量}</code>这个语法告诉Jade要将变量替换为字符串值，示例：<br><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">- var foo=bar;  //设置一个变量foo</span><br><span class="line">p foo is: #&#123;foo&#125;!  //使用变量</span><br><span class="line">//渲染后的结果如下：</span><br><span class="line"><span class="tag">&lt;<span class="name">p</span>&gt;</span>foo is: bar!<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<h4 id="循环"><a href="#循环" class="headerlink" title="循环"></a>循环</h4><p>循环通常用于对数组和对象进行迭代，Jade中使用<code>each in</code>和<code>for in</code>的结构进行循环遍历：<br><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!--使用each in遍历--&gt;</span></span><br><span class="line">- users = ['A','B','C']</span><br><span class="line">- each user in users</span><br><span class="line">  p = user</span><br><span class="line"><span class="comment">&lt;!--使用for in遍历--&gt;</span></span><br><span class="line">- for user in users</span><br><span class="line">  p = user</span><br><span class="line"><span class="comment">&lt;!--两者编译结果相同：--&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">p</span>&gt;</span>A<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">p</span>&gt;</span>B<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">p</span>&gt;</span>C<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line"></span><br><span class="line">- obj = &#123;first_name:'zhao',surname:'jun'&#125;</span><br><span class="line">- each val,key in obj</span><br><span class="line">  li #&#123;key&#125;:#&#123;val&#125;</span><br><span class="line"><span class="comment">&lt;!--编译结果：--&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">li</span>&gt;</span>first_name:zhao<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">li</span>&gt;</span>surname:jun<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<h4 id="条件"><a href="#条件" class="headerlink" title="条件"></a>条件</h4><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">- awake = false</span><br><span class="line">- if(awake)</span><br><span class="line">  p res is false!</span><br><span class="line">- else</span><br><span class="line">  p res is true!</span><br></pre></td></tr></table></figure>
+<h4 id="内联JavaScript"><a href="#内联JavaScript" class="headerlink" title="内联JavaScript"></a>内联JavaScript</h4><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">script</span><br><span class="line">  alert("this is script")</span><br></pre></td></tr></table></figure>
+<h4 id="包含"><a href="#包含" class="headerlink" title="包含"></a>包含</h4><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!--包含views/includes/header.jade文件中的代码--&gt;</span></span><br><span class="line">html</span><br><span class="line">  body</span><br><span class="line">    include includes/header</span><br></pre></td></tr></table></figure>
+<h4 id="Mixin"><a href="#Mixin" class="headerlink" title="Mixin"></a>Mixin</h4><p>mixin代表需要一次一次重复的代码块，比如：<br><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">mixin redo(users)</span><br><span class="line">  ul</span><br><span class="line">    each user in users</span><br><span class="line">      li= user</span><br><span class="line"><span class="comment">&lt;!--定义好mixin之后就可以使用并且重用它了：--&gt;</span></span><br><span class="line">- users=['A','B','C']</span><br><span class="line">mixin redo(users)</span><br></pre></td></tr></table></figure></p>
+<h3 id="2-路由"><a href="#2-路由" class="headerlink" title="2. 路由"></a>2. 路由</h3><p>使用express添加一个<strong>GET路由</strong>以及<strong>POST路由</strong>的方式：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* GET home page. */</span></span><br><span class="line">router.get(<span class="string">'/'</span>, <span class="function"><span class="keyword">function</span>(<span class="params">req, res, next</span>) </span>&#123;</span><br><span class="line">  res.render(<span class="string">'index'</span>, &#123; title: <span class="string">'Express'</span> &#125;);</span><br><span class="line">&#125;);</span><br><span class="line"><span class="comment">/* GET about page. */</span></span><br><span class="line">router.get(<span class="string">'/about'</span>, <span class="function"><span class="keyword">function</span>(<span class="params">req, res, next</span>) </span>&#123;</span><br><span class="line">  res.send(<span class="string">"hahaha"</span>);</span><br><span class="line">&#125;);</span><br><span class="line"><span class="comment">/* POST 路由. */</span></span><br><span class="line">router.post(<span class="string">'/'</span>,<span class="function"><span class="keyword">function</span>(<span class="params">req,res</span>)</span>&#123;</span><br><span class="line">  res.send(req.body);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure></p>
+
+  </section>
+
+  
+  
+
+<section class="post-comments">
+
+    <div class="ds-thread" data-thread-key="2016/04/30/Node-js入门经典笔记/"></div>
+
+    <script type="text/javascript">
+      var duoshuoQuery = {short_name:"junz91"};
+      (function() {
+        var ds = document.createElement('script');
+        ds.type = 'text/javascript';ds.async = true;
+        ds.src = '//static.duoshuo.com/embed.js';
+        ds.charset = 'UTF-8';
+        (document.getElementsByTagName('head')[0] 
+        || document.getElementsByTagName('body')[0]).appendChild(ds);
+      })();
+    </script> 
+
+</section>
+
+
+</article>
+
+
+            <footer class="footer">
+
+    <span class="footer__copyright">&copy; 2014-2015. | 由<a href="https://hexo.io/">Hexo</a>强力驱动 | 主题<a href="https://github.com/someus/huno">Huno</a></span>
+    
+</footer>
+        </div>
+    </div>
+
+    <!-- js files -->
+    <script src="/js/jquery.min.js"></script>
+    <script src="/js/main.js"></script>
+    <script src="/js/scale.fix.js"></script>
+    
+
+    
+    
+
+    <script src="/js/awesome-toc.min.js"></script>
+    <script>
+        $(document).ready(function(){
+            $.awesome_toc({
+                overlay: true,
+                contentId: "post-content",
+            });
+        });
+    </script>
+
+
+    
+    
+    <!--kill ie6 -->
+<!--[if IE 6]>
+  <script src="//letskillie6.googlecode.com/svn/trunk/2/zh_CN.js"></script>
+<![endif]-->
+
+</body>
+</html>
