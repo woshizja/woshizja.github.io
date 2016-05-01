@@ -33,11 +33,12 @@ blockquote:after {
 blockquote:before {
   content: '';
   height:100%;
+  height: calc(100% + 2px);
   width:10px;
   background:#5B6477;
   position:absolute;
   transition:background 1.2s linear;
-  top:0;
+  top:-1px;
   left:0; }
 
 blockquote:hover:before {
