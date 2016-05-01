@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+
+    
+
+    <title>
+      JS设计模式——发布-订阅模式 | junz91 
+    </title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    
+      <meta name="author" content="Jun Zhao">
+    
+    
+
+    <meta name="description" content="发布-订阅模式又叫观察者模式，它定义对象间的一种一对多的依赖关系，当一个对象的状态发生改变时，所有依赖于它的对象都将得到通知。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="JS设计模式——发布-订阅模式 | junz91">
+<meta property="og:url" content="http://yoursite.com/2016/04/23/JS设计模式——发布-订阅模式/index.html">
+<meta property="og:site_name" content="junz91">
+<meta property="og:description" content="发布-订阅模式又叫观察者模式，它定义对象间的一种一对多的依赖关系，当一个对象的状态发生改变时，所有依赖于它的对象都将得到通知。">
+<meta property="og:updated_time" content="2016-05-01T13:09:42.128Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="JS设计模式——发布-订阅模式 | junz91">
+<meta name="twitter:description" content="发布-订阅模式又叫观察者模式，它定义对象间的一种一对多的依赖关系，当一个对象的状态发生改变时，所有依赖于它的对象都将得到通知。">
+    
+    
+    
+      <link rel="icon" type="image/x-icon" href="/favicon.png">
+    
+    <link rel="stylesheet" href="/css/uno.css">
+    <link rel="stylesheet" href="/css/highlight.css">
+    <link rel="stylesheet" href="/css/archive.css">
+    <link rel="stylesheet" href="/css/china-social-icon.css">
+
+</head>
+<body>
+
+    <span class="mobile btn-mobile-menu">
+        <i class="icon icon-list btn-mobile-menu__icon"></i>
+        <i class="icon icon-x-circle btn-mobile-close__icon hidden"></i>
+    </span>
+
+    
+
+<header class="panel-cover panel-cover--collapsed">
+
+
+  <div class="panel-main">
+
+  
+    <div class="panel-main__inner panel-inverted">
+    <div class="panel-main__content">
+
+        
+
+        <h1 class="panel-cover__title panel-title"><a href="/" title="link to homepage">junz91</a></h1>
+        <hr class="panel-cover__divider" />
+
+        
+
+        <div class="navigation-wrapper">
+
+          <nav class="cover-navigation cover-navigation--primary">
+            <ul class="navigation">
+
+              
+                
+                <li class="navigation__item"><a href="/#blog" title="" class="blog-button">首页</a></li>
+              
+                
+                <li class="navigation__item"><a href="/photo" title="" class="">摄影</a></li>
+              
+                
+                <li class="navigation__item"><a href="/archive" title="" class="">归档</a></li>
+              
+
+            </ul>
+          </nav>
+
+          <!-- ----------------------------
+To add a new social icon simply duplicate one of the list items from below
+and change the class in the <i> tag to match the desired social network
+and then add your link to the <a>. Here is a full list of social network
+classes that you can use:
+
+    icon-social-500px
+    icon-social-behance
+    icon-social-delicious
+    icon-social-designer-news
+    icon-social-deviant-art
+    icon-social-digg
+    icon-social-dribbble
+    icon-social-facebook
+    icon-social-flickr
+    icon-social-forrst
+    icon-social-foursquare
+    icon-social-github
+    icon-social-google-plus
+    icon-social-hi5
+    icon-social-instagram
+    icon-social-lastfm
+    icon-social-linkedin
+    icon-social-medium
+    icon-social-myspace
+    icon-social-path
+    icon-social-pinterest
+    icon-social-rdio
+    icon-social-reddit
+    icon-social-skype
+    icon-social-spotify
+    icon-social-stack-overflow
+    icon-social-steam
+    icon-social-stumbleupon
+    icon-social-treehouse
+    icon-social-tumblr
+    icon-social-twitter
+    icon-social-vimeo
+    icon-social-xbox
+    icon-social-yelp
+    icon-social-youtube
+    icon-social-zerply
+    icon-mail
+
+-------------------------------->
+
+<!-- add social info here -->
+
+
+
+        </div>
+
+      </div>
+
+    </div>
+
+    <div class="panel-cover--overlay"></div>
+  </div>
+</header>
+
+    <div class="content-wrapper">
+        <div class="content-wrapper__inner entry">
+            
+
+<article class="post-container post-container--single">
+
+  <header class="post-header">
+    
+    <h1 class="post-title">JS设计模式——发布-订阅模式</h1>
+
+    
+
+    <div class="post-meta">
+      <time datetime="2016-04-23" class="post-meta__date date">2016-04-23</time> 
+
+      <span class="post-meta__tags tags">
+
+          
+
+          
+             &#8226; 标签:
+            <font class="tags">
+              <a class="tags-link" href="/tags/JavaScript设计模式/">JavaScript设计模式</a>
+            </font>
+          
+
+      </span>
+    </div>
+    
+    
+
+  </header>
+
+  <section id="post-content" class="article-content post">
+    <p>发布-订阅模式又叫<strong>观察者模式</strong>，它定义对象间的一种一对多的依赖关系，当一个对象的状态发生改变时，所有依赖于它的对象都将得到通知。</p>
+<a id="more"></a>
+<h2 id="一、定义"><a href="#一、定义" class="headerlink" title="一、定义"></a>一、定义</h2><blockquote>
+<p>发布-订阅模式又叫<strong>观察者模式</strong>，它定义对象间的一种一对多的依赖关系，当一个对象的状态发生改变时，所有依赖于它的对象都将得到通知。</p>
+</blockquote>
+<h2 id="二、作用"><a href="#二、作用" class="headerlink" title="二、作用"></a>二、作用</h2><ul>
+<li>可广泛应用在异步编程中，作为回调函数的替代方案，相比回调更易维护，更简洁；</li>
+<li>发布订阅模式更利于不同对象之间的空间解耦和时间解耦，一个对象不用再显示地调用对一个对象的接口；</li>
+</ul>
+<h2 id="三、标准浏览器的DOM自定义事件"><a href="#三、标准浏览器的DOM自定义事件" class="headerlink" title="三、标准浏览器的DOM自定义事件"></a>三、标准浏览器的DOM自定义事件</h2><p>标准浏览器可以使用<code>document.createEvent()</code>函数自定义事件（<a href="https://developer.mozilla.org/en-US/docs/Web/API/Document/createEvent#Notes" target="_blank" rel="external">支持的事件</a>），使用的大致流程如下：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//创建事件</span></span><br><span class="line"><span class="keyword">var</span> evt = <span class="built_in">document</span>.createEvent(<span class="string">'Event'</span>);</span><br><span class="line"><span class="comment">//初始化事件</span></span><br><span class="line">evt.initEvent(<span class="string">'build'</span>,  <span class="comment">//自定义事件名</span></span><br><span class="line">              <span class="literal">false</span>,  <span class="comment">//是否冒泡</span></span><br><span class="line">              <span class="literal">true</span>  <span class="comment">//是否可取消</span></span><br><span class="line">             );</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> elem=<span class="built_in">document</span>.getElementById(<span class="string">"btn"</span>);</span><br><span class="line"></span><br><span class="line">elem.addEventListener(<span class="string">'build'</span>, <span class="function"><span class="keyword">function</span>(<span class="params">e</span>)</span>&#123; <span class="comment">//订阅自动以事件</span></span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">"click."</span>);</span><br><span class="line">&#125;, <span class="literal">false</span>); </span><br><span class="line"></span><br><span class="line"><span class="comment">//这里的发布和订阅是同一个对象，实际上两者不必一样</span></span><br><span class="line">elem.addEventListener(<span class="string">'click'</span>, <span class="function"><span class="keyword">function</span>(<span class="params">e</span>)</span>&#123;  </span><br><span class="line">  elem.dispatchEvent(evt);  <span class="comment">//发布事件</span></span><br><span class="line">&#125;, <span class="literal">false</span>);</span><br></pre></td></tr></table></figure></p>
+<h2 id="四、通用的全局发布-订阅实现"><a href="#四、通用的全局发布-订阅实现" class="headerlink" title="四、通用的全局发布/订阅实现"></a>四、通用的全局发布/订阅实现</h2><p>本样例摘自《<a href="https://book.douban.com/subject/26382780/" target="_blank" rel="external">JavaScript设计模式与开发实践</a>》一书，次数出自腾讯AlloyTeam团队，作者曾探的写作风格简明易懂，最值得称道的是，本书对每一个模式都关联了非常实用的开发实践样例，值得一读。<br>通用的发布/订阅实现的核心是：建立一个缓存列表，表中存放的是订阅者的回调函数，事件发布后去遍历这个列表。代码如下（<em>codepen地址：</em><a href="http://codepen.io/zhaojun/pen/JXaxoV/" target="_blank" rel="external">发布/订阅者模式 by zhaojun</a>）：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*发布-订阅模式的全局通用实现</span><br><span class="line">  Event是定义的全局对象，</span><br><span class="line">  不同对象之间发布-订阅消息通过Event这个中间者，</span><br><span class="line">  这样可以很好的实现空间和时间的解耦。</span><br><span class="line">*/</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> Event=(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">  <span class="keyword">var</span> clientList=&#123;&#125;;  <span class="comment">//事件列表，其中键代表事件名，值为数组类型，存放回调</span></span><br><span class="line">  <span class="keyword">var</span> listen;  <span class="comment">//监听事件方法</span></span><br><span class="line">  <span class="keyword">var</span> trigger;  <span class="comment">//触发事件方法</span></span><br><span class="line">  <span class="keyword">var</span> remove;  <span class="comment">//移除事件方法</span></span><br><span class="line">  </span><br><span class="line">  listen=<span class="function"><span class="keyword">function</span>(<span class="params">key,fn</span>)</span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(!clientList[key])&#123;</span><br><span class="line">      clientList[key]=[];  <span class="comment">//创建事件数组</span></span><br><span class="line">    &#125;</span><br><span class="line">    clientList[key].push(fn);  <span class="comment">//回调压入</span></span><br><span class="line">  &#125;;</span><br><span class="line">  </span><br><span class="line">  trigger=<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;  <span class="comment">//传入参数的格式：事件名,[message]</span></span><br><span class="line">    <span class="keyword">var</span> key=<span class="built_in">Array</span>.prototype.shift.call(<span class="built_in">arguments</span>);</span><br><span class="line">    <span class="keyword">var</span> fns=clientList[key];</span><br><span class="line">    <span class="keyword">if</span>(!fns||fns.length&lt;=<span class="number">0</span>)&#123;</span><br><span class="line">      <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">var</span> i=<span class="number">0</span>,fn;i&lt;fns.length;i++)&#123;</span><br><span class="line">      fn=fns[i];</span><br><span class="line">      fn.apply(<span class="keyword">this</span>,<span class="built_in">arguments</span>);  <span class="comment">//执行回调，arguments已剔除传入的事件名</span></span><br><span class="line">    &#125;</span><br><span class="line">  &#125;;</span><br><span class="line">  </span><br><span class="line">  remove=<span class="function"><span class="keyword">function</span>(<span class="params">key,fn</span>)</span>&#123;</span><br><span class="line">    <span class="keyword">var</span> fns=clientList[key];</span><br><span class="line">    <span class="keyword">if</span>(!fns)&#123;</span><br><span class="line">      <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">if</span>(!fn)&#123;</span><br><span class="line">      fns.length=<span class="number">0</span>;  <span class="comment">//没有传入具体的函数则清除所有事件</span></span><br><span class="line">    &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">      <span class="keyword">for</span>(<span class="keyword">var</span> j=<span class="number">0</span>;j&lt;fns.length;j++)&#123;</span><br><span class="line">        <span class="keyword">var</span> _fn=fns[j];</span><br><span class="line">        <span class="comment">/*两个函数的比较：</span><br><span class="line">          原文是用的_fn===fn，</span><br><span class="line">          当listen的是两个匿名函数时，这样比较总是得到false，因为这是两个不同对象的比较，</span><br><span class="line">          当传入的是另外声明的函数时，可以得到预期的结果，因为它们引用同一个函数对象，</span><br><span class="line">          使用toString比较会严格比较两者的区别，虽然两个函数运行起来没有区别，但也可能判为不等，</span><br><span class="line">          最终采用soString的原因是：回调函数使用频繁，且可以兼容另外声明的函数，</span><br><span class="line">          缺点是：不支持形参不同而函数名相同的函数的判别。</span><br><span class="line">        */</span></span><br><span class="line">        <span class="keyword">if</span>(_fn.toString()==fn.toString())&#123;</span><br><span class="line">          fns.splice(j,<span class="number">1</span>);</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;;</span><br><span class="line">  </span><br><span class="line">  <span class="keyword">return</span>&#123;  <span class="comment">//返回三个方法</span></span><br><span class="line">    listen:listen,</span><br><span class="line">    trigger:trigger,</span><br><span class="line">    remove:remove</span><br><span class="line">  &#125;;</span><br><span class="line">  </span><br><span class="line">&#125;)();</span><br><span class="line"></span><br><span class="line"><span class="comment">//监听事件，并传入回调</span></span><br><span class="line">Event.listen(<span class="string">'userEventA'</span>,<span class="function"><span class="keyword">function</span>(<span class="params">message</span>)</span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(message);</span><br><span class="line">&#125;);</span><br><span class="line"><span class="comment">//触发事件，并调用回调</span></span><br><span class="line">Event.trigger(<span class="string">'userEventA'</span>,<span class="string">'this a message'</span>);</span><br></pre></td></tr></table></figure></p>
+
+  </section>
+
+  
+  
+
+<section class="post-comments">
+
+    <div class="ds-thread" data-thread-key="2016/04/23/JS设计模式——发布-订阅模式/"></div>
+
+    <script type="text/javascript">
+      var duoshuoQuery = {short_name:"junz91"};
+      (function() {
+        var ds = document.createElement('script');
+        ds.type = 'text/javascript';ds.async = true;
+        ds.src = '//static.duoshuo.com/embed.js';
+        ds.charset = 'UTF-8';
+        (document.getElementsByTagName('head')[0] 
+        || document.getElementsByTagName('body')[0]).appendChild(ds);
+      })();
+    </script> 
+
+</section>
+
+
+</article>
+
+
+            <footer class="footer">
+
+    <span class="footer__copyright">&copy; 2014-2015. | 由<a href="https://hexo.io/">Hexo</a>强力驱动 | 主题<a href="https://github.com/someus/huno">Huno</a></span>
+    
+</footer>
+        </div>
+    </div>
+
+    <!-- js files -->
+    <script src="/js/jquery.min.js"></script>
+    <script src="/js/main.js"></script>
+    <script src="/js/scale.fix.js"></script>
+    
+
+    
+    
+
+    <script src="/js/awesome-toc.min.js"></script>
+    <script>
+        $(document).ready(function(){
+            $.awesome_toc({
+                overlay: true,
+                contentId: "post-content",
+            });
+        });
+    </script>
+
+
+    
+    
+    <!--kill ie6 -->
+<!--[if IE 6]>
+  <script src="//letskillie6.googlecode.com/svn/trunk/2/zh_CN.js"></script>
+<![endif]-->
+
+</body>
+</html>

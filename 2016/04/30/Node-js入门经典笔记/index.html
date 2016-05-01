@@ -16,19 +16,16 @@
     
     
 
-    <meta name="description" content="&amp;emsp;&amp;emsp;之前看了朴灵大神的《深入浅出Node.js》，感觉很多地方都一知半解，遂想着找一本入门的书看一看，于是就找到了《Node.js入门经典》一书。开始吧！
-一、Node概述&amp;emsp;&amp;emsp;说几个关键词吧：服务端JS环境，基于V8，支持C++扩展，高性能web服务器，单进程，异步非阻塞，事件驱动。&amp;emsp;&amp;emsp;Node通过npm进行扩展非常方便，这种感觉类似于一">
+    <meta name="description" content="之前看了朴灵大神的《深入浅出Node.js》，感觉很多地方都一知半解，遂想着找一本入门的书看一看，于是就找到了《Node.js入门经典》一书。开始吧！">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Node.js入门经典笔记 | junz91">
 <meta property="og:url" content="http://yoursite.com/2016/04/30/Node-js入门经典笔记/index.html">
 <meta property="og:site_name" content="junz91">
-<meta property="og:description" content="&amp;emsp;&amp;emsp;之前看了朴灵大神的《深入浅出Node.js》，感觉很多地方都一知半解，遂想着找一本入门的书看一看，于是就找到了《Node.js入门经典》一书。开始吧！
-一、Node概述&amp;emsp;&amp;emsp;说几个关键词吧：服务端JS环境，基于V8，支持C++扩展，高性能web服务器，单进程，异步非阻塞，事件驱动。&amp;emsp;&amp;emsp;Node通过npm进行扩展非常方便，这种感觉类似于一">
-<meta property="og:updated_time" content="2016-04-30T14:07:20.987Z">
+<meta property="og:description" content="之前看了朴灵大神的《深入浅出Node.js》，感觉很多地方都一知半解，遂想着找一本入门的书看一看，于是就找到了《Node.js入门经典》一书。开始吧！">
+<meta property="og:updated_time" content="2016-05-01T13:11:01.938Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Node.js入门经典笔记 | junz91">
-<meta name="twitter:description" content="&amp;emsp;&amp;emsp;之前看了朴灵大神的《深入浅出Node.js》，感觉很多地方都一知半解，遂想着找一本入门的书看一看，于是就找到了《Node.js入门经典》一书。开始吧！
-一、Node概述&amp;emsp;&amp;emsp;说几个关键词吧：服务端JS环境，基于V8，支持C++扩展，高性能web服务器，单进程，异步非阻塞，事件驱动。&amp;emsp;&amp;emsp;Node通过npm进行扩展非常方便，这种感觉类似于一">
+<meta name="twitter:description" content="之前看了朴灵大神的《深入浅出Node.js》，感觉很多地方都一知半解，遂想着找一本入门的书看一看，于是就找到了《Node.js入门经典》一书。开始吧！">
     
     
     
@@ -178,7 +175,9 @@ classes that you can use:
   </header>
 
   <section id="post-content" class="article-content post">
-    <p>&emsp;&emsp;之前看了朴灵大神的《<a href="https://book.douban.com/subject/25768396/" target="_blank" rel="external">深入浅出Node.js</a>》，感觉很多地方都一知半解，遂想着找一本入门的书看一看，于是就找到了《<a href="https://book.douban.com/subject/23780706/" target="_blank" rel="external">Node.js入门经典</a>》一书。开始吧！</p>
+    <p>之前看了朴灵大神的《<a href="https://book.douban.com/subject/25768396/" target="_blank" rel="external">深入浅出Node.js</a>》，感觉很多地方都一知半解，遂想着找一本入门的书看一看，于是就找到了《<a href="https://book.douban.com/subject/23780706/" target="_blank" rel="external">Node.js入门经典</a>》一书。开始吧！</p>
+<a id="more"></a>
+<p>&emsp;&emsp;之前看了朴灵大神的《<a href="https://book.douban.com/subject/25768396/" target="_blank" rel="external">深入浅出Node.js</a>》，感觉很多地方都一知半解，遂想着找一本入门的书看一看，于是就找到了《<a href="https://book.douban.com/subject/23780706/" target="_blank" rel="external">Node.js入门经典</a>》一书。开始吧！</p>
 <h2 id="一、Node概述"><a href="#一、Node概述" class="headerlink" title="一、Node概述"></a>一、Node概述</h2><p>&emsp;&emsp;说几个关键词吧：<strong>服务端JS环境</strong>，<strong>基于V8</strong>，<strong>支持C++扩展</strong>，<strong>高性能web服务器</strong>，<strong>单进程</strong>，<strong>异步非阻塞</strong>，<strong>事件驱动</strong>。<br>&emsp;&emsp;Node通过npm进行扩展非常方便，这种感觉类似于一夜暴富，瞬间拥有数不尽的模块插件可以使用，exciting！nodeJS的模块分为三类：<strong>核心模块</strong>，<strong>文件模块</strong>，<strong>第三方模块</strong>。核心模块会预先加载。通过<code>npm install module_name</code>安装的模块默认在项目路径下，使用全局安装需要加参数-g，通常在模块需要全局命令时使用。使用<code>npm doc module_name</code>可以看模块文档。目录下的package.json用于指定依赖关系以及其它模块信息。<br>&emsp;&emsp;Node采用了事件循环机制，不适用于需要大量计算的应用场景。</p>
 <h2 id="二、Node模块"><a href="#二、Node模块" class="headerlink" title="二、Node模块"></a>二、Node模块</h2><h3 id="1-HTTP"><a href="#1-HTTP" class="headerlink" title="1. HTTP"></a>1. HTTP</h3><p>使用Node发送重定向的代码：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> http = <span class="built_in">require</span>(<span class="string">'http'</span>);</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> server = http.createServer(<span class="function"><span class="keyword">function</span>(<span class="params">req,res</span>)</span>&#123;</span><br><span class="line">  res.writeHead(<span class="number">301</span>,&#123;  <span class="comment">//301表示临时重定向，302表示永久重定向</span></span><br><span class="line">                <span class="string">'Location'</span>:<span class="string">'重定向的url'</span></span><br><span class="line">  &#125;);</span><br><span class="line">  res.end();</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure></p>
 <h3 id="2-URL"><a href="#2-URL" class="headerlink" title="2. URL"></a>2. URL</h3><p>URL模块解析的结果如下：</p>

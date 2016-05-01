@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+
+    
+
+    <title>
+      JS设计模式——策略模式 | junz91 
+    </title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    
+      <meta name="author" content="Jun Zhao">
+    
+    
+
+    <meta name="description" content="定义一系列算法，把它们一个个封装起来，并且使它们可以相互替换。实际中“算法”的含义可以扩散开来：算法也可以指代不同的“业务规则”。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="JS设计模式——策略模式 | junz91">
+<meta property="og:url" content="http://yoursite.com/2016/04/17/JS设计模式——策略模式/index.html">
+<meta property="og:site_name" content="junz91">
+<meta property="og:description" content="定义一系列算法，把它们一个个封装起来，并且使它们可以相互替换。实际中“算法”的含义可以扩散开来：算法也可以指代不同的“业务规则”。">
+<meta property="og:updated_time" content="2016-05-01T13:08:04.769Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="JS设计模式——策略模式 | junz91">
+<meta name="twitter:description" content="定义一系列算法，把它们一个个封装起来，并且使它们可以相互替换。实际中“算法”的含义可以扩散开来：算法也可以指代不同的“业务规则”。">
+    
+    
+    
+      <link rel="icon" type="image/x-icon" href="/favicon.png">
+    
+    <link rel="stylesheet" href="/css/uno.css">
+    <link rel="stylesheet" href="/css/highlight.css">
+    <link rel="stylesheet" href="/css/archive.css">
+    <link rel="stylesheet" href="/css/china-social-icon.css">
+
+</head>
+<body>
+
+    <span class="mobile btn-mobile-menu">
+        <i class="icon icon-list btn-mobile-menu__icon"></i>
+        <i class="icon icon-x-circle btn-mobile-close__icon hidden"></i>
+    </span>
+
+    
+
+<header class="panel-cover panel-cover--collapsed">
+
+
+  <div class="panel-main">
+
+  
+    <div class="panel-main__inner panel-inverted">
+    <div class="panel-main__content">
+
+        
+
+        <h1 class="panel-cover__title panel-title"><a href="/" title="link to homepage">junz91</a></h1>
+        <hr class="panel-cover__divider" />
+
+        
+
+        <div class="navigation-wrapper">
+
+          <nav class="cover-navigation cover-navigation--primary">
+            <ul class="navigation">
+
+              
+                
+                <li class="navigation__item"><a href="/#blog" title="" class="blog-button">首页</a></li>
+              
+                
+                <li class="navigation__item"><a href="/photo" title="" class="">摄影</a></li>
+              
+                
+                <li class="navigation__item"><a href="/archive" title="" class="">归档</a></li>
+              
+
+            </ul>
+          </nav>
+
+          <!-- ----------------------------
+To add a new social icon simply duplicate one of the list items from below
+and change the class in the <i> tag to match the desired social network
+and then add your link to the <a>. Here is a full list of social network
+classes that you can use:
+
+    icon-social-500px
+    icon-social-behance
+    icon-social-delicious
+    icon-social-designer-news
+    icon-social-deviant-art
+    icon-social-digg
+    icon-social-dribbble
+    icon-social-facebook
+    icon-social-flickr
+    icon-social-forrst
+    icon-social-foursquare
+    icon-social-github
+    icon-social-google-plus
+    icon-social-hi5
+    icon-social-instagram
+    icon-social-lastfm
+    icon-social-linkedin
+    icon-social-medium
+    icon-social-myspace
+    icon-social-path
+    icon-social-pinterest
+    icon-social-rdio
+    icon-social-reddit
+    icon-social-skype
+    icon-social-spotify
+    icon-social-stack-overflow
+    icon-social-steam
+    icon-social-stumbleupon
+    icon-social-treehouse
+    icon-social-tumblr
+    icon-social-twitter
+    icon-social-vimeo
+    icon-social-xbox
+    icon-social-yelp
+    icon-social-youtube
+    icon-social-zerply
+    icon-mail
+
+-------------------------------->
+
+<!-- add social info here -->
+
+
+
+        </div>
+
+      </div>
+
+    </div>
+
+    <div class="panel-cover--overlay"></div>
+  </div>
+</header>
+
+    <div class="content-wrapper">
+        <div class="content-wrapper__inner entry">
+            
+
+<article class="post-container post-container--single">
+
+  <header class="post-header">
+    
+    <h1 class="post-title">JS设计模式——策略模式</h1>
+
+    
+
+    <div class="post-meta">
+      <time datetime="2016-04-17" class="post-meta__date date">2016-04-17</time> 
+
+      <span class="post-meta__tags tags">
+
+          
+
+          
+             &#8226; 标签:
+            <font class="tags">
+              <a class="tags-link" href="/tags/JavaScript设计模式/">JavaScript设计模式</a>
+            </font>
+          
+
+      </span>
+    </div>
+    
+    
+
+  </header>
+
+  <section id="post-content" class="article-content post">
+    <p>定义一系列算法，把它们一个个封装起来，并且使它们可以相互替换。实际中“算法”的含义可以扩散开来：算法也可以指代不同的“<strong>业务规则</strong>”。</p>
+<a id="more"></a>
+<h2 id="一、定义"><a href="#一、定义" class="headerlink" title="一、定义"></a>一、定义</h2><blockquote>
+<p>定义一系列算法，把它们一个个封装起来，并且使它们可以相互替换。实际中“算法”的含义可以扩散开来：算法也可以指代不同的“<strong>业务规则</strong>”。</p>
+</blockquote>
+<p>一个典型的策略模式主要包含两个部分：</p>
+<ol>
+<li>一组策略类，负责封装具体的算法。</li>
+<li>一个环境类Context，Context负责接受客户的请求，并将请求委托给某一个策略类。</li>
+</ol>
+<h3 id="策略模式的优点："><a href="#策略模式的优点：" class="headerlink" title="策略模式的优点："></a>策略模式的优点：</h3><ul>
+<li>策略模式可以解耦具体的策略和对外的接口，使得策略维护与切换更容易。</li>
+<li>利用组合、委托和多态等技术，可以有效的避免多重条件选择语句。</li>
+<li>策略模式符合<strong>开放-封闭原则</strong>，封装的算法易于切换和扩展。</li>
+<li>整体方案的可移植性更好，可提高代码复用率。</li>
+<li>Context拥有执行算法的能力，这也是继承的一种轻便的替代方案（<em>子类可以继承父类的各种策略，相当于把算法封装在父类中，JavaScript中的策略模式可以直接把算法封装在一个个函数或者对象中，所以说是一种轻便的继承替代方案</em>）。</li>
+</ul>
+<h2 id="二、JavaScript中的实现"><a href="#二、JavaScript中的实现" class="headerlink" title="二、JavaScript中的实现"></a>二、JavaScript中的实现</h2><h3 id="问题背景："><a href="#问题背景：" class="headerlink" title="问题背景："></a>问题背景：</h3><blockquote>
+<p>公司根据员工绩效发奖金bonus，评级为S、A和B，不同级别对应不同的乘数。</p>
+</blockquote>
+<h3 id="实现："><a href="#实现：" class="headerlink" title="实现："></a>实现：</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> strategies=&#123;  <span class="comment">//strategies对象存储一组策略</span></span><br><span class="line">  <span class="string">"S"</span>:<span class="function"><span class="keyword">function</span>(<span class="params">salary</span>)</span>&#123;</span><br><span class="line">    <span class="keyword">return</span> salary*<span class="number">4</span>;</span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="string">"A"</span>:<span class="function"><span class="keyword">function</span>(<span class="params">salary</span>)</span>&#123;</span><br><span class="line">    <span class="keyword">return</span> salary*<span class="number">3</span>;</span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="string">"B"</span>:<span class="function"><span class="keyword">function</span>(<span class="params">salary</span>)</span>&#123;</span><br><span class="line">    <span class="keyword">return</span> salary*<span class="number">2</span>;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> calcBonus=<span class="function"><span class="keyword">function</span>(<span class="params">level,salary</span>)</span>&#123;  <span class="comment">//分配策略</span></span><br><span class="line">  <span class="keyword">return</span> strategies[level](salary);</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">calcBonus(<span class="string">'S'</span>,<span class="number">2000</span>);  <span class="comment">//8000</span></span><br></pre></td></tr></table></figure>
+<h2 id="三、使用策略模式实现缓动动画"><a href="#三、使用策略模式实现缓动动画" class="headerlink" title="三、使用策略模式实现缓动动画"></a>三、使用策略模式实现缓动动画</h2><h3 id="问题背景：-1"><a href="#问题背景：-1" class="headerlink" title="问题背景："></a>问题背景：</h3><blockquote>
+<p>写一个动画类和一些缓动算法，让目标以各种各样的缓动效果在页面中运动。（<em>本例摘自《<a href="https://book.douban.com/subject/26382780/" target="_blank" rel="external">JavaScript设计模式与开发实践</a>》</em>）</p>
+</blockquote>
+<h3 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h3><p>(<a href="http://codepen.io/zhaojun/pen/ZWMdrb/" target="_blank" rel="external">codepen</a>)：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> tween=&#123;  <span class="comment">//缓动函数</span></span><br><span class="line">  liner: <span class="function"><span class="keyword">function</span>(<span class="params">t,b,c,d</span>)</span>&#123; </span><br><span class="line">    <span class="keyword">return</span> c*t/d + b; </span><br><span class="line">  &#125;,</span><br><span class="line">  easeIn: <span class="function"><span class="keyword">function</span>(<span class="params">t,b,c,d</span>)</span>&#123;</span><br><span class="line">    <span class="keyword">return</span> c*(t/=d)*t + b;</span><br><span class="line">  &#125;,</span><br><span class="line">  easeOut: <span class="function"><span class="keyword">function</span>(<span class="params">t,b,c,d</span>)</span>&#123;</span><br><span class="line">    <span class="keyword">return</span> -c *(t/=d)*(t<span class="number">-2</span>) + b;</span><br><span class="line">  &#125;,</span><br><span class="line">  sineaseIn: <span class="function"><span class="keyword">function</span>(<span class="params">t,b,c,d</span>)</span>&#123;</span><br><span class="line">    <span class="keyword">return</span> c*(t/=d)*t*t*t*t + b;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> Animate=<span class="function"><span class="keyword">function</span>(<span class="params">dom</span>)</span>&#123;</span><br><span class="line">  <span class="keyword">this</span>.dom=dom;  <span class="comment">//动画节点</span></span><br><span class="line">  <span class="keyword">this</span>.startTime=<span class="number">0</span>;  <span class="comment">//开始时间</span></span><br><span class="line">  <span class="keyword">this</span>.startPos=<span class="number">0</span>;  <span class="comment">//初始位置</span></span><br><span class="line">  <span class="keyword">this</span>.endPos=<span class="number">0</span>;  <span class="comment">//结束位置</span></span><br><span class="line">  <span class="keyword">this</span>.propertyName=<span class="literal">null</span>;  <span class="comment">//动画属性</span></span><br><span class="line">  <span class="keyword">this</span>.easing=<span class="literal">null</span>;  <span class="comment">//缓动算法</span></span><br><span class="line">  <span class="keyword">this</span>.duration=<span class="literal">null</span>;  <span class="comment">//持续时间</span></span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">Animate.prototype.start=<span class="function"><span class="keyword">function</span>(<span class="params">propertyName,endPos,duration,easing</span>)</span>&#123;</span><br><span class="line">  <span class="comment">//初始化参数</span></span><br><span class="line">  <span class="keyword">this</span>.startTime=+<span class="keyword">new</span> <span class="built_in">Date</span>();</span><br><span class="line">  <span class="keyword">this</span>.startPos=<span class="keyword">this</span>.dom.getBoundingClientRect()[propertyName];</span><br><span class="line">  <span class="keyword">this</span>.propertyName=propertyName;</span><br><span class="line">  <span class="keyword">this</span>.endPos=endPos;</span><br><span class="line">  <span class="keyword">this</span>.duration=duration;</span><br><span class="line">  <span class="keyword">this</span>.easing=tween[easing];</span><br><span class="line">  </span><br><span class="line">  <span class="keyword">var</span> self=<span class="keyword">this</span>;</span><br><span class="line">  <span class="comment">//启动定时器，并开始执行动画</span></span><br><span class="line">  <span class="keyword">var</span> timeId=setInterval(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(self.step()===<span class="literal">false</span>)&#123;</span><br><span class="line">      clearInterval(timeId);  <span class="comment">//动画结束</span></span><br><span class="line">    &#125;</span><br><span class="line">  &#125;,<span class="number">19</span>);</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">Animate.prototype.step=<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">  <span class="keyword">var</span> t=+<span class="keyword">new</span> <span class="built_in">Date</span>();  <span class="comment">//当前时间</span></span><br><span class="line">  <span class="keyword">if</span>(t&gt;=<span class="keyword">this</span>.startTime+<span class="keyword">this</span>.duration)&#123;</span><br><span class="line">    <span class="keyword">this</span>.update(<span class="keyword">this</span>.endPos);  <span class="comment">//动画结束</span></span><br><span class="line">    <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">  &#125;</span><br><span class="line">  </span><br><span class="line">  <span class="keyword">var</span> pos=<span class="keyword">this</span>.easing(t-<span class="keyword">this</span>.startTime,<span class="keyword">this</span>.startPos,<span class="keyword">this</span>.endPos-<span class="keyword">this</span>.startPos,<span class="keyword">this</span>.duration);</span><br><span class="line">  <span class="keyword">this</span>.update(pos);  <span class="comment">//更新小球位置</span></span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">Animate.prototype.update=<span class="function"><span class="keyword">function</span>(<span class="params">pos</span>)</span>&#123;</span><br><span class="line">  <span class="keyword">this</span>.dom.style[<span class="keyword">this</span>.propertyName]=pos+<span class="string">"px"</span>;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> div=<span class="built_in">document</span>.getElementById(<span class="string">"target"</span>);</span><br><span class="line"><span class="keyword">var</span> animate=<span class="keyword">new</span> Animate(div);</span><br><span class="line">animate.start(<span class="string">'left'</span>,<span class="number">200</span>,<span class="number">1000</span>,<span class="string">'sineaseIn'</span>);</span><br></pre></td></tr></table></figure></p>
+<p><em><a href="https://developer.mozilla.org/zh-CN/docs/Web/API/Element/getBoundingClientRect" target="_blank" rel="external">getBoundingClientRect()</a></em></p>
+
+  </section>
+
+  
+  
+
+<section class="post-comments">
+
+    <div class="ds-thread" data-thread-key="2016/04/17/JS设计模式——策略模式/"></div>
+
+    <script type="text/javascript">
+      var duoshuoQuery = {short_name:"junz91"};
+      (function() {
+        var ds = document.createElement('script');
+        ds.type = 'text/javascript';ds.async = true;
+        ds.src = '//static.duoshuo.com/embed.js';
+        ds.charset = 'UTF-8';
+        (document.getElementsByTagName('head')[0] 
+        || document.getElementsByTagName('body')[0]).appendChild(ds);
+      })();
+    </script> 
+
+</section>
+
+
+</article>
+
+
+            <footer class="footer">
+
+    <span class="footer__copyright">&copy; 2014-2015. | 由<a href="https://hexo.io/">Hexo</a>强力驱动 | 主题<a href="https://github.com/someus/huno">Huno</a></span>
+    
+</footer>
+        </div>
+    </div>
+
+    <!-- js files -->
+    <script src="/js/jquery.min.js"></script>
+    <script src="/js/main.js"></script>
+    <script src="/js/scale.fix.js"></script>
+    
+
+    
+    
+
+    <script src="/js/awesome-toc.min.js"></script>
+    <script>
+        $(document).ready(function(){
+            $.awesome_toc({
+                overlay: true,
+                contentId: "post-content",
+            });
+        });
+    </script>
+
+
+    
+    
+    <!--kill ie6 -->
+<!--[if IE 6]>
+  <script src="//letskillie6.googlecode.com/svn/trunk/2/zh_CN.js"></script>
+<![endif]-->
+
+</body>
+</html>

@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+
+    
+
+    <title>
+      JavaScript和C++的比较 | junz91 
+    </title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    
+      <meta name="author" content="Jun Zhao">
+    
+    
+
+    <meta name="description" content="&amp;emsp;&amp;emsp;我是从C++转前端的，JavaScript和C++是两门非常流行的编程语言，但是两者的差异非常大，完全按照C++等静态语言的编程模式并不能完全发挥JS的优势。两门语言的比较也是一个循序渐进更进一步了解个中奥妙的过程，本人并不是精通两门语言的大神，仅仅是记下学习过程中自我感觉比较有趣的异同点。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="JavaScript和C++的比较 | junz91">
+<meta property="og:url" content="http://yoursite.com/2016/03/26/JavaScript和C-的比较/index.html">
+<meta property="og:site_name" content="junz91">
+<meta property="og:description" content="&amp;emsp;&amp;emsp;我是从C++转前端的，JavaScript和C++是两门非常流行的编程语言，但是两者的差异非常大，完全按照C++等静态语言的编程模式并不能完全发挥JS的优势。两门语言的比较也是一个循序渐进更进一步了解个中奥妙的过程，本人并不是精通两门语言的大神，仅仅是记下学习过程中自我感觉比较有趣的异同点。">
+<meta property="og:updated_time" content="2016-05-01T13:05:47.580Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="JavaScript和C++的比较 | junz91">
+<meta name="twitter:description" content="&amp;emsp;&amp;emsp;我是从C++转前端的，JavaScript和C++是两门非常流行的编程语言，但是两者的差异非常大，完全按照C++等静态语言的编程模式并不能完全发挥JS的优势。两门语言的比较也是一个循序渐进更进一步了解个中奥妙的过程，本人并不是精通两门语言的大神，仅仅是记下学习过程中自我感觉比较有趣的异同点。">
+    
+    
+    
+      <link rel="icon" type="image/x-icon" href="/favicon.png">
+    
+    <link rel="stylesheet" href="/css/uno.css">
+    <link rel="stylesheet" href="/css/highlight.css">
+    <link rel="stylesheet" href="/css/archive.css">
+    <link rel="stylesheet" href="/css/china-social-icon.css">
+
+</head>
+<body>
+
+    <span class="mobile btn-mobile-menu">
+        <i class="icon icon-list btn-mobile-menu__icon"></i>
+        <i class="icon icon-x-circle btn-mobile-close__icon hidden"></i>
+    </span>
+
+    
+
+<header class="panel-cover panel-cover--collapsed">
+
+
+  <div class="panel-main">
+
+  
+    <div class="panel-main__inner panel-inverted">
+    <div class="panel-main__content">
+
+        
+
+        <h1 class="panel-cover__title panel-title"><a href="/" title="link to homepage">junz91</a></h1>
+        <hr class="panel-cover__divider" />
+
+        
+
+        <div class="navigation-wrapper">
+
+          <nav class="cover-navigation cover-navigation--primary">
+            <ul class="navigation">
+
+              
+                
+                <li class="navigation__item"><a href="/#blog" title="" class="blog-button">首页</a></li>
+              
+                
+                <li class="navigation__item"><a href="/photo" title="" class="">摄影</a></li>
+              
+                
+                <li class="navigation__item"><a href="/archive" title="" class="">归档</a></li>
+              
+
+            </ul>
+          </nav>
+
+          <!-- ----------------------------
+To add a new social icon simply duplicate one of the list items from below
+and change the class in the <i> tag to match the desired social network
+and then add your link to the <a>. Here is a full list of social network
+classes that you can use:
+
+    icon-social-500px
+    icon-social-behance
+    icon-social-delicious
+    icon-social-designer-news
+    icon-social-deviant-art
+    icon-social-digg
+    icon-social-dribbble
+    icon-social-facebook
+    icon-social-flickr
+    icon-social-forrst
+    icon-social-foursquare
+    icon-social-github
+    icon-social-google-plus
+    icon-social-hi5
+    icon-social-instagram
+    icon-social-lastfm
+    icon-social-linkedin
+    icon-social-medium
+    icon-social-myspace
+    icon-social-path
+    icon-social-pinterest
+    icon-social-rdio
+    icon-social-reddit
+    icon-social-skype
+    icon-social-spotify
+    icon-social-stack-overflow
+    icon-social-steam
+    icon-social-stumbleupon
+    icon-social-treehouse
+    icon-social-tumblr
+    icon-social-twitter
+    icon-social-vimeo
+    icon-social-xbox
+    icon-social-yelp
+    icon-social-youtube
+    icon-social-zerply
+    icon-mail
+
+-------------------------------->
+
+<!-- add social info here -->
+
+
+
+        </div>
+
+      </div>
+
+    </div>
+
+    <div class="panel-cover--overlay"></div>
+  </div>
+</header>
+
+    <div class="content-wrapper">
+        <div class="content-wrapper__inner entry">
+            
+
+<article class="post-container post-container--single">
+
+  <header class="post-header">
+    
+    <h1 class="post-title">JavaScript和C++的比较</h1>
+
+    
+
+    <div class="post-meta">
+      <time datetime="2016-03-26" class="post-meta__date date">2016-03-26</time> 
+
+      <span class="post-meta__tags tags">
+
+          
+
+          
+             &#8226; 标签:
+            <font class="tags">
+              <a class="tags-link" href="/tags/C-和JavaScript的异同/">C++和JavaScript的异同</a>
+            </font>
+          
+
+      </span>
+    </div>
+    
+    
+
+  </header>
+
+  <section id="post-content" class="article-content post">
+    <p>&emsp;&emsp;我是从C++转前端的，JavaScript和C++是两门非常流行的编程语言，但是两者的差异非常大，完全按照C++等静态语言的编程模式并不能完全发挥JS的优势。两门语言的比较也是一个循序渐进更进一步了解个中奥妙的过程，本人并不是精通两门语言的大神，仅仅是记下学习过程中自我感觉比较有趣的异同点。</p>
+<a id="more"></a>
+<h2 id="核心差异"><a href="#核心差异" class="headerlink" title="核心差异"></a>核心差异</h2><blockquote>
+<ul>
+<li>C++是强类型的<strong>静态语言</strong>，编译的时候检查语法，JavaScript是弱类型的<strong>动态语言</strong>，运行时检查；</li>
+<li>作用域不同，C++是<strong>块级作用域</strong>，JavaScript是<strong>函数作用域</strong>；</li>
+<li>C++的类是静态的，在编译时已经定型。JavaScript的对象是动态的，可以在运行时新增或删除属性；</li>
+</ul>
+</blockquote>
+<h2 id="语法差异"><a href="#语法差异" class="headerlink" title="语法差异"></a>语法差异</h2><blockquote>
+<ul>
+<li>C++必须先声明后使用，而JavaScript有<strong>声明提前</strong>的机制，JavaScript中多次声明同一个变量是无害的；</li>
+<li>C++中的函数必须显示指明返回类型（<em>主函数和构造函数、析构函数除外</em>），JavaScript不用；</li>
+<li>JavaScript中不能在形参列表中指定默认形参，需要在函数体内另外指定，继承也需自行判定；</li>
+<li>C++和JavaScript的可省略形参都必须放在参数表末尾，JavaScript并不检查传入的实参类型；</li>
+<li>C++中delete之后引用变无效，JavaScript使用delete删除的属性（如果还有其它引用），则还会存在，可能会带来内存泄露；</li>
+</ul>
+</blockquote>
+<h2 id="变量类型差异"><a href="#变量类型差异" class="headerlink" title="变量类型差异"></a>变量类型差异</h2><blockquote>
+<ul>
+<li>C++的string类可以直接修改其中的内容，JavaScript的不可以：<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">string s=<span class="string">"abc"</span>; <span class="comment">//C++</span></span><br><span class="line">s[<span class="number">0</span>]=r; <span class="comment">//s="rbc";</span></span><br><span class="line"><span class="keyword">var</span> s=<span class="string">"abc"</span>; <span class="comment">//JS</span></span><br><span class="line">s[<span class="number">0</span>]=r; <span class="comment">//s="abc"</span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</blockquote>
+<ul>
+<li>C++创建数组必须制定长度（new除外），格式为：<code>int a[3]={1,2,3};</code>；</li>
+<li>JavaScript的数组是动态的，定义格式为：<code>var a=[1,2,3];</code>；</li>
+<li>C++不允许两个字符串直接量相加（”abc”+”def”），在JavaScript中这是允许的；</li>
+</ul>
+
+  </section>
+
+  
+  
+
+<section class="post-comments">
+
+    <div class="ds-thread" data-thread-key="2016/03/26/JavaScript和C-的比较/"></div>
+
+    <script type="text/javascript">
+      var duoshuoQuery = {short_name:"junz91"};
+      (function() {
+        var ds = document.createElement('script');
+        ds.type = 'text/javascript';ds.async = true;
+        ds.src = '//static.duoshuo.com/embed.js';
+        ds.charset = 'UTF-8';
+        (document.getElementsByTagName('head')[0] 
+        || document.getElementsByTagName('body')[0]).appendChild(ds);
+      })();
+    </script> 
+
+</section>
+
+
+</article>
+
+
+            <footer class="footer">
+
+    <span class="footer__copyright">&copy; 2014-2015. | 由<a href="https://hexo.io/">Hexo</a>强力驱动 | 主题<a href="https://github.com/someus/huno">Huno</a></span>
+    
+</footer>
+        </div>
+    </div>
+
+    <!-- js files -->
+    <script src="/js/jquery.min.js"></script>
+    <script src="/js/main.js"></script>
+    <script src="/js/scale.fix.js"></script>
+    
+
+    
+    
+
+    <script src="/js/awesome-toc.min.js"></script>
+    <script>
+        $(document).ready(function(){
+            $.awesome_toc({
+                overlay: true,
+                contentId: "post-content",
+            });
+        });
+    </script>
+
+
+    
+    
+    <!--kill ie6 -->
+<!--[if IE 6]>
+  <script src="//letskillie6.googlecode.com/svn/trunk/2/zh_CN.js"></script>
+<![endif]-->
+
+</body>
+</html>

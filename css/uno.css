@@ -36,8 +36,12 @@ blockquote:before {
   width:10px;
   background:#5B6477;
   position:absolute;
+  transition:background 1.2s linear;
   top:0;
   left:0; }
+
+blockquote:hover:before {
+  background:#B03221;}
 
 q:before, q:after {
   content: '';
@@ -1015,7 +1019,6 @@ blockquote {
   /*font-family: "Roboto Slab", serif;*/
   font-family:  "Raleway",Verdana,sans-serif,宋体, serif, "Droid Serif", Helvetica Neue, Helvetica, Arial;
   font-weight: lighter;
-  /*font-style: italic;*/
   font-size: 1.0em;
   /*text-align: center;*/ }
   blockquote p:last-child {
