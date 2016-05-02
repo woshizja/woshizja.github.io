@@ -16,16 +16,16 @@
     
     
 
-    <meta name="description">
+    <meta name="description" content="&amp;emsp;&amp;emsp;代理模式是指为一个对象提供一个代用品或者占位符，以便控制对它的访问。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="JS设计模式——代理模式 | junz91">
 <meta property="og:url" content="http://yoursite.com/2016/04/28/JS设计模式——代理模式/index.html">
 <meta property="og:site_name" content="junz91">
-<meta property="og:description">
-<meta property="og:updated_time" content="2016-05-01T14:20:13.047Z">
+<meta property="og:description" content="&amp;emsp;&amp;emsp;代理模式是指为一个对象提供一个代用品或者占位符，以便控制对它的访问。">
+<meta property="og:updated_time" content="2016-05-02T09:02:17.444Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="JS设计模式——代理模式 | junz91">
-<meta name="twitter:description">
+<meta name="twitter:description" content="&amp;emsp;&amp;emsp;代理模式是指为一个对象提供一个代用品或者占位符，以便控制对它的访问。">
     
     
     
@@ -161,6 +161,11 @@ classes that you can use:
           
 
           
+             &#8226; 标签:
+            <font class="tags">
+              <a class="tags-link" href="/tags/JavaScript设计模式/">JavaScript设计模式</a>
+            </font>
+          
 
       </span>
     </div>
@@ -170,7 +175,15 @@ classes that you can use:
   </header>
 
   <section id="post-content" class="article-content post">
-    
+    <p>&emsp;&emsp;<strong>代理模式</strong>是指为一个对象提供一个代用品或者占位符，以便控制对它的访问。<br><a id="more"></a></p>
+<p>代理模块可以对请求做一定的处理之后再传递给业务模块，这样就可以把一些与核心业务无关的东西剥离出来，保持业务逻辑的“纯净”。更具体的，代理按作用可以分为两类：</p>
+<ul>
+<li><strong>保护代理</strong>：用于过滤请求，控制对业务模块的访问权限，保护业务模块；</li>
+<li><strong>虚拟代理</strong>：把一些开销比较大的对象，延迟到真正需要它的时候才去创建。</li>
+</ul>
+<h2 id="一、虚拟代理实现图片预加载"><a href="#一、虚拟代理实现图片预加载" class="headerlink" title="一、虚拟代理实现图片预加载"></a>一、虚拟代理实现图片预加载</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*业务逻辑模块，负责创建并显示图片*/</span></span><br><span class="line"><span class="keyword">var</span> myPic = (<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">var</span> pic = <span class="built_in">document</span>.createElement(<span class="string">"img"</span>);</span><br><span class="line">  <span class="built_in">document</span>.body.appendChild(pic);</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> &#123;</span><br><span class="line">    setSrc: <span class="function"><span class="keyword">function</span>(<span class="params">src</span>) </span>&#123;</span><br><span class="line">      pic.src = src;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;;</span><br><span class="line">&#125;)();</span><br><span class="line"></span><br><span class="line"><span class="comment">/*代理模块，实现在图片加载完之前显示loading图片*/</span></span><br><span class="line"><span class="keyword">var</span> ProxyPic = (<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">var</span> img = <span class="keyword">new</span> Image();</span><br><span class="line">  img.onload = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="built_in">document</span>.getElementById(<span class="string">"loading_img"</span>).style.display = <span class="string">"none"</span>;</span><br><span class="line">    myPic.setSrc(<span class="keyword">this</span>.src);</span><br><span class="line">  &#125;;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> &#123;</span><br><span class="line">    setSrc: <span class="function"><span class="keyword">function</span>(<span class="params">src</span>) </span>&#123;</span><br><span class="line">      <span class="built_in">document</span>.getElementById(<span class="string">"loading_img"</span>).style.display = <span class="string">"block"</span>;</span><br><span class="line">      img.src = src;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;;</span><br><span class="line">&#125;)();</span><br><span class="line"></span><br><span class="line">ProxyPic.setSrc(<span class="string">"http://tupian.enterdesk.com/2013/mxy/12/10/15/3.jpg"</span>);</span><br></pre></td></tr></table></figure>
+<h2 id="二、缓存代理"><a href="#二、缓存代理" class="headerlink" title="二、缓存代理"></a>二、缓存代理</h2><p>使用高阶函数动态创建代理的技术也叫做“记忆”，是一种以空间换时间的技术。<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*业务模块，这里以阶乘为例*/</span></span><br><span class="line"><span class="keyword">var</span> factorial  = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">  <span class="keyword">var</span> res=<span class="number">1</span>;</span><br><span class="line">  <span class="keyword">var</span> n=<span class="built_in">arguments</span>[<span class="number">0</span>];</span><br><span class="line">  <span class="keyword">for</span>(<span class="keyword">var</span> i=<span class="number">1</span>;i&lt;=n;i++)&#123;</span><br><span class="line">    res*=i;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> res;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">/*缓存代理工厂函数*/</span></span><br><span class="line"><span class="keyword">var</span> createProxyHandler=<span class="function"><span class="keyword">function</span>(<span class="params">fn</span>)</span>&#123;</span><br><span class="line">  <span class="keyword">var</span> cache=[];</span><br><span class="line">  <span class="keyword">return</span> <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="keyword">var</span> key=<span class="built_in">Array</span>.prototype.join.call(<span class="built_in">arguments</span>,<span class="string">'-'</span>);</span><br><span class="line">    <span class="keyword">if</span>(key <span class="keyword">in</span> cache)&#123;</span><br><span class="line">      <span class="built_in">console</span>.log(<span class="string">"cache exits"</span>);</span><br><span class="line">      <span class="keyword">return</span> cache[key];</span><br><span class="line">    &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">      <span class="keyword">return</span> cache[key]=fn.apply(<span class="keyword">this</span>,<span class="built_in">arguments</span>);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">/*创建带缓存代理的技术*/</span></span><br><span class="line"><span class="keyword">var</span> proxyFactorial=createProxyHandler(factorial);</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(proxyFactorial(<span class="number">5</span>));  <span class="comment">//120</span></span><br><span class="line"><span class="built_in">console</span>.log(proxyFactorial(<span class="number">5</span>));  <span class="comment">//cache exits  120</span></span><br></pre></td></tr></table></figure></p>
+
   </section>
 
   
