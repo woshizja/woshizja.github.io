@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+
+    
+
+    <title>
+      jQuery源码学习笔记（一） | junz91 
+    </title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    
+      <meta name="author" content="Jun Zhao">
+    
+    
+
+    <meta name="description" content="&amp;emsp;&amp;emsp;这是看《犀利开发jQuery内核详解与实践》一书的笔记，看之前讲一下我对jQuery实现的理解：全部封装在一个立即执行匿名函数中，函数开始建立了对重要全局变量的引用。对于全局的$()函数，它会将DOM或者JS对象转换为jQuery对象，转化后的jQuery对象封装在类数组中，当然jQuery对象还挂载了很多方法，jQuery的继承采用prototype机制，为了提高兼容性，">
+<meta property="og:type" content="article">
+<meta property="og:title" content="jQuery源码学习笔记（一） | junz91">
+<meta property="og:url" content="http://yoursite.com/2016/05/01/jQuery源码学习笔记（一）/index.html">
+<meta property="og:site_name" content="junz91">
+<meta property="og:description" content="&amp;emsp;&amp;emsp;这是看《犀利开发jQuery内核详解与实践》一书的笔记，看之前讲一下我对jQuery实现的理解：全部封装在一个立即执行匿名函数中，函数开始建立了对重要全局变量的引用。对于全局的$()函数，它会将DOM或者JS对象转换为jQuery对象，转化后的jQuery对象封装在类数组中，当然jQuery对象还挂载了很多方法，jQuery的继承采用prototype机制，为了提高兼容性，">
+<meta property="og:updated_time" content="2016-05-01T12:57:34.269Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="jQuery源码学习笔记（一） | junz91">
+<meta name="twitter:description" content="&amp;emsp;&amp;emsp;这是看《犀利开发jQuery内核详解与实践》一书的笔记，看之前讲一下我对jQuery实现的理解：全部封装在一个立即执行匿名函数中，函数开始建立了对重要全局变量的引用。对于全局的$()函数，它会将DOM或者JS对象转换为jQuery对象，转化后的jQuery对象封装在类数组中，当然jQuery对象还挂载了很多方法，jQuery的继承采用prototype机制，为了提高兼容性，">
+    
+    
+    
+      <link rel="icon" type="image/x-icon" href="/favicon.png">
+    
+    <link rel="stylesheet" href="/css/uno.css">
+    <link rel="stylesheet" href="/css/highlight.css">
+    <link rel="stylesheet" href="/css/archive.css">
+    <link rel="stylesheet" href="/css/china-social-icon.css">
+
+</head>
+<body>
+
+    <span class="mobile btn-mobile-menu">
+        <i class="icon icon-list btn-mobile-menu__icon"></i>
+        <i class="icon icon-x-circle btn-mobile-close__icon hidden"></i>
+    </span>
+
+    
+
+<header class="panel-cover panel-cover--collapsed">
+
+
+  <div class="panel-main">
+
+  
+    <div class="panel-main__inner panel-inverted">
+    <div class="panel-main__content">
+
+        
+
+        <h1 class="panel-cover__title panel-title"><a href="/" title="link to homepage">junz91</a></h1>
+        <hr class="panel-cover__divider" />
+
+        
+
+        <div class="navigation-wrapper">
+
+          <nav class="cover-navigation cover-navigation--primary">
+            <ul class="navigation">
+
+              
+                
+                <li class="navigation__item"><a href="/#blog" title="" class="blog-button">首页</a></li>
+              
+                
+                <li class="navigation__item"><a href="/photo" title="" class="">摄影</a></li>
+              
+                
+                <li class="navigation__item"><a href="/archive" title="" class="">归档</a></li>
+              
+
+            </ul>
+          </nav>
+
+          <!-- ----------------------------
+To add a new social icon simply duplicate one of the list items from below
+and change the class in the <i> tag to match the desired social network
+and then add your link to the <a>. Here is a full list of social network
+classes that you can use:
+
+    icon-social-500px
+    icon-social-behance
+    icon-social-delicious
+    icon-social-designer-news
+    icon-social-deviant-art
+    icon-social-digg
+    icon-social-dribbble
+    icon-social-facebook
+    icon-social-flickr
+    icon-social-forrst
+    icon-social-foursquare
+    icon-social-github
+    icon-social-google-plus
+    icon-social-hi5
+    icon-social-instagram
+    icon-social-lastfm
+    icon-social-linkedin
+    icon-social-medium
+    icon-social-myspace
+    icon-social-path
+    icon-social-pinterest
+    icon-social-rdio
+    icon-social-reddit
+    icon-social-skype
+    icon-social-spotify
+    icon-social-stack-overflow
+    icon-social-steam
+    icon-social-stumbleupon
+    icon-social-treehouse
+    icon-social-tumblr
+    icon-social-twitter
+    icon-social-vimeo
+    icon-social-xbox
+    icon-social-yelp
+    icon-social-youtube
+    icon-social-zerply
+    icon-mail
+
+-------------------------------->
+
+<!-- add social info here -->
+
+
+
+        </div>
+
+      </div>
+
+    </div>
+
+    <div class="panel-cover--overlay"></div>
+  </div>
+</header>
+
+    <div class="content-wrapper">
+        <div class="content-wrapper__inner entry">
+            
+
+<article class="post-container post-container--single">
+
+  <header class="post-header">
+    
+    <h1 class="post-title">jQuery源码学习笔记（一）</h1>
+
+    
+
+    <div class="post-meta">
+      <time datetime="2016-05-01" class="post-meta__date date">2016-05-01</time> 
+
+      <span class="post-meta__tags tags">
+
+          
+
+          
+             &#8226; 标签:
+            <font class="tags">
+              <a class="tags-link" href="/tags/jQuery/">jQuery</a>
+            </font>
+          
+
+      </span>
+    </div>
+    
+    
+
+  </header>
+
+  <section id="post-content" class="article-content post">
+    <p>&emsp;&emsp;这是看《<a href="https://book.douban.com/subject/5063431/" target="_blank" rel="external">犀利开发jQuery内核详解与实践</a>》一书的笔记，看之前讲一下我对jQuery实现的理解：全部封装在一个立即执行匿名函数中，函数开始建立了对重要全局变量的引用。对于全局的<code>$()</code>函数，它会将DOM或者JS对象转换为jQuery对象，转化后的jQuery对象封装在类数组中，当然jQuery对象还挂载了很多方法，jQuery的继承采用prototype机制，为了提高兼容性，内部使用了大量条件判断语句。</p>
+<a id="more"></a>
+<h2 id="一、全局函数jQuery"><a href="#一、全局函数jQuery" class="headerlink" title="一、全局函数jQuery()"></a>一、全局函数jQuery()</h2><p>jQuery在浏览器中仅建立了一个全局变量——<code>jQuery()</code>，同时它也有个别名<code>$()</code>，接下来就看看这是如何实现的。<br>首先为了预防和其它库的冲突，jQuery先建立了window下同名变量的引用，最后返回这个变量：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 保存原始jQuery的引用，以防被覆盖</span></span><br><span class="line">_jQuery = <span class="built_in">window</span>.jQuery,</span><br><span class="line"></span><br><span class="line"><span class="comment">// 保存原始$的引用，以防被覆盖</span></span><br><span class="line">_$ = <span class="built_in">window</span>.$,</span><br><span class="line"></span><br><span class="line"><span class="comment">// 输出jQuery和$到全局对象</span></span><br><span class="line"><span class="built_in">window</span>.jQuery = <span class="built_in">window</span>.$ = jQuery;</span><br></pre></td></tr></table></figure></p>
+<p>这里要注意<code>noConflict()</code>这个函数，其作用就是向浏览器交回变量<code>$</code>的控制权，这样其它库就可以使用<code>$</code>变量了，传入参数true可以同时交出<code>jQuery()</code>和<code>$</code>的控制权，使用方法：<code>$.noConflict();</code>，其它高级用法这里不介绍了，下面是它的源码：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">noConflict: <span class="function"><span class="keyword">function</span>(<span class="params"> deep </span>) </span>&#123;</span><br><span class="line">	<span class="keyword">if</span> ( <span class="built_in">window</span>.$ === jQuery ) &#123;</span><br><span class="line">		<span class="built_in">window</span>.$ = _$;  <span class="comment">//使$恢复原来的引用</span></span><br><span class="line">	&#125;</span><br><span class="line">    <span class="comment">//deep为true</span></span><br><span class="line">	<span class="keyword">if</span> ( deep &amp;&amp; <span class="built_in">window</span>.jQuery === jQuery ) &#123;</span><br><span class="line">		<span class="built_in">window</span>.jQuery = _jQuery;  <span class="comment">//使jQuery恢复原来的引用</span></span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> jQuery;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h2 id="二、jQuery对象"><a href="#二、jQuery对象" class="headerlink" title="二、jQuery对象"></a>二、jQuery对象</h2><p>将DOM对象用<code>$()</code>包装后就可以得到jQuery对象，jQuery对象不能使用原生的JavaScript方法，DOM对象也不能使用jQuery对象的方法：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$(<span class="string">"h1"</span>).innerHTML;  <span class="comment">//错误</span></span><br><span class="line"><span class="built_in">document</span>.getElementById(<span class="string">"id"</span>).html();  <span class="comment">//错误</span></span><br></pre></td></tr></table></figure></p>
+<p>接下来看看调用<code>$(document.getElementById(&quot;id&quot;))</code>时发生了什么，以窥jQuery对象是如何封装的：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 处理传入单个$(DOMElement)的情形</span></span><br><span class="line"><span class="keyword">if</span> ( selector.nodeType ) &#123;  <span class="comment">//nodetype用于判断是不是DOM节点，一般用数字1,2,3等表示不同类型节点</span></span><br><span class="line">	<span class="keyword">this</span>.context = <span class="keyword">this</span>[<span class="number">0</span>] = selector;  <span class="comment">//将上下文context指向传入的DOM对象</span></span><br><span class="line">	<span class="keyword">this</span>.length = <span class="number">1</span>;  <span class="comment">//指定长度为1，</span></span><br><span class="line">	<span class="keyword">return</span> <span class="keyword">this</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">······</span><br><span class="line"></span><br><span class="line"><span class="comment">//处理传入过个DOM对象，比如document.getElementsbyName</span></span><br><span class="line"><span class="keyword">return</span> jQuery.makeArray( selector, <span class="keyword">this</span> );</span><br><span class="line"></span><br><span class="line">······</span><br><span class="line"></span><br><span class="line">makeArray: <span class="function"><span class="keyword">function</span>(<span class="params"> array, results </span>) </span>&#123;</span><br><span class="line">	<span class="keyword">var</span> ret = results || [];</span><br><span class="line"></span><br><span class="line">	<span class="keyword">if</span> ( array != <span class="literal">null</span> ) &#123;</span><br><span class="line">		<span class="comment">// The window, strings (and functions) also have 'length'</span></span><br><span class="line">		<span class="comment">// Tweaked logic slightly to handle Blackberry 4.7 RegExp issues #6930</span></span><br><span class="line">		<span class="keyword">var</span> type = jQuery.type( array );</span><br><span class="line"></span><br><span class="line">		<span class="keyword">if</span> ( array.length == <span class="literal">null</span> || type === <span class="string">"string"</span> || type === <span class="string">"function"</span> || type === <span class="string">"regexp"</span> || jQuery.isWindow( array ) ) &#123;</span><br><span class="line">			push.call( ret, array );</span><br><span class="line">		&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">			jQuery.merge( ret, array );  <span class="comment">//将传入的DOM对象数组与ret融合，其实就是一个一个的复制到ret中</span></span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">return</span> ret;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>jQuery对象是类数组（拥有数组索引和长度属性，但没有数组方法，比如<code>arguments</code>）的，它可以用<code>[]</code>访问某一个对象，这个类数组对象通过<code>jQuery.extend</code>扩展了众多方法。</p>
+<h2 id="三、DOM加载事件"><a href="#三、DOM加载事件" class="headerlink" title="三、DOM加载事件"></a>三、DOM加载事件</h2><p>jQuery中DOM加载事件有多种写法：</p>
+<blockquote>
+<ul>
+<li><code>$(document).ready(handler);</code></li>
+<li><code>$(handler);</code></li>
+<li><code>$().ready(handler);</code></li>
+</ul>
+</blockquote>
+<p>众所周知，jQuery的DOM加载完成事件不同于<code>window.onload</code>之处在于：事件会在DOM书加载好之后触发，而不是等到所有元素都传输完毕（比如图片加载）。jQuery的具体实现（1.7.2）也不难：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br></pre></td><td class="code"><pre><span class="line">ready: <span class="function"><span class="keyword">function</span>(<span class="params"> fn </span>) </span>&#123;</span><br><span class="line">	<span class="comment">// 附加监听器</span></span><br><span class="line">	jQuery.bindReady();</span><br><span class="line"></span><br><span class="line">	<span class="comment">// Add the callback</span></span><br><span class="line">	readyList.add( fn );</span><br><span class="line"></span><br><span class="line">	<span class="keyword">return</span> <span class="keyword">this</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">······</span><br><span class="line"></span><br><span class="line">bindReady: <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">	<span class="keyword">if</span> ( readyList ) &#123;</span><br><span class="line">		<span class="keyword">return</span>;  <span class="comment">//回调列表不为空则直接返回</span></span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	readyList = jQuery.Callbacks( <span class="string">"once memory"</span> );</span><br><span class="line"></span><br><span class="line">	<span class="comment">//处理当调用$(document).ready()时，</span></span><br><span class="line">	<span class="comment">//浏览器文档已经加载完（图片也加载完）的情形</span></span><br><span class="line">	<span class="keyword">if</span> ( <span class="built_in">document</span>.readyState === <span class="string">"complete"</span> ) &#123;</span><br><span class="line">		<span class="comment">// Handle it asynchronously to allow scripts the opportunity to delay ready</span></span><br><span class="line">		<span class="keyword">return</span> setTimeout( jQuery.ready, <span class="number">1</span> );</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="comment">// Mozilla, Opera and webkit nightlies currently support this event</span></span><br><span class="line">	<span class="keyword">if</span> ( <span class="built_in">document</span>.addEventListener ) &#123;</span><br><span class="line">		<span class="comment">// DOMContentLoaded在DOM加载完时触发（图片等可能未加载完）</span></span><br><span class="line">		<span class="comment">//在这里为此事件添加监听器</span></span><br><span class="line">		<span class="comment">//DOMContentLoaded是ready事件的处理函数</span></span><br><span class="line">		<span class="built_in">document</span>.addEventListener( <span class="string">"DOMContentLoaded"</span>, DOMContentLoaded, <span class="literal">false</span> );</span><br><span class="line"></span><br><span class="line">		<span class="comment">// A fallback to window.onload, that will always work</span></span><br><span class="line">		<span class="built_in">window</span>.addEventListener( <span class="string">"load"</span>, jQuery.ready, <span class="literal">false</span> );</span><br><span class="line">    ······</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">······</span><br><span class="line"></span><br><span class="line"><span class="comment">//DOMContentLoaded的定义</span></span><br><span class="line">DOMContentLoaded = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">	<span class="built_in">document</span>.removeEventListener( <span class="string">"DOMContentLoaded"</span>, DOMContentLoaded, <span class="literal">false</span> );</span><br><span class="line">	jQuery.ready();</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">······</span><br><span class="line"></span><br><span class="line"><span class="comment">// Handle when the DOM is ready</span></span><br><span class="line">ready: <span class="function"><span class="keyword">function</span>(<span class="params"> wait </span>) </span>&#123;</span><br><span class="line">	<span class="comment">// 设置一个变量用于记住DOM已经ready了</span></span><br><span class="line">	jQuery.isReady = <span class="literal">true</span>;</span><br><span class="line"></span><br><span class="line">	<span class="comment">// 执行readyList中的回调函数</span></span><br><span class="line">	readyList.fireWith( <span class="built_in">document</span>, [ jQuery ] );</span><br><span class="line"></span><br><span class="line">	<span class="comment">// Trigger any bound ready events</span></span><br><span class="line">	<span class="keyword">if</span> ( jQuery.fn.trigger ) &#123;</span><br><span class="line">		jQuery( <span class="built_in">document</span> ).trigger( <span class="string">"ready"</span> ).off( <span class="string">"ready"</span> );</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>实现的核心在于监听document的DOMContentLoaded事件，并且维持一个readyList的数组用于存放回调函数，等出发时再一次执行。</p>
+<h2 id="四、链式调用"><a href="#四、链式调用" class="headerlink" title="四、链式调用"></a>四、链式调用</h2><p>JavaScript中实现链式调用比较方便，比如：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Test</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">  <span class="keyword">var</span> b=<span class="number">1</span>;</span><br><span class="line">  <span class="keyword">this</span>.add=<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(b++);</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">this</span>;</span><br><span class="line">  &#125;;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> obj=<span class="keyword">new</span> Test();</span><br><span class="line">obj.add().add();  <span class="comment">//结果是：1  2</span></span><br></pre></td></tr></table></figure></p>
+<p>&emsp;&emsp;jQuery中的方法只要返回了自身就能支持<strong>链式调用</strong>，实际中不是所有的jQuery方法都能支持链式调用，比如<code>eq()</code>会改变当前的执行上下文，但是借助<code>end()</code>方法可以恢复上一个jQuery对象。还有一些方法改变了上下文之后不能恢复原对象，比如<code>get()</code>。下面看一下这个过程：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">eq: <span class="function"><span class="keyword">function</span>(<span class="params"> i </span>) </span>&#123;</span><br><span class="line">	i = +i;</span><br><span class="line">	<span class="keyword">return</span> i === <span class="number">-1</span> ? <span class="keyword">this</span>.slice( i ) : <span class="keyword">this</span>.slice( i, i + <span class="number">1</span> );  <span class="comment">//使用了slice操作</span></span><br><span class="line">&#125;</span><br><span class="line">······</span><br><span class="line">slice: <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">	<span class="keyword">return</span> <span class="keyword">this</span>.pushStack( slice.apply( <span class="keyword">this</span>, <span class="built_in">arguments</span> ),  <span class="comment">//使用了pushStack操作</span></span><br><span class="line">		<span class="string">"slice"</span>, slice.call(<span class="built_in">arguments</span>).join(<span class="string">","</span>) );</span><br><span class="line">&#125;</span><br><span class="line">······</span><br><span class="line">pushStack: <span class="function"><span class="keyword">function</span>(<span class="params"> elems, name, selector </span>) </span>&#123;</span><br><span class="line">	<span class="comment">// Build a new jQuery matched element set</span></span><br><span class="line">	<span class="keyword">var</span> ret = <span class="keyword">this</span>.constructor();</span><br><span class="line">    ······</span><br><span class="line">	<span class="comment">// Add the old object onto the stack (as a reference)</span></span><br><span class="line">	ret.prevObject = <span class="keyword">this</span>;  <span class="comment">//此处保存了之前上下文的快照</span></span><br><span class="line">    ······</span><br><span class="line">	<span class="comment">// Return the newly-formed element set</span></span><br><span class="line">	<span class="keyword">return</span> ret;</span><br><span class="line">&#125;</span><br><span class="line">······</span><br><span class="line">end: <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">	<span class="keyword">return</span> <span class="keyword">this</span>.prevObject || <span class="keyword">this</span>.constructor(<span class="literal">null</span>);  <span class="comment">//返回保存的快照</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h2 id="五、jQuery框架"><a href="#五、jQuery框架" class="headerlink" title="五、jQuery框架"></a>五、jQuery框架</h2><p>以上都是针对某个具体的特性进行的分析，接下来我们从整体上来学习jQuery的框架。以下是jQuery的基本框架：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> $=jQuery=<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;  <span class="comment">//定义全局对象jQuery和$</span></span><br><span class="line">  <span class="comment">//分隔作用域</span></span><br><span class="line">  <span class="keyword">return</span> <span class="keyword">new</span> jQuery.fn.init();  <span class="comment">//jQuery对象实际上只是初始化构造函数的“增强”</span></span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">jQuery.fn=jQuery.prototype=&#123;</span><br><span class="line">  <span class="keyword">constructor</span>: jQuery,</span><br><span class="line">  init:function()&#123;  <span class="comment">//此处初始化原型中的方法并返回实例的引用</span></span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">this</span>;  <span class="comment">//此处的this和jQuery中的this是不同的</span></span><br><span class="line">  &#125;,</span><br><span class="line">  jquery:<span class="string">"1.7.2"</span>,</span><br><span class="line">  size:<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">this</span>.length;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="comment">//修改init函数的原型为jQuery的原型，这样就可以用init来实例化jQuery对象了</span></span><br><span class="line"><span class="comment">//并且通过init实例化的对象能够访问jQuery原型链上的方法，实现了跨域访问。</span></span><br><span class="line">jQuery.fn.init.prototype = jQuery.fn;</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log($().jquery);  <span class="comment">//"1.7.2"</span></span><br></pre></td></tr></table></figure></p>
+<p>巧妙之处在于将jQuery对象原型链上的init函数设置为一个构造函数，这个构造函数可以有自己的方法，同时通过修改它的原型链，通过init实例化的对象也拥有jQuery对象的方法，如此才叫“<strong>加强</strong>”：完整的jQuery对象是通过init构造的对象加上jQuery原型链方法一起组成的。</p>
+<h2 id="六、extend扩展"><a href="#六、extend扩展" class="headerlink" title="六、extend扩展"></a>六、extend扩展</h2><p>框架搭好之后就可以为jQuery对象新增各种方法了，在jQuery中扩展是通过<code>extend()</code>函数实现的，这样的好处是不会破坏jQuery框架的原型结构，管理方法更方便。<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br></pre></td><td class="code"><pre><span class="line">jQuery.extend = jQuery.fn.extend = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">	<span class="keyword">var</span> options, name, src, copy, copyIsArray, clone,</span><br><span class="line">		target = <span class="built_in">arguments</span>[<span class="number">0</span>] || &#123;&#125;,  <span class="comment">//定义复制操作的目标对象</span></span><br><span class="line">		i = <span class="number">1</span>,</span><br><span class="line">		length = <span class="built_in">arguments</span>.length,</span><br><span class="line">		deep = <span class="literal">false</span>;</span><br><span class="line"></span><br><span class="line">	<span class="comment">// 深度复制处理</span></span><br><span class="line">	<span class="keyword">if</span> ( <span class="keyword">typeof</span> target === <span class="string">"boolean"</span> ) &#123;</span><br><span class="line">		deep = target;</span><br><span class="line">		target = <span class="built_in">arguments</span>[<span class="number">1</span>] || &#123;&#125;;</span><br><span class="line">		<span class="comment">// skip the boolean and the target</span></span><br><span class="line">		i = <span class="number">2</span>;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="comment">// 如果第一个参数是字符串，则设置为空对象</span></span><br><span class="line">	<span class="keyword">if</span> ( <span class="keyword">typeof</span> target !== <span class="string">"object"</span> &amp;&amp; !jQuery.isFunction(target) ) &#123;</span><br><span class="line">		target = &#123;&#125;;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="comment">// 如果只有一个参数，表示把参数对象的方法复制给当前对象</span></span><br><span class="line">	<span class="keyword">if</span> ( length === i ) &#123;</span><br><span class="line">		target = <span class="keyword">this</span>;  <span class="comment">//this指向jQuery对象</span></span><br><span class="line">		--i;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">for</span> ( ; i &lt; length; i++ ) &#123;</span><br><span class="line">		<span class="comment">// 只处理参数不为null的情况</span></span><br><span class="line">		<span class="keyword">if</span> ( (options = <span class="built_in">arguments</span>[ i ]) != <span class="literal">null</span> ) &#123;</span><br><span class="line">			<span class="comment">// 遍历参数对象</span></span><br><span class="line">			<span class="keyword">for</span> ( name <span class="keyword">in</span> options ) &#123;</span><br><span class="line">				src = target[ name ];</span><br><span class="line">				copy = options[ name ];</span><br><span class="line"></span><br><span class="line">				<span class="comment">// 防止死循环</span></span><br><span class="line">				<span class="keyword">if</span> ( target === copy ) &#123;</span><br><span class="line">					<span class="keyword">continue</span>;</span><br><span class="line">				&#125;</span><br><span class="line"></span><br><span class="line">				<span class="comment">// 递归</span></span><br><span class="line">				<span class="keyword">if</span> ( deep &amp;&amp; copy &amp;&amp; ( jQuery.isPlainObject(copy) || (copyIsArray = jQuery.isArray(copy)) ) ) &#123;</span><br><span class="line">					<span class="keyword">if</span> ( copyIsArray ) &#123;</span><br><span class="line">						copyIsArray = <span class="literal">false</span>;</span><br><span class="line">						clone = src &amp;&amp; jQuery.isArray(src) ? src : [];</span><br><span class="line"></span><br><span class="line">					&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">						clone = src &amp;&amp; jQuery.isPlainObject(src) ? src : &#123;&#125;;</span><br><span class="line">					&#125;</span><br><span class="line"></span><br><span class="line">					<span class="comment">// Never move original objects, clone them</span></span><br><span class="line">					target[ name ] = jQuery.extend( deep, clone, copy );</span><br><span class="line"></span><br><span class="line">				<span class="comment">// Don't bring in undefined values</span></span><br><span class="line">				&#125; <span class="keyword">else</span> <span class="keyword">if</span> ( copy !== <span class="literal">undefined</span> ) &#123;</span><br><span class="line">					target[ name ] = copy;</span><br><span class="line">				&#125;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="comment">// Return the modified object</span></span><br><span class="line">	<span class="keyword">return</span> target;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//使用方式：</span></span><br><span class="line">jQuery.extend();</span><br></pre></td></tr></table></figure></p>
+<p><code>extend()</code>函数实现的大致思路是：设置一个target对象，第一次时设置target指向this（jQuery对象），之后复制形参的方法，递归调用自身实现复制过程。</p>
+
+  </section>
+
+  
+  
+
+<section class="post-comments">
+
+    <div class="ds-thread" data-thread-key="2016/05/01/jQuery源码学习笔记（一）/"></div>
+
+    <script type="text/javascript">
+      var duoshuoQuery = {short_name:"junz91"};
+      (function() {
+        var ds = document.createElement('script');
+        ds.type = 'text/javascript';ds.async = true;
+        ds.src = '//static.duoshuo.com/embed.js';
+        ds.charset = 'UTF-8';
+        (document.getElementsByTagName('head')[0] 
+        || document.getElementsByTagName('body')[0]).appendChild(ds);
+      })();
+    </script> 
+
+</section>
+
+
+</article>
+
+
+            <footer class="footer">
+
+    <span class="footer__copyright">&copy; 2014-2015. | 由<a href="https://hexo.io/">Hexo</a>强力驱动 | 主题<a href="https://github.com/someus/huno">Huno</a></span>
+    
+</footer>
+        </div>
+    </div>
+
+    <!-- js files -->
+    <script src="/js/jquery.min.js"></script>
+    <script src="/js/main.js"></script>
+    <script src="/js/scale.fix.js"></script>
+    
+
+    
+    
+
+    <script src="/js/awesome-toc.min.js"></script>
+    <script>
+        $(document).ready(function(){
+            $.awesome_toc({
+                overlay: true,
+                contentId: "post-content",
+            });
+        });
+    </script>
+
+
+    
+    
+    <!--kill ie6 -->
+<!--[if IE 6]>
+  <script src="//letskillie6.googlecode.com/svn/trunk/2/zh_CN.js"></script>
+<![endif]-->
+
+</body>
+</html>

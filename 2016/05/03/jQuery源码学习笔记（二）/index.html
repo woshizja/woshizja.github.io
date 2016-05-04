@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+
+    
+
+    <title>
+      jQuery源码学习笔记（二） | junz91 
+    </title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    
+      <meta name="author" content="Jun Zhao">
+    
+    
+
+    <meta name="description" content="一、jQuery选择器通过jQuery选择器获取的DOM元素以类数组的形式，作为jQuery对象的一部分返回。实际上jQuery对象是通过new jQuery.fn.init(selector,context)实例化的一个对象，此对象通过jQuery.fn.init.prototype=jQuery.fn继承了jQuery的方法。在init()构造器函数中，大致的处理思路如下：
+
+
+是否为空字符串">
+<meta property="og:type" content="article">
+<meta property="og:title" content="jQuery源码学习笔记（二） | junz91">
+<meta property="og:url" content="http://yoursite.com/2016/05/03/jQuery源码学习笔记（二）/index.html">
+<meta property="og:site_name" content="junz91">
+<meta property="og:description" content="一、jQuery选择器通过jQuery选择器获取的DOM元素以类数组的形式，作为jQuery对象的一部分返回。实际上jQuery对象是通过new jQuery.fn.init(selector,context)实例化的一个对象，此对象通过jQuery.fn.init.prototype=jQuery.fn继承了jQuery的方法。在init()构造器函数中，大致的处理思路如下：
+
+
+是否为空字符串">
+<meta property="og:updated_time" content="2016-05-04T03:27:10.057Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="jQuery源码学习笔记（二） | junz91">
+<meta name="twitter:description" content="一、jQuery选择器通过jQuery选择器获取的DOM元素以类数组的形式，作为jQuery对象的一部分返回。实际上jQuery对象是通过new jQuery.fn.init(selector,context)实例化的一个对象，此对象通过jQuery.fn.init.prototype=jQuery.fn继承了jQuery的方法。在init()构造器函数中，大致的处理思路如下：
+
+
+是否为空字符串">
+    
+    
+    
+      <link rel="icon" type="image/x-icon" href="/favicon.png">
+    
+    <link rel="stylesheet" href="/css/uno.css">
+    <link rel="stylesheet" href="/css/highlight.css">
+    <link rel="stylesheet" href="/css/archive.css">
+    <link rel="stylesheet" href="/css/china-social-icon.css">
+
+</head>
+<body>
+
+    <span class="mobile btn-mobile-menu">
+        <i class="icon icon-list btn-mobile-menu__icon"></i>
+        <i class="icon icon-x-circle btn-mobile-close__icon hidden"></i>
+    </span>
+
+    
+
+<header class="panel-cover panel-cover--collapsed">
+
+
+  <div class="panel-main">
+
+  
+    <div class="panel-main__inner panel-inverted">
+    <div class="panel-main__content">
+
+        
+
+        <h1 class="panel-cover__title panel-title"><a href="/" title="link to homepage">junz91</a></h1>
+        <hr class="panel-cover__divider" />
+
+        
+
+        <div class="navigation-wrapper">
+
+          <nav class="cover-navigation cover-navigation--primary">
+            <ul class="navigation">
+
+              
+                
+                <li class="navigation__item"><a href="/#blog" title="" class="blog-button">首页</a></li>
+              
+                
+                <li class="navigation__item"><a href="/photo" title="" class="">摄影</a></li>
+              
+                
+                <li class="navigation__item"><a href="/archive" title="" class="">归档</a></li>
+              
+
+            </ul>
+          </nav>
+
+          <!-- ----------------------------
+To add a new social icon simply duplicate one of the list items from below
+and change the class in the <i> tag to match the desired social network
+and then add your link to the <a>. Here is a full list of social network
+classes that you can use:
+
+    icon-social-500px
+    icon-social-behance
+    icon-social-delicious
+    icon-social-designer-news
+    icon-social-deviant-art
+    icon-social-digg
+    icon-social-dribbble
+    icon-social-facebook
+    icon-social-flickr
+    icon-social-forrst
+    icon-social-foursquare
+    icon-social-github
+    icon-social-google-plus
+    icon-social-hi5
+    icon-social-instagram
+    icon-social-lastfm
+    icon-social-linkedin
+    icon-social-medium
+    icon-social-myspace
+    icon-social-path
+    icon-social-pinterest
+    icon-social-rdio
+    icon-social-reddit
+    icon-social-skype
+    icon-social-spotify
+    icon-social-stack-overflow
+    icon-social-steam
+    icon-social-stumbleupon
+    icon-social-treehouse
+    icon-social-tumblr
+    icon-social-twitter
+    icon-social-vimeo
+    icon-social-xbox
+    icon-social-yelp
+    icon-social-youtube
+    icon-social-zerply
+    icon-mail
+
+-------------------------------->
+
+<!-- add social info here -->
+
+
+
+        </div>
+
+      </div>
+
+    </div>
+
+    <div class="panel-cover--overlay"></div>
+  </div>
+</header>
+
+    <div class="content-wrapper">
+        <div class="content-wrapper__inner entry">
+            
+
+<article class="post-container post-container--single">
+
+  <header class="post-header">
+    
+    <h1 class="post-title">jQuery源码学习笔记（二）</h1>
+
+    
+
+    <div class="post-meta">
+      <time datetime="2016-05-03" class="post-meta__date date">2016-05-03</time> 
+
+      <span class="post-meta__tags tags">
+
+          
+
+          
+             &#8226; 标签:
+            <font class="tags">
+              <a class="tags-link" href="/tags/jQuery/">jQuery</a>
+            </font>
+          
+
+      </span>
+    </div>
+    
+    
+
+  </header>
+
+  <section id="post-content" class="article-content post">
+    <h2 id="一、jQuery选择器"><a href="#一、jQuery选择器" class="headerlink" title="一、jQuery选择器"></a>一、jQuery选择器</h2><p>通过jQuery选择器获取的DOM元素以类数组的形式，作为jQuery对象的一部分返回。实际上jQuery对象是通过<code>new jQuery.fn.init(selector,context)</code>实例化的一个对象，此对象通过<code>jQuery.fn.init.prototype=jQuery.fn</code>继承了jQuery的方法。在<code>init()</code>构造器函数中，大致的处理思路如下：</p>
+<blockquote>
+<ol>
+<li>是否为空字符串或者为null、undefined等情况，是则直接返回；</li>
+<li>是否为DOM元素，如果是则直接把该对象存储到jQuery对象集合中并返回；</li>
+<li>是否为body，是则返回document.body；</li>
+<li>是否为HTML string或者为ID：<blockquote>
+<p>HTML标签：则创建相应的对象并返回；<br>ID：找到这个元素并返回；</p>
+</blockquote>
+</li>
+<li>是否为选择器表达式，是则调用find函数找到相应对象并返回；</li>
+<li>是否为function，是则<code>return rootjQuery.ready( selector )</code>；</li>
+<li>是否为DOM数组，是则依次存储到jQuery对象集合中并返回。</li>
+</ol>
+</blockquote>
+<p>jQuery内部的选择器是用的<a href="http://sizzlejs.com/" target="_blank" rel="external">Sizzle</a>引擎，主要包括<code>matches()</code>，<code>find()</code>，<code>filter()</code>方法，这些接口传递给jQuery的find，filter，expr等公共函数。下面是几点使用选择器时可以提高性能表现的建议：</p>
+<blockquote>
+<ul>
+<li>多用ID选择器，因为它是最快的，在选择器父级元素中增加ID选择器可以缩短节点访问路程；</li>
+<li>少用直接的Class选择器，因为它是最慢的，可以考虑使用复合选择器代替；</li>
+<li>多用父子关系，少用嵌套关系，比如<code>parent&gt;child</code>就要比<code>parent child</code>快；</li>
+<li>缓存jQuery对象。</li>
+</ul>
+</blockquote>
+<p>使用jQuery选择器可以比较好的解决兼容性问题，能够有更优雅的语法，但是其缺点也是明显的：相比原生，jQuery的部分选择器效率非常低。</p>
+<h2 id="二、DOM操作"><a href="#二、DOM操作" class="headerlink" title="二、DOM操作"></a>二、DOM操作</h2><p>jQuery封装的DOM操作非常多，语法简洁，功能强大，但是同样存在效率低下的问题，实际中要根据需要选择。DOM不同操作之间的联系不想选择器那么紧密，下面仅选择几个小点来解读jQuery源码。</p>
+<h3 id="删除元素"><a href="#删除元素" class="headerlink" title="删除元素"></a>删除元素</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// keepData is for internal use only--do not document</span></span><br><span class="line">remove: <span class="function"><span class="keyword">function</span>(<span class="params"> selector, keepData </span>) </span>&#123;  <span class="comment">//删除工作会首先根据选择器选择备选元素</span></span><br><span class="line">	<span class="keyword">for</span> ( <span class="keyword">var</span> i = <span class="number">0</span>, elem; (elem = <span class="keyword">this</span>[i]) != <span class="literal">null</span>; i++ ) &#123;  <span class="comment">//遍历备选元素</span></span><br><span class="line">		<span class="keyword">if</span> ( !selector || jQuery.filter( selector, [ elem ] ).length ) &#123;  <span class="comment">//找到了需要删除的元素</span></span><br><span class="line">			<span class="keyword">if</span> ( !keepData &amp;&amp; elem.nodeType === <span class="number">1</span> ) &#123;</span><br><span class="line">				jQuery.cleanData( elem.getElementsByTagName(<span class="string">"*"</span>) );  </span><br><span class="line">				jQuery.cleanData( [ elem ] );  <span class="comment">//删除一些绑定的事件</span></span><br><span class="line">			&#125;</span><br><span class="line"></span><br><span class="line">			<span class="keyword">if</span> ( elem.parentNode ) &#123;  <span class="comment">//删除元素</span></span><br><span class="line">				elem.parentNode.removeChild( elem );</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">return</span> <span class="keyword">this</span>;</span><br><span class="line">&#125;,</span><br><span class="line"></span><br><span class="line">empty: <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">	<span class="keyword">for</span> ( <span class="keyword">var</span> i = <span class="number">0</span>, elem; (elem = <span class="keyword">this</span>[i]) != <span class="literal">null</span>; i++ ) &#123;</span><br><span class="line">		<span class="comment">// Remove element nodes and prevent memory leaks</span></span><br><span class="line">		<span class="keyword">if</span> ( elem.nodeType === <span class="number">1</span> ) &#123;</span><br><span class="line">			jQuery.cleanData( elem.getElementsByTagName(<span class="string">"*"</span>) );</span><br><span class="line">		&#125;</span><br><span class="line"></span><br><span class="line">		<span class="comment">// Remove any remaining nodes</span></span><br><span class="line">		<span class="keyword">while</span> ( elem.firstChild ) &#123;  <span class="comment">//清空所有节点</span></span><br><span class="line">			elem.removeChild( elem.firstChild );</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">return</span> <span class="keyword">this</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="attr"><a href="#attr" class="headerlink" title="attr()"></a>attr()</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line">attr: <span class="function"><span class="keyword">function</span>(<span class="params"> name, value </span>) </span>&#123;  <span class="comment">//access中会判断value是否为对象，是则递归调用真正的attr函数</span></span><br><span class="line">	<span class="keyword">return</span> jQuery.access( <span class="keyword">this</span>, jQuery.attr, name, value, <span class="built_in">arguments</span>.length &gt; <span class="number">1</span> );</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//真正的attr函数</span></span><br><span class="line">attr: <span class="function"><span class="keyword">function</span>(<span class="params"> elem, name, value, pass </span>) </span>&#123;</span><br><span class="line">	<span class="comment">// 忽略文字注释等节点的属性</span></span><br><span class="line">	<span class="keyword">if</span> ( !elem || nType === <span class="number">3</span> || nType === <span class="number">8</span> || nType === <span class="number">2</span> ) &#123;</span><br><span class="line">		<span class="keyword">return</span>;</span><br><span class="line">	&#125;</span><br><span class="line">    <span class="comment">//做一些兼容性工作</span></span><br><span class="line"></span><br><span class="line">	<span class="keyword">if</span> ( value !== <span class="literal">undefined</span> ) &#123;</span><br><span class="line"></span><br><span class="line">		<span class="keyword">if</span> ( value === <span class="literal">null</span> ) &#123;</span><br><span class="line">			jQuery.removeAttr( elem, name );</span><br><span class="line">			<span class="keyword">return</span>;  <span class="comment">//为空时则移除移除属性</span></span><br><span class="line">		&#125; <span class="keyword">else</span> <span class="keyword">if</span> ( hooks &amp;&amp; <span class="string">"set"</span> <span class="keyword">in</span> hooks &amp;&amp; notxml &amp;&amp; (ret = hooks.set( elem, value, name )) !== <span class="literal">undefined</span> ) &#123;</span><br><span class="line">			<span class="keyword">return</span> ret;</span><br><span class="line"></span><br><span class="line">		&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">			elem.setAttribute( name, <span class="string">""</span> + value );</span><br><span class="line">			<span class="keyword">return</span> value;  <span class="comment">//设置属性</span></span><br><span class="line">		&#125;</span><br><span class="line"></span><br><span class="line">	&#125; <span class="keyword">else</span> <span class="keyword">if</span> ( hooks &amp;&amp; <span class="string">"get"</span> <span class="keyword">in</span> hooks &amp;&amp; notxml &amp;&amp; (ret = hooks.get( elem, name )) !== <span class="literal">null</span> ) &#123;</span><br><span class="line">		<span class="keyword">return</span> ret;</span><br><span class="line"></span><br><span class="line">	&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">		ret = elem.getAttribute( name ); <span class="comment">//获取属性值</span></span><br><span class="line">		<span class="comment">// Non-existent attributes return null, we normalize to undefined</span></span><br><span class="line">		<span class="keyword">return</span> ret === <span class="literal">null</span> ?</span><br><span class="line">			<span class="literal">undefined</span> :</span><br><span class="line">			ret;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这里需要说明的是，两个<code>attr()</code>方法并不是挂在相同对象下，第一个是使用的<code>jQuery.fn.extend()</code>扩展的，第二个是使用<code>jQuery.extend()</code>扩展的，两个方法的区别：</p>
+<blockquote>
+<ul>
+<li><code>jQuery.fn.extend()</code>：在原型链上扩展，所有jQuery对象都能使用，使用方法为：<code>jQuery对象.handler()</code>；</li>
+<li><code>jQuery.extend()</code>：在jQuery对象上扩展，也就是说扩展的方法是全局的，jQuery对象是访问不到的，使用方法为：<code>jQuery.handler()</code>；</li>
+</ul>
+</blockquote>
+
+  </section>
+
+  
+  
+
+<section class="post-comments">
+
+    <div class="ds-thread" data-thread-key="2016/05/03/jQuery源码学习笔记（二）/"></div>
+
+    <script type="text/javascript">
+      var duoshuoQuery = {short_name:"junz91"};
+      (function() {
+        var ds = document.createElement('script');
+        ds.type = 'text/javascript';ds.async = true;
+        ds.src = '//static.duoshuo.com/embed.js';
+        ds.charset = 'UTF-8';
+        (document.getElementsByTagName('head')[0] 
+        || document.getElementsByTagName('body')[0]).appendChild(ds);
+      })();
+    </script> 
+
+</section>
+
+
+</article>
+
+
+            <footer class="footer">
+
+    <span class="footer__copyright">&copy; 2014-2015. | 由<a href="https://hexo.io/">Hexo</a>强力驱动 | 主题<a href="https://github.com/someus/huno">Huno</a></span>
+    
+</footer>
+        </div>
+    </div>
+
+    <!-- js files -->
+    <script src="/js/jquery.min.js"></script>
+    <script src="/js/main.js"></script>
+    <script src="/js/scale.fix.js"></script>
+    
+
+    
+    
+
+    <script src="/js/awesome-toc.min.js"></script>
+    <script>
+        $(document).ready(function(){
+            $.awesome_toc({
+                overlay: true,
+                contentId: "post-content",
+            });
+        });
+    </script>
+
+
+    
+    
+    <!--kill ie6 -->
+<!--[if IE 6]>
+  <script src="//letskillie6.googlecode.com/svn/trunk/2/zh_CN.js"></script>
+<![endif]-->
+
+</body>
+</html>

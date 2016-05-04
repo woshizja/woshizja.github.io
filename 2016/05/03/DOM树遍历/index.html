@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+
+    
+
+    <title>
+      DOM树遍历 | junz91 
+    </title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    
+      <meta name="author" content="Jun Zhao">
+    
+    
+
+    <meta name="description" content="无意间看到以前写的遍历二叉树的C++程序，感觉都忘完了···还是太菜，于是改了改用在遍历DOM树上，借此加深记忆吧。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="DOM树遍历 | junz91">
+<meta property="og:url" content="http://yoursite.com/2016/05/03/DOM树遍历/index.html">
+<meta property="og:site_name" content="junz91">
+<meta property="og:description" content="无意间看到以前写的遍历二叉树的C++程序，感觉都忘完了···还是太菜，于是改了改用在遍历DOM树上，借此加深记忆吧。">
+<meta property="og:updated_time" content="2016-05-03T11:25:52.462Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="DOM树遍历 | junz91">
+<meta name="twitter:description" content="无意间看到以前写的遍历二叉树的C++程序，感觉都忘完了···还是太菜，于是改了改用在遍历DOM树上，借此加深记忆吧。">
+    
+    
+    
+      <link rel="icon" type="image/x-icon" href="/favicon.png">
+    
+    <link rel="stylesheet" href="/css/uno.css">
+    <link rel="stylesheet" href="/css/highlight.css">
+    <link rel="stylesheet" href="/css/archive.css">
+    <link rel="stylesheet" href="/css/china-social-icon.css">
+
+</head>
+<body>
+
+    <span class="mobile btn-mobile-menu">
+        <i class="icon icon-list btn-mobile-menu__icon"></i>
+        <i class="icon icon-x-circle btn-mobile-close__icon hidden"></i>
+    </span>
+
+    
+
+<header class="panel-cover panel-cover--collapsed">
+
+
+  <div class="panel-main">
+
+  
+    <div class="panel-main__inner panel-inverted">
+    <div class="panel-main__content">
+
+        
+
+        <h1 class="panel-cover__title panel-title"><a href="/" title="link to homepage">junz91</a></h1>
+        <hr class="panel-cover__divider" />
+
+        
+
+        <div class="navigation-wrapper">
+
+          <nav class="cover-navigation cover-navigation--primary">
+            <ul class="navigation">
+
+              
+                
+                <li class="navigation__item"><a href="/#blog" title="" class="blog-button">首页</a></li>
+              
+                
+                <li class="navigation__item"><a href="/photo" title="" class="">摄影</a></li>
+              
+                
+                <li class="navigation__item"><a href="/archive" title="" class="">归档</a></li>
+              
+
+            </ul>
+          </nav>
+
+          <!-- ----------------------------
+To add a new social icon simply duplicate one of the list items from below
+and change the class in the <i> tag to match the desired social network
+and then add your link to the <a>. Here is a full list of social network
+classes that you can use:
+
+    icon-social-500px
+    icon-social-behance
+    icon-social-delicious
+    icon-social-designer-news
+    icon-social-deviant-art
+    icon-social-digg
+    icon-social-dribbble
+    icon-social-facebook
+    icon-social-flickr
+    icon-social-forrst
+    icon-social-foursquare
+    icon-social-github
+    icon-social-google-plus
+    icon-social-hi5
+    icon-social-instagram
+    icon-social-lastfm
+    icon-social-linkedin
+    icon-social-medium
+    icon-social-myspace
+    icon-social-path
+    icon-social-pinterest
+    icon-social-rdio
+    icon-social-reddit
+    icon-social-skype
+    icon-social-spotify
+    icon-social-stack-overflow
+    icon-social-steam
+    icon-social-stumbleupon
+    icon-social-treehouse
+    icon-social-tumblr
+    icon-social-twitter
+    icon-social-vimeo
+    icon-social-xbox
+    icon-social-yelp
+    icon-social-youtube
+    icon-social-zerply
+    icon-mail
+
+-------------------------------->
+
+<!-- add social info here -->
+
+
+
+        </div>
+
+      </div>
+
+    </div>
+
+    <div class="panel-cover--overlay"></div>
+  </div>
+</header>
+
+    <div class="content-wrapper">
+        <div class="content-wrapper__inner entry">
+            
+
+<article class="post-container post-container--single">
+
+  <header class="post-header">
+    
+    <h1 class="post-title">DOM树遍历</h1>
+
+    
+
+    <div class="post-meta">
+      <time datetime="2016-05-03" class="post-meta__date date">2016-05-03</time> 
+
+      <span class="post-meta__tags tags">
+
+          
+
+          
+             &#8226; 标签:
+            <font class="tags">
+              <a class="tags-link" href="/tags/JS实践/">JS实践</a>
+            </font>
+          
+
+      </span>
+    </div>
+    
+    
+
+  </header>
+
+  <section id="post-content" class="article-content post">
+    <p>无意间看到以前写的遍历二叉树的C++程序，感觉都忘完了···还是太菜，于是改了改用在遍历DOM树上，借此加深记忆吧。</p>
+<a id="more"></a>
+<p>本文只涉及了<strong>层序遍历</strong>和<strong>前序遍历</strong>，层序就是从上到下一层一层往下遍历，每一层从左到右遍历，前序就是根节点-&gt;左子树-&gt;右子树，一直先把左子树遍历完，在返回右子树。本文的实现主要是通过操纵<strong>队列</strong>的更新来控制遍历顺序，具体可以看代码注释，代码结构很简单，应该很好理解。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*</span><br><span class="line">层序遍历DOM树，</span><br><span class="line">从上到下按层次访问遍历，</span><br><span class="line">每一层从左到右遍历。</span><br><span class="line">*/</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">levelOrderDT</span>(<span class="params">obj</span>) </span>&#123;</span><br><span class="line">	<span class="keyword">var</span> res = []; <span class="comment">//存放元素的tagName</span></span><br><span class="line">	<span class="keyword">var</span> list = []; <span class="comment">//遍历队列</span></span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">function</span> <span class="title">updateList</span>(<span class="params"></span>) </span>&#123; <span class="comment">//更新队列</span></span><br><span class="line">		<span class="keyword">for</span> (<span class="keyword">var</span> i = <span class="number">0</span>; i &lt; children.length; i++) &#123;</span><br><span class="line">			list.push(children[i]); <span class="comment">//层序遍历时，下一层的节点总是插入到队列尾部</span></span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">var</span> children = obj.children(); <span class="comment">//下一层级的元素</span></span><br><span class="line">	updateList();</span><br><span class="line"></span><br><span class="line">	<span class="keyword">var</span> temp;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">while</span> (list.length &gt; <span class="number">0</span>) &#123; <span class="comment">//队列为空退出</span></span><br><span class="line">		temp = list[<span class="number">0</span>];</span><br><span class="line">		res.push(temp.tagName); <span class="comment">//保存当前DOM节点名</span></span><br><span class="line">		list.shift(); <span class="comment">//删除遍历过的节点</span></span><br><span class="line"></span><br><span class="line">		<span class="keyword">if</span> ($(temp).children().length &gt; <span class="number">0</span>) &#123;</span><br><span class="line">			children = $(temp).children(); <span class="comment">//插入下一层节点</span></span><br><span class="line">			updateList();</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">return</span> res;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/*</span><br><span class="line">前序遍历DOM树，</span><br><span class="line">从左子树开始遍历，最后遍历右子树，</span><br><span class="line">在遍历左、右子树时，仍然先遍历左子树，最后遍历右子树。</span><br><span class="line">*/</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">preOrderDT</span>(<span class="params">obj</span>) </span>&#123;</span><br><span class="line">	<span class="keyword">var</span> res = [];</span><br><span class="line">	<span class="keyword">var</span> wraper = [];</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">function</span> <span class="title">updateList</span>(<span class="params"></span>) </span>&#123; <span class="comment">//更新队列</span></span><br><span class="line">		<span class="keyword">for</span> (<span class="keyword">var</span> i = children.length - <span class="number">1</span>; i &gt;= <span class="number">0</span>; i--) &#123;</span><br><span class="line">			wraper.unshift(children[i]); <span class="comment">//前序遍历需要在队列头部新增，并且需倒序</span></span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">var</span> children = obj.children();</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">var</span> i = <span class="number">0</span>; i &lt; children.length; i++) &#123;</span><br><span class="line">		wraper.push(children[i]);</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">var</span> temp;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">while</span> (wraper.length &gt; <span class="number">0</span>) &#123;</span><br><span class="line">		temp = wraper[<span class="number">0</span>];</span><br><span class="line">		res.push(temp.tagName);</span><br><span class="line">		wraper.shift();</span><br><span class="line">		<span class="keyword">if</span> ($(temp).children().length &gt; <span class="number">0</span>) &#123;</span><br><span class="line">			children = $(temp).children();</span><br><span class="line">			updateList();</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">return</span> res;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(levelOrderDT($(<span class="built_in">document</span>)));</span><br><span class="line"><span class="built_in">console</span>.log(preOrderDT($(<span class="built_in">document</span>)));</span><br></pre></td></tr></table></figure>
+<p><em>此程序在在线编译器上可能会出现一些“不明”标签（在线编译器隐式增加的），建议在本地调试。</em></p>
+
+  </section>
+
+  
+  
+
+<section class="post-comments">
+
+    <div class="ds-thread" data-thread-key="2016/05/03/DOM树遍历/"></div>
+
+    <script type="text/javascript">
+      var duoshuoQuery = {short_name:"junz91"};
+      (function() {
+        var ds = document.createElement('script');
+        ds.type = 'text/javascript';ds.async = true;
+        ds.src = '//static.duoshuo.com/embed.js';
+        ds.charset = 'UTF-8';
+        (document.getElementsByTagName('head')[0] 
+        || document.getElementsByTagName('body')[0]).appendChild(ds);
+      })();
+    </script> 
+
+</section>
+
+
+</article>
+
+
+            <footer class="footer">
+
+    <span class="footer__copyright">&copy; 2014-2015. | 由<a href="https://hexo.io/">Hexo</a>强力驱动 | 主题<a href="https://github.com/someus/huno">Huno</a></span>
+    
+</footer>
+        </div>
+    </div>
+
+    <!-- js files -->
+    <script src="/js/jquery.min.js"></script>
+    <script src="/js/main.js"></script>
+    <script src="/js/scale.fix.js"></script>
+    
+
+    
+    
+
+    <script src="/js/awesome-toc.min.js"></script>
+    <script>
+        $(document).ready(function(){
+            $.awesome_toc({
+                overlay: true,
+                contentId: "post-content",
+            });
+        });
+    </script>
+
+
+    
+    
+    <!--kill ie6 -->
+<!--[if IE 6]>
+  <script src="//letskillie6.googlecode.com/svn/trunk/2/zh_CN.js"></script>
+<![endif]-->
+
+</body>
+</html>
