@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+
+    
+
+    <title>
+      React学习笔记（一） | junz91 
+    </title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    
+      <meta name="author" content="Jun Zhao">
+    
+    
+
+    <meta name="description" content="开始是去看一些视频想入门一下，发现好多视频都很发散，讲React不够透彻清晰，后来还是发现了阮大神的React笔记，写得不错！">
+<meta property="og:type" content="article">
+<meta property="og:title" content="React学习笔记（一） | junz91">
+<meta property="og:url" content="http://yoursite.com/2016/05/05/React学习笔记（一）/index.html">
+<meta property="og:site_name" content="junz91">
+<meta property="og:description" content="开始是去看一些视频想入门一下，发现好多视频都很发散，讲React不够透彻清晰，后来还是发现了阮大神的React笔记，写得不错！">
+<meta property="og:image" content="http://yoursite.com/../../../../images/hook_functions.png">
+<meta property="og:updated_time" content="2016-05-06T12:00:04.817Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="React学习笔记（一） | junz91">
+<meta name="twitter:description" content="开始是去看一些视频想入门一下，发现好多视频都很发散，讲React不够透彻清晰，后来还是发现了阮大神的React笔记，写得不错！">
+<meta name="twitter:image" content="http://yoursite.com/../../../../images/hook_functions.png">
+    
+    
+    
+      <link rel="icon" type="image/x-icon" href="/favicon.png">
+    
+    <link rel="stylesheet" href="/css/uno.css">
+    <link rel="stylesheet" href="/css/highlight.css">
+    <link rel="stylesheet" href="/css/archive.css">
+    <link rel="stylesheet" href="/css/china-social-icon.css">
+
+</head>
+<body>
+
+    <span class="mobile btn-mobile-menu">
+        <i class="icon icon-list btn-mobile-menu__icon"></i>
+        <i class="icon icon-x-circle btn-mobile-close__icon hidden"></i>
+    </span>
+
+    
+
+<header class="panel-cover panel-cover--collapsed">
+
+
+  <div class="panel-main">
+
+  
+    <div class="panel-main__inner panel-inverted">
+    <div class="panel-main__content">
+
+        
+
+        <h1 class="panel-cover__title panel-title"><a href="/" title="link to homepage">junz91</a></h1>
+        <hr class="panel-cover__divider" />
+
+        
+
+        <div class="navigation-wrapper">
+
+          <nav class="cover-navigation cover-navigation--primary">
+            <ul class="navigation">
+
+              
+                
+                <li class="navigation__item"><a href="/#blog" title="" class="blog-button">首页</a></li>
+              
+                
+                <li class="navigation__item"><a href="/photo" title="" class="">摄影</a></li>
+              
+                
+                <li class="navigation__item"><a href="/archive" title="" class="">归档</a></li>
+              
+
+            </ul>
+          </nav>
+
+          <!-- ----------------------------
+To add a new social icon simply duplicate one of the list items from below
+and change the class in the <i> tag to match the desired social network
+and then add your link to the <a>. Here is a full list of social network
+classes that you can use:
+
+    icon-social-500px
+    icon-social-behance
+    icon-social-delicious
+    icon-social-designer-news
+    icon-social-deviant-art
+    icon-social-digg
+    icon-social-dribbble
+    icon-social-facebook
+    icon-social-flickr
+    icon-social-forrst
+    icon-social-foursquare
+    icon-social-github
+    icon-social-google-plus
+    icon-social-hi5
+    icon-social-instagram
+    icon-social-lastfm
+    icon-social-linkedin
+    icon-social-medium
+    icon-social-myspace
+    icon-social-path
+    icon-social-pinterest
+    icon-social-rdio
+    icon-social-reddit
+    icon-social-skype
+    icon-social-spotify
+    icon-social-stack-overflow
+    icon-social-steam
+    icon-social-stumbleupon
+    icon-social-treehouse
+    icon-social-tumblr
+    icon-social-twitter
+    icon-social-vimeo
+    icon-social-xbox
+    icon-social-yelp
+    icon-social-youtube
+    icon-social-zerply
+    icon-mail
+
+-------------------------------->
+
+<!-- add social info here -->
+
+
+
+        </div>
+
+      </div>
+
+    </div>
+
+    <div class="panel-cover--overlay"></div>
+  </div>
+</header>
+
+    <div class="content-wrapper">
+        <div class="content-wrapper__inner entry">
+            
+
+<article class="post-container post-container--single">
+
+  <header class="post-header">
+    
+    <h1 class="post-title">React学习笔记（一）</h1>
+
+    
+
+    <div class="post-meta">
+      <time datetime="2016-05-05" class="post-meta__date date">2016-05-05</time> 
+
+      <span class="post-meta__tags tags">
+
+          
+
+          
+             &#8226; 标签:
+            <font class="tags">
+              <a class="tags-link" href="/tags/React/">React</a>
+            </font>
+          
+
+      </span>
+    </div>
+    
+    
+
+  </header>
+
+  <section id="post-content" class="article-content post">
+    <p>开始是去看一些视频想入门一下，发现好多视频都很发散，讲React不够透彻清晰，后来还是发现了<a href="http://www.ruanyifeng.com/blog/2015/03/react.html" target="_blank" rel="external">阮大神的React笔记</a>，写得不错！</p>
+<a id="more"></a>
+<h2 id="一、简介"><a href="#一、简介" class="headerlink" title="一、简介"></a>一、简介</h2><p>React在2013年的F8大会上提出，它不是一个完整的MVC，MVVM框架，解决了Angular性能不高，封装复杂不利于重用等问题。React的特点就是轻，快速，组件化开发，它的部分使用场景如下：</p>
+<ul>
+<li>复杂场景下的高性能；</li>
+<li>重用组件库，组件组合；</li>
+<li>write less，do more；</li>
+</ul>
+<h3 id="React-15"><a href="#React-15" class="headerlink" title="React 15"></a>React 15</h3><p>2016年4月，<a href="https://facebook.github.io/react/blog/2016/04/07/react-v15.html" target="_blank" rel="external">React v15.0</a>正式发布，版本号从0.14直接跳到15，表示React已经开发了很久，也就是说更成熟更强大了。值得注意的是，v15版本不再积极支持IE8。新版本在DOM交互上带来了重大改进：</p>
+<blockquote>
+<ul>
+<li>安装组件（mounting components）时使用<code>document.createElement</code>，而不是修改<code>innerHTML</code>，这将使得我们不用为每个节点都设置<code>data-reactid</code>，让DOM更轻巧了。</li>
+<li>提供了对SVG的完整支持；</li>
+<li>修复了React会额外输出<code>&lt;span&gt;</code>标签的bug；</li>
+<li>使用注释节点来渲染 null，功能组件也能够返回null了；</li>
+<li></li>
+</ul>
+</blockquote>
+<h3 id="JSX"><a href="#JSX" class="headerlink" title="JSX"></a>JSX</h3><p>JSX全称 JavaScript XML，是一种类 XML 语言，它没有修改 JavaScript 语义。虽然使用React不是必须使用JSX，但是官方更推荐使用，因为它能定义简洁且我们熟知的包含属性的树状结构语法。<br>React可以渲染<strong>HTML标签</strong>(strings)或<strong>React组件</strong>(classes)，示例如下：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*要渲染HTML标签，只需在JSX里使用小写字母开头的标签名*/</span></span><br><span class="line"><span class="keyword">var</span> myDivElement = &lt;div className="foo" /&gt;;</span><br><span class="line">React.render(myDivElement, document.body);</span><br><span class="line"></span><br><span class="line">/*要渲染 React 组件，只需创建一个大写字母开头的本地变量。*/</span><br><span class="line">var MyComponent = React.createClass(&#123;/*...*/&#125;);</span><br><span class="line">var myElement = &lt;MyComponent someProperty=&#123;true&#125; /&gt;;</span><br><span class="line">React.render(myElement, document.body);</span><br></pre></td></tr></table></figure></p>
+<p>React 的 JSX 里约定分别使用首字母大、小写来区分本地组件的类和 HTML 标签。</p>
+<blockquote>
+<p><strong>注意:</strong><br>由于 JSX 就是 JavaScript，一些标识符像 <code>class</code> 和 <code>for</code> 不建议作为 XML 属性名。作为替代，React DOM 使用 <code>className</code> 和 <code>htmlFor</code> 来做对应的属性。</p>
+</blockquote>
+<h3 id="React组件"><a href="#React组件" class="headerlink" title="React组件"></a>React组件</h3><p>组件是React的核心，组件的设计目的在于提高代码复用率，降低测试难度和代码复杂度。<br>一个React组件在生命周期内有三个状态：</p>
+<ol>
+<li><strong>Mounted</strong>：装载，表示React组件被解析成对应的DOM节点，并被插入DOM树中；</li>
+<li><strong>Update</strong>：更新，表示已装载的组件被重新渲染的过程，一般被<code>setState()</code>和<code>setProps()</code>触发；</li>
+<li><strong>Unmounted</strong>：卸载，DOM节点被销毁；</li>
+</ol>
+<p>三个状态中可以使用的hook函数如下：<br><img src="../../../../images/hook_functions.png" alt="enter description here"></p>
+<h2 id="二、第一个React应用"><a href="#二、第一个React应用" class="headerlink" title="二、第一个React应用"></a>二、第一个React应用</h2><p>刚学习React真是千头万绪，还是从经典的Hello World开始吧，在此之前先看一下React应用的大致HTML结构：<br><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE html&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">    <span class="comment">&lt;!--React 的核心库--&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">"../build/react.js"</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line">    <span class="comment">&lt;!--提供与 DOM 相关的功能--&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">"../build/react-dom.js"</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line">    <span class="comment">&lt;!--Browser.js 的作用是将 JSX 语法转为 JavaScript 语法--&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">"../build/browser.min.js"</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">"example"</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="comment">&lt;!--JSX语法跟 JavaScript 不兼容。凡是使用 JSX 的地方，都要加上 type="text/babel"--&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">script</span> <span class="attr">type</span>=<span class="string">"text/babel"</span>&gt;</span><span class="javascript"></span><br><span class="line">      <span class="comment">// ** Our code here! **</span></span><br><span class="line">    </span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<p>要实现Hello World只需在Our code here处加入以下代码：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">ReactDOM.render(</span><br><span class="line">    <span class="xml"><span class="tag">&lt;<span class="name">h1</span>&gt;</span>Hello, world!<span class="tag">&lt;/<span class="name">h1</span>&gt;</span></span>,</span><br><span class="line">    <span class="built_in">document</span>.getElementById(<span class="string">'example'</span>)</span><br><span class="line">);</span><br></pre></td></tr></table></figure></p>
+<p><code>ReactDOM.render()</code>是最基本的方法，用于将模板转为HTML语言，并插入指定的DOM节点。第一个参数就是模板（虽然长得很像DOM标签，但时刻记住它不是真正的DOM标签），第二个表示要插入的位置（在指定位置内插入模板渲染后的节点）。结合JSX，我们还可以轻易实现DOM节点的循环生成：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> names = [<span class="string">'Alice'</span>, <span class="string">'Emily'</span>, <span class="string">'Kate'</span>];</span><br><span class="line"></span><br><span class="line">ReactDOM.render(</span><br><span class="line">  <span class="xml"><span class="tag">&lt;<span class="name">div</span>&gt;</span>  </span><br><span class="line">  &#123;  //JSX遇到"&#123;"开头就用JavaScript的规则解析</span><br><span class="line">    names.map(function (name) &#123;  //遇到"<span class="tag">&lt;<span class="name">"开头就用HTML规则解析</span></span><br><span class="line">      <span class="attr">return</span> &lt;<span class="attr">div</span>&gt;</span>Hello, &#123;name&#125;!<span class="tag">&lt;/<span class="name">div</span>&gt;</span> </span><br><span class="line">    &#125;)</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span>,</span><br><span class="line">  <span class="built_in">document</span>.getElementById(<span class="string">'example'</span>)</span><br><span class="line">);</span><br></pre></td></tr></table></figure></p>
+<h2 id="三、-组件"><a href="#三、-组件" class="headerlink" title="三、 组件"></a>三、 组件</h2><p>组件（component）是React实现模块化的关键，我们可以像插入普通HTML标签一样插入一个组件。<code>React.createClass</code>用于创建一个组件类：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//组件类必须以大写字母开头</span></span><br><span class="line"><span class="keyword">var</span> HelloMessage = React.createClass(&#123;</span><br><span class="line">  render: <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;  <span class="comment">//render方法用于输出组件，不可缺省</span></span><br><span class="line">    <span class="keyword">return</span> <span class="xml"><span class="tag">&lt;<span class="name">h1</span>&gt;</span>Hello &#123;this.props.name&#125;<span class="tag">&lt;/<span class="name">h1</span>&gt;</span></span>;</span><br><span class="line">&#125;</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">ReactDOM.render(</span><br><span class="line">  <span class="comment">//此处会自动生成一个HelloMessage的实例</span></span><br><span class="line">  &lt;HelloMessage name=<span class="string">"John"</span> /&gt;,</span><br><span class="line">  <span class="built_in">document</span>.getElementById(<span class="string">'example'</span>)</span><br><span class="line">);</span><br></pre></td></tr></table></figure></p>
+<p>React组件输出多个标签时需要用一个顶层标签（比如div）包裹，否则会报错。组件的属性可以在组件类的<code>this.props</code>对象上获取。组件属性中有一个特别的对象：<code>this.props.children</code>。这个对象用于获取组件的所有子节点：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> NotesList = React.createClass(&#123;</span><br><span class="line">  render: <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> (</span><br><span class="line">      <span class="xml"><span class="tag">&lt;<span class="name">ol</span>&gt;</span></span><br><span class="line">      &#123;</span><br><span class="line">        React.Children.map(this.props.children, function (child) &#123;</span><br><span class="line">          return <span class="tag">&lt;<span class="name">li</span>&gt;</span>&#123;child&#125;<span class="tag">&lt;/<span class="name">li</span>&gt;</span>;</span><br><span class="line">        &#125;)</span><br><span class="line">      &#125;</span><br><span class="line">      <span class="tag">&lt;/<span class="name">ol</span>&gt;</span></span></span><br><span class="line">    );</span><br><span class="line">  &#125;</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">ReactDOM.render(</span><br><span class="line">  <span class="xml"><span class="tag">&lt;<span class="name">NotesList</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">span</span>&gt;</span>hello<span class="tag">&lt;/<span class="name">span</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">span</span>&gt;</span>world<span class="tag">&lt;/<span class="name">span</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">NotesList</span>&gt;</span></span>,</span><br><span class="line">  <span class="built_in">document</span>.body</span><br><span class="line">);</span><br></pre></td></tr></table></figure></p>
+<p>渲染的结果是：<br><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">"example"</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">ol</span> <span class="attr">data-reactroot</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">li</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">span</span>&gt;</span>hello<span class="tag">&lt;/<span class="name">span</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">li</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">span</span>&gt;</span>world<span class="tag">&lt;/<span class="name">span</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">ol</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<p>React 提供一个工具方法 <code>React.Children</code> 来处理 <code>this.props.children</code>。我们可以用 <code>React.Children.map</code> 来遍历子节点。React.Children主要有map、forEach、count、only和toArray方法。</p>
+
+  </section>
+
+  
+  
+
+<section class="post-comments">
+
+    <div class="ds-thread" data-thread-key="2016/05/05/React学习笔记（一）/"></div>
+
+    <script type="text/javascript">
+      var duoshuoQuery = {short_name:"junz91"};
+      (function() {
+        var ds = document.createElement('script');
+        ds.type = 'text/javascript';ds.async = true;
+        ds.src = '//static.duoshuo.com/embed.js';
+        ds.charset = 'UTF-8';
+        (document.getElementsByTagName('head')[0] 
+        || document.getElementsByTagName('body')[0]).appendChild(ds);
+      })();
+    </script> 
+
+</section>
+
+
+</article>
+
+
+            <footer class="footer">
+
+    <span class="footer__copyright">&copy; 2014-2015. | 由<a href="https://hexo.io/">Hexo</a>强力驱动 | 主题<a href="https://github.com/someus/huno">Huno</a></span>
+    
+</footer>
+        </div>
+    </div>
+
+    <!-- js files -->
+    <script src="/js/jquery.min.js"></script>
+    <script src="/js/main.js"></script>
+    <script src="/js/scale.fix.js"></script>
+    
+
+    
+    
+
+    <script src="/js/awesome-toc.min.js"></script>
+    <script>
+        $(document).ready(function(){
+            $.awesome_toc({
+                overlay: true,
+                contentId: "post-content",
+            });
+        });
+    </script>
+
+
+    
+    
+    <!--kill ie6 -->
+<!--[if IE 6]>
+  <script src="//letskillie6.googlecode.com/svn/trunk/2/zh_CN.js"></script>
+<![endif]-->
+
+</body>
+</html>

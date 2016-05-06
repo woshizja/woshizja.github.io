@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+
+    
+
+    <title>
+      React的diff算法（翻译） | junz91 
+    </title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    
+      <meta name="author" content="Jun Zhao">
+    
+    
+
+    <meta name="description" content="React的diff算法可以将虚拟DOM的变化反应到真实DOM上，这是React实现高性能的关键之一。原文">
+<meta property="og:type" content="article">
+<meta property="og:title" content="React的diff算法（翻译） | junz91">
+<meta property="og:url" content="http://yoursite.com/2016/05/06/React的diff算法（翻译）/index.html">
+<meta property="og:site_name" content="junz91">
+<meta property="og:description" content="React的diff算法可以将虚拟DOM的变化反应到真实DOM上，这是React实现高性能的关键之一。原文">
+<meta property="og:image" content="http://calendar.perfplanet.com/wp-content/uploads/2013/12/vjeux/1.png">
+<meta property="og:image" content="http://calendar.perfplanet.com/wp-content/uploads/2013/12/vjeux/2.png">
+<meta property="og:image" content="http://calendar.perfplanet.com/wp-content/uploads/2013/12/vjeux/3.png">
+<meta property="og:image" content="http://calendar.perfplanet.com/wp-content/uploads/2013/12/vjeux/4.png">
+<meta property="og:image" content="http://calendar.perfplanet.com/wp-content/uploads/2013/12/vjeux/5.png">
+<meta property="og:image" content="http://calendar.perfplanet.com/wp-content/uploads/2013/12/vjeux/6.png">
+<meta property="og:updated_time" content="2016-05-06T11:56:35.746Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="React的diff算法（翻译） | junz91">
+<meta name="twitter:description" content="React的diff算法可以将虚拟DOM的变化反应到真实DOM上，这是React实现高性能的关键之一。原文">
+<meta name="twitter:image" content="http://calendar.perfplanet.com/wp-content/uploads/2013/12/vjeux/1.png">
+    
+    
+    
+      <link rel="icon" type="image/x-icon" href="/favicon.png">
+    
+    <link rel="stylesheet" href="/css/uno.css">
+    <link rel="stylesheet" href="/css/highlight.css">
+    <link rel="stylesheet" href="/css/archive.css">
+    <link rel="stylesheet" href="/css/china-social-icon.css">
+
+</head>
+<body>
+
+    <span class="mobile btn-mobile-menu">
+        <i class="icon icon-list btn-mobile-menu__icon"></i>
+        <i class="icon icon-x-circle btn-mobile-close__icon hidden"></i>
+    </span>
+
+    
+
+<header class="panel-cover panel-cover--collapsed">
+
+
+  <div class="panel-main">
+
+  
+    <div class="panel-main__inner panel-inverted">
+    <div class="panel-main__content">
+
+        
+
+        <h1 class="panel-cover__title panel-title"><a href="/" title="link to homepage">junz91</a></h1>
+        <hr class="panel-cover__divider" />
+
+        
+
+        <div class="navigation-wrapper">
+
+          <nav class="cover-navigation cover-navigation--primary">
+            <ul class="navigation">
+
+              
+                
+                <li class="navigation__item"><a href="/#blog" title="" class="blog-button">首页</a></li>
+              
+                
+                <li class="navigation__item"><a href="/photo" title="" class="">摄影</a></li>
+              
+                
+                <li class="navigation__item"><a href="/archive" title="" class="">归档</a></li>
+              
+
+            </ul>
+          </nav>
+
+          <!-- ----------------------------
+To add a new social icon simply duplicate one of the list items from below
+and change the class in the <i> tag to match the desired social network
+and then add your link to the <a>. Here is a full list of social network
+classes that you can use:
+
+    icon-social-500px
+    icon-social-behance
+    icon-social-delicious
+    icon-social-designer-news
+    icon-social-deviant-art
+    icon-social-digg
+    icon-social-dribbble
+    icon-social-facebook
+    icon-social-flickr
+    icon-social-forrst
+    icon-social-foursquare
+    icon-social-github
+    icon-social-google-plus
+    icon-social-hi5
+    icon-social-instagram
+    icon-social-lastfm
+    icon-social-linkedin
+    icon-social-medium
+    icon-social-myspace
+    icon-social-path
+    icon-social-pinterest
+    icon-social-rdio
+    icon-social-reddit
+    icon-social-skype
+    icon-social-spotify
+    icon-social-stack-overflow
+    icon-social-steam
+    icon-social-stumbleupon
+    icon-social-treehouse
+    icon-social-tumblr
+    icon-social-twitter
+    icon-social-vimeo
+    icon-social-xbox
+    icon-social-yelp
+    icon-social-youtube
+    icon-social-zerply
+    icon-mail
+
+-------------------------------->
+
+<!-- add social info here -->
+
+
+
+        </div>
+
+      </div>
+
+    </div>
+
+    <div class="panel-cover--overlay"></div>
+  </div>
+</header>
+
+    <div class="content-wrapper">
+        <div class="content-wrapper__inner entry">
+            
+
+<article class="post-container post-container--single">
+
+  <header class="post-header">
+    
+    <h1 class="post-title">React的diff算法（翻译）</h1>
+
+    
+
+    <div class="post-meta">
+      <time datetime="2016-05-06" class="post-meta__date date">2016-05-06</time> 
+
+      <span class="post-meta__tags tags">
+
+          
+
+          
+             &#8226; 标签:
+            <font class="tags">
+              <a class="tags-link" href="/tags/React/">React</a>
+            </font>
+          
+
+      </span>
+    </div>
+    
+    
+
+  </header>
+
+  <section id="post-content" class="article-content post">
+    <p>React的diff算法可以将虚拟DOM的变化反应到真实DOM上，这是React实现高性能的关键之一。<br><em><a href="http://calendar.perfplanet.com/2013/diff/" target="_blank" rel="external">原文</a></em><br><a id="more"></a></p>
+<h2 id="一、Diff-Algorithm"><a href="#一、Diff-Algorithm" class="headerlink" title="一、Diff Algorithm"></a>一、Diff Algorithm</h2><p>首先来看看使用React建立节点的大致模型：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> MyComponent = React.createClass(&#123; </span><br><span class="line">  render: <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123; </span><br><span class="line">    <span class="keyword">if</span> (<span class="keyword">this</span>.props.first) &#123; </span><br><span class="line">      <span class="keyword">return</span> <span class="xml"><span class="tag">&lt;<span class="name">div</span> <span class="attr">className</span>=<span class="string">"first"</span>&gt;</span><span class="tag">&lt;<span class="name">span</span>&gt;</span>A Span<span class="tag">&lt;/<span class="name">span</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span>; </span><br><span class="line">    &#125; <span class="keyword">else</span> &#123; </span><br><span class="line">      <span class="keyword">return</span> <span class="xml"><span class="tag">&lt;<span class="name">div</span> <span class="attr">className</span>=<span class="string">"second"</span>&gt;</span><span class="tag">&lt;<span class="name">p</span>&gt;</span>A Paragraph<span class="tag">&lt;/<span class="name">p</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span>; </span><br><span class="line">    &#125; </span><br><span class="line">  &#125; </span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure></p>
+<p>render返回的结果并不是真实的DOM节点，它们只是轻量的JavaScript对象，叫做<strong>虚拟DOM</strong>。React要做的事就是找到从一种状态向另一种状态转化的最佳方式，比如我们先挂载了<code>&lt;MyComponent first={true} /&gt;</code>，然后我们使用<code>&lt;MyComponent first={false} /&gt;</code>来替换它，最后再卸载，以下是React操作的大致步骤：</p>
+<blockquote>
+<p><strong>挂载</strong></p>
+<ul>
+<li>创建节点：<code>&lt;div className=&quot;first&quot;&gt;&lt;span&gt;A Span&lt;/span&gt;&lt;/div&gt;</code>；</li>
+</ul>
+<p><strong>替换</strong></p>
+<ul>
+<li>替换属性：<code>className=&quot;first&quot;</code> 变成 <code>className=&quot;second&quot;</code>；</li>
+<li>替换节点：<code>&lt;span&gt;A Span&lt;/span&gt;</code>变成<code>&lt;p&gt;A Paragraph&lt;/p&gt;</code>；</li>
+</ul>
+<p><strong>卸载</strong></p>
+<ul>
+<li>移除节点：<code>&lt;div className=&quot;second&quot;&gt;&lt;p&gt;A Paragraph&lt;/p&gt;&lt;/div&gt;</code>；</li>
+</ul>
+</blockquote>
+<h3 id="Level-by-Level"><a href="#Level-by-Level" class="headerlink" title="Level by Level"></a>Level by Level</h3><p>找到React节点从一个状态转换为另一个状态时所需的最少修改步骤数，是一个O(n^3)复杂度的问题。React使用了一种简单但是强大的启发式算法来解决这个问题，将复杂度很好的控制在O(n)。<br>React调节DOM树是层级式的调整策略（Level by Level），这种方式大大地减少了复杂度，但同时不适用于DOM树节点之间发生层级变换的情况。React之所以这么做是基于：绝大部分时候组件之间只是在同一层级上横向移动，很少会发生层级间的变换。<br><img src="http://calendar.perfplanet.com/wp-content/uploads/2013/12/vjeux/1.png" alt="enter description here"></p>
+<h3 id="List"><a href="#List" class="headerlink" title="List"></a>List</h3><p>假设我们有一个组件需要渲染五个其它组件，每插入一个组件都是在组件列表的中间。如此想要找到两个组件列表之间的映射关系是很难的。React默认是把前一个组件列表和组件和后一个组件列表的组件一一对应，第一个组件对应第一个，第二个对应第二个等。当然你也可以使用key属性来控制列表组件之间的对应关系。<br><img src="http://calendar.perfplanet.com/wp-content/uploads/2013/12/vjeux/2.png" alt="enter description here"></p>
+<h3 id="Components"><a href="#Components" class="headerlink" title="Components"></a>Components</h3><p>一个React应用通常由很多用户自定义的组件组合而成，这些组件一般都包含了很多<code>div</code>。React的diff算法只会作用在相同类型的组件之间，比如使用<code>&lt;Header&gt;</code>替换<code>&lt;ExampleBlock&gt;</code>时，React会直接移除原有的元素，然后用新的元素代替。<br><img src="http://calendar.perfplanet.com/wp-content/uploads/2013/12/vjeux/3.png" alt="enter description here"></p>
+<h2 id="二、Event-Delegation"><a href="#二、Event-Delegation" class="headerlink" title="二、Event Delegation"></a>二、Event Delegation</h2><p>将事件监听器附着在每一个DOM节点上是非常消耗资源的，React使用<strong>事件代理</strong>机制来提高性能，实际上React几乎重新实现了一个符合W3C标准的事件代理机制（这提高了浏览器兼容度）。为了使得事件在DOM层级之间传播，React利用了组件很重要的一条性质——每个组件都有一个独一无二的id。<br>React将组件ID散列，然后与事件监听器一一对应，形成一个<strong>哈希表</strong>，当一个组件的事件被触发时，React可以很快的找到对应的事件处理程序。这样的方式比直接把事件附着在虚拟DOM上要高效许多。<br>找到对应的事件处理程序之后再根据<code>event</code>对象的属性来决定执行的细节，完成整个事件代理机制。此外React在启动时建立了一个<strong>事件对象池</strong>，每当一个事件被触发时React都会从这个池子中重用内存，这样的方式大幅地减少了触发JavaScript引擎垃圾回收的次数。</p>
+<h2 id="三、Rendering"><a href="#三、Rendering" class="headerlink" title="三、Rendering"></a>三、Rendering</h2><h3 id="Batching"><a href="#Batching" class="headerlink" title="Batching"></a>Batching</h3><p>在一个组件上使用<code>setState</code>时，这个组件会被标记为”<strong>dirty</strong>“，在事件循环的最后React会重新渲染这些有dirty标记的组件。批处理意味着在一次事件循环中只进行一次组件更新，这是构件高性能应用的关键之一，这种机制用JavaScript实现比较麻烦，但是在React中这是默认的机制。<br><img src="http://calendar.perfplanet.com/wp-content/uploads/2013/12/vjeux/4.png" alt="enter description here"></p>
+<h3 id="Sub-tree-Rendering"><a href="#Sub-tree-Rendering" class="headerlink" title="Sub-tree Rendering"></a>Sub-tree Rendering</h3><p>当<code>setState()</code>被调用时，React会重新构建虚拟DOM的子树，如果你是在根节点调用的，那么这会导致整个DOM被重新渲染。这听起来很不合理，也很不高效，但实际上这不会太影响性能，因为React并没有去改变真正的DOM结构。<br>首先，JavaScript在操纵DOM元素方面是非常快速的，一般都能满足我们的业务逻辑。在React中开发者不会每次一有数据变换就在根节点上调用<code>setState</code>，而是仅在组件收到数据改变事件时才重新<code>setState</code>。这意味着会被定位在触发的地方，很少会一直传播到根节点。<br><img src="http://calendar.perfplanet.com/wp-content/uploads/2013/12/vjeux/5.png" alt="enter description here"></p>
+<h3 id="Selective-Sub-tree-Rendering"><a href="#Selective-Sub-tree-Rendering" class="headerlink" title="Selective Sub-tree Rendering"></a>Selective Sub-tree Rendering</h3><p>现在到了关键的地方，React提供一个函数给开发者来自定义一个组件是否应该被重新渲染：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">boolean shouldComponentUpdate(object nextProps, object nextState)</span><br><span class="line"></span><br><span class="line"><span class="comment">//使用方式</span></span><br><span class="line">shouldComponentUpdate: <span class="function"><span class="keyword">function</span>(<span class="params">nextProps, nextState</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="keyword">this</span>.props.value !== nextProps.value;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p><code>shouldComponentUpdate</code>返回true时执行更新，否则不更新。实际中，状态发生改变可能是频繁的，这就要求我们的判别函数要足够快速，特别是我们的状态是一个很大的对象时。<br><img src="http://calendar.perfplanet.com/wp-content/uploads/2013/12/vjeux/6.png" alt="enter description here"></p>
+<h2 id="四、Conclusion"><a href="#四、Conclusion" class="headerlink" title="四、Conclusion"></a>四、Conclusion</h2><p>使得React高效的技术并不是首次出现，比如我们早已知道操纵真实DOM会非常耗费时间，分批读写属性更高效，事件委托技术等等。<br>React优秀的原因之一便是集成并很好的实现了包括但不限于上述的技术，这让你的应用想变慢都难！<br>总结起来React的性能耗费模型也是很简单的：<code>setState</code>会导致节点的子树被重新渲染，如果想要获得高性能表现，你需要做的是尽量低频地调用setState，并且使用<code>shouldComponentUpdate</code>来阻止某些不必要的重新渲染。</p>
+
+  </section>
+
+  
+  
+
+<section class="post-comments">
+
+    <div class="ds-thread" data-thread-key="2016/05/06/React的diff算法（翻译）/"></div>
+
+    <script type="text/javascript">
+      var duoshuoQuery = {short_name:"junz91"};
+      (function() {
+        var ds = document.createElement('script');
+        ds.type = 'text/javascript';ds.async = true;
+        ds.src = '//static.duoshuo.com/embed.js';
+        ds.charset = 'UTF-8';
+        (document.getElementsByTagName('head')[0] 
+        || document.getElementsByTagName('body')[0]).appendChild(ds);
+      })();
+    </script> 
+
+</section>
+
+
+</article>
+
+
+            <footer class="footer">
+
+    <span class="footer__copyright">&copy; 2014-2015. | 由<a href="https://hexo.io/">Hexo</a>强力驱动 | 主题<a href="https://github.com/someus/huno">Huno</a></span>
+    
+</footer>
+        </div>
+    </div>
+
+    <!-- js files -->
+    <script src="/js/jquery.min.js"></script>
+    <script src="/js/main.js"></script>
+    <script src="/js/scale.fix.js"></script>
+    
+
+    
+    
+
+    <script src="/js/awesome-toc.min.js"></script>
+    <script>
+        $(document).ready(function(){
+            $.awesome_toc({
+                overlay: true,
+                contentId: "post-content",
+            });
+        });
+    </script>
+
+
+    
+    
+    <!--kill ie6 -->
+<!--[if IE 6]>
+  <script src="//letskillie6.googlecode.com/svn/trunk/2/zh_CN.js"></script>
+<![endif]-->
+
+</body>
+</html>
