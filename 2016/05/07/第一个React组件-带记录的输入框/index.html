@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+
+    
+
+    <title>
+      第一个React组件-带记录的输入框 | junz91 
+    </title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    
+      <meta name="author" content="Jun Zhao">
+    
+    
+
+    <meta name="description" content="试着写的第一个React组件，仿百度地图的样式，数据用localStorage存储。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="第一个React组件-带记录的输入框 | junz91">
+<meta property="og:url" content="http://yoursite.com/2016/05/07/第一个React组件-带记录的输入框/index.html">
+<meta property="og:site_name" content="junz91">
+<meta property="og:description" content="试着写的第一个React组件，仿百度地图的样式，数据用localStorage存储。">
+<meta property="og:updated_time" content="2016-05-07T10:42:32.276Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="第一个React组件-带记录的输入框 | junz91">
+<meta name="twitter:description" content="试着写的第一个React组件，仿百度地图的样式，数据用localStorage存储。">
+    
+    
+    
+      <link rel="icon" type="image/x-icon" href="/favicon.png">
+    
+    <link rel="stylesheet" href="/css/uno.css">
+    <link rel="stylesheet" href="/css/highlight.css">
+    <link rel="stylesheet" href="/css/archive.css">
+    <link rel="stylesheet" href="/css/china-social-icon.css">
+
+</head>
+<body>
+
+    <span class="mobile btn-mobile-menu">
+        <i class="icon icon-list btn-mobile-menu__icon"></i>
+        <i class="icon icon-x-circle btn-mobile-close__icon hidden"></i>
+    </span>
+
+    
+
+<header class="panel-cover panel-cover--collapsed">
+
+
+  <div class="panel-main">
+
+  
+    <div class="panel-main__inner panel-inverted">
+    <div class="panel-main__content">
+
+        
+
+        <h1 class="panel-cover__title panel-title"><a href="/" title="link to homepage">junz91</a></h1>
+        <hr class="panel-cover__divider" />
+
+        
+
+        <div class="navigation-wrapper">
+
+          <nav class="cover-navigation cover-navigation--primary">
+            <ul class="navigation">
+
+              
+                
+                <li class="navigation__item"><a href="/#blog" title="" class="blog-button">首页</a></li>
+              
+                
+                <li class="navigation__item"><a href="/photo" title="" class="">摄影</a></li>
+              
+                
+                <li class="navigation__item"><a href="/archive" title="" class="">归档</a></li>
+              
+
+            </ul>
+          </nav>
+
+          <!-- ----------------------------
+To add a new social icon simply duplicate one of the list items from below
+and change the class in the <i> tag to match the desired social network
+and then add your link to the <a>. Here is a full list of social network
+classes that you can use:
+
+    icon-social-500px
+    icon-social-behance
+    icon-social-delicious
+    icon-social-designer-news
+    icon-social-deviant-art
+    icon-social-digg
+    icon-social-dribbble
+    icon-social-facebook
+    icon-social-flickr
+    icon-social-forrst
+    icon-social-foursquare
+    icon-social-github
+    icon-social-google-plus
+    icon-social-hi5
+    icon-social-instagram
+    icon-social-lastfm
+    icon-social-linkedin
+    icon-social-medium
+    icon-social-myspace
+    icon-social-path
+    icon-social-pinterest
+    icon-social-rdio
+    icon-social-reddit
+    icon-social-skype
+    icon-social-spotify
+    icon-social-stack-overflow
+    icon-social-steam
+    icon-social-stumbleupon
+    icon-social-treehouse
+    icon-social-tumblr
+    icon-social-twitter
+    icon-social-vimeo
+    icon-social-xbox
+    icon-social-yelp
+    icon-social-youtube
+    icon-social-zerply
+    icon-mail
+
+-------------------------------->
+
+<!-- add social info here -->
+
+
+
+        </div>
+
+      </div>
+
+    </div>
+
+    <div class="panel-cover--overlay"></div>
+  </div>
+</header>
+
+    <div class="content-wrapper">
+        <div class="content-wrapper__inner entry">
+            
+
+<article class="post-container post-container--single">
+
+  <header class="post-header">
+    
+    <h1 class="post-title">第一个React组件-带记录的输入框</h1>
+
+    
+
+    <div class="post-meta">
+      <time datetime="2016-05-07" class="post-meta__date date">2016-05-07</time> 
+
+      <span class="post-meta__tags tags">
+
+          
+
+          
+             &#8226; 标签:
+            <font class="tags">
+              <a class="tags-link" href="/tags/React/">React</a>
+            </font>
+          
+
+      </span>
+    </div>
+    
+    
+
+  </header>
+
+  <section id="post-content" class="article-content post">
+    <p>试着写的第一个React组件，仿百度地图的样式，数据用localStorage存储。</p>
+<a id="more"></a>
+<p>先看效果：</p>
+<iframe height="600" scrolling="no" src="//codepen.io/zhaojun/embed/qZgZmK/?height=600&theme-id=0&default-tab=result&embed-version=2" frameborder="no" allowtransparency="true" allowfullscreen="true" style="width: 100%;">See the Pen <a href="http://codepen.io/zhaojun/pen/qZgZmK/" target="_blank" rel="external">搜索框带历史记录</a> by zhaojun (<a href="http://codepen.io/zhaojun" target="_blank" rel="external">@zhaojun</a>) on <a href="http://codepen.io" target="_blank" rel="external">CodePen</a>.<br></iframe>
+
+<p>虚拟DOM的结构：<br><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">SearchComponent</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">className</span>=<span class="string">"search_div"</span>&gt;</span></span><br><span class="line">        <span class="comment">&lt;!--左div--&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">div</span> <span class="attr">className</span>=<span class="string">"left_div"</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"text"</span> <span class="attr">onFocus</span>=<span class="string">bound</span> <span class="attr">handleFocus</span>() <span class="attr">onBlur</span>=<span class="string">bound</span> <span class="attr">handleBlur</span>()/&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">ul</span>&gt;</span></span><br><span class="line">                <span class="comment">&lt;!--历史记录--&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">li</span>&gt;</span>记录<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">div</span>&gt;</span></span><br><span class="line">                    <span class="comment">&lt;!--删除按钮--&gt;</span></span><br><span class="line">                    <span class="tag">&lt;<span class="name">button</span> <span class="attr">onClick</span>=<span class="string">bound</span> <span class="attr">handleDelete</span>() </span><br><span class="line">                    <span class="attr">onMouseDown</span>=<span class="string">bound</span> <span class="attr">handleMouseDown</span>() </span><br><span class="line">                    <span class="attr">className</span>=<span class="string">"delete_btn"</span>&gt;</span>删除历史</span><br><span class="line">                    <span class="tag">&lt;/<span class="name">button</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;/<span class="name">ul</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">        <span class="comment">&lt;!--右div--&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">div</span> <span class="attr">className</span>=<span class="string">"right_div"</span>&gt;</span></span><br><span class="line">            <span class="comment">&lt;!--新增按钮--&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">button</span> <span class="attr">onClick</span>=<span class="string">bound</span> <span class="attr">handleAdd</span>() </span><br><span class="line">            <span class="attr">onMouseDown</span>=<span class="string">bound</span> <span class="attr">handleMouseDown</span>()&gt;</span></span><br><span class="line">            添加记录</span><br><span class="line">            <span class="tag">&lt;/<span class="name">button</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">SearchComponent</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<p>组件包括的成员：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br></pre></td><td class="code"><pre><span class="line">getStorage: <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123; <span class="comment">//用于获取localStorage</span></span><br><span class="line">	<span class="keyword">var</span> ls = [];</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">var</span> key <span class="keyword">in</span> localStorage) &#123;</span><br><span class="line">		ls.push(localStorage[key]);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> ls;</span><br><span class="line">&#125;,</span><br><span class="line">flag: <span class="literal">false</span>, <span class="comment">//控制历史记录的显示与隐藏</span></span><br><span class="line">getInitialState: <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123; <span class="comment">//初始化状态</span></span><br><span class="line">	<span class="keyword">return</span> &#123;</span><br><span class="line">		storage: <span class="keyword">this</span>.getStorage()</span><br><span class="line">	&#125;;</span><br><span class="line">&#125;,</span><br><span class="line">handleFocus: <span class="function"><span class="keyword">function</span>(<span class="params">event</span>) </span>&#123; <span class="comment">//显示历史记录</span></span><br><span class="line">	<span class="keyword">if</span> (<span class="keyword">this</span>.state.storage.length &gt; <span class="number">0</span>)</span><br><span class="line">		<span class="keyword">this</span>.refs.ul.style.display = <span class="string">"block"</span>;</span><br><span class="line">&#125;,</span><br><span class="line">handleBlur: <span class="function"><span class="keyword">function</span>(<span class="params">e</span>) </span>&#123; <span class="comment">//隐藏历史记录</span></span><br><span class="line">	<span class="keyword">if</span> (<span class="keyword">this</span>.flag) &#123; <span class="comment">//为了避免频繁切换显示与隐藏</span></span><br><span class="line">		<span class="keyword">this</span>.flag = <span class="literal">false</span>;</span><br><span class="line">		<span class="keyword">return</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">this</span>.refs.ul.style.display = <span class="string">"none"</span>;</span><br><span class="line">&#125;,</span><br><span class="line">handleDelete: <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123; <span class="comment">//删除所有历史记录</span></span><br><span class="line">	localStorage.clear();</span><br><span class="line">	<span class="keyword">this</span>.setState(&#123;</span><br><span class="line">		storage: []</span><br><span class="line">	&#125;);</span><br><span class="line">	<span class="keyword">this</span>.refs.ul.style.display = <span class="string">"none"</span>;</span><br><span class="line">&#125;,</span><br><span class="line">handleAdd: <span class="function"><span class="keyword">function</span>(<span class="params">e</span>) </span>&#123; <span class="comment">//添加一条历史记录</span></span><br><span class="line">	<span class="keyword">var</span> ls = <span class="keyword">this</span>.state.storage;</span><br><span class="line">	<span class="keyword">var</span> val = <span class="keyword">this</span>.refs.search.value;</span><br><span class="line">	<span class="keyword">this</span>.refs.search.value = <span class="string">""</span>;</span><br><span class="line">	<span class="keyword">this</span>.refs.search.focus();</span><br><span class="line">	<span class="keyword">if</span> (ls.indexOf(val) &gt; <span class="number">-1</span>) &#123;</span><br><span class="line">		<span class="keyword">return</span>; <span class="comment">//如果有则不重复添加</span></span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">if</span> (val) &#123;</span><br><span class="line">		<span class="keyword">var</span> t = (<span class="keyword">new</span> <span class="built_in">Date</span>()).getTime();</span><br><span class="line">		localStorage.setItem(t, val);</span><br><span class="line">		<span class="keyword">this</span>.setState(&#123;</span><br><span class="line">			storage: <span class="keyword">this</span>.getStorage()</span><br><span class="line">		&#125;);</span><br><span class="line">		<span class="keyword">this</span>.refs.ul.style.display = <span class="string">"block"</span>;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;,</span><br><span class="line">handleMouseDown: <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123; <span class="comment">//鼠标按下状态不隐藏历史记录</span></span><br><span class="line">	<span class="keyword">this</span>.flag = <span class="literal">true</span>;</span><br><span class="line">&#125;,</span><br><span class="line">handleSelecte: <span class="function"><span class="keyword">function</span>(<span class="params">VDOM</span>) </span>&#123; <span class="comment">//选中一条记录</span></span><br><span class="line">	<span class="keyword">this</span>.refs.search.value = VDOM.currentTarget.innerText;</span><br><span class="line">	<span class="keyword">this</span>.refs.ul.style.display = <span class="string">"none"</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p><strong>总结：</strong></p>
+<ul>
+<li>React偏重于View，组件内混合了数据模型和控制函数，耦合度高；</li>
+<li>React的思路是把一个组件看成一个独立完整的小模块，不同组件之间的耦合度低，但是内部由数据、函数和界面元素高度耦合而成的；</li>
+<li>个人觉得最好不要把样式写到组件内部，因为样式往往比较多，会让组件内部很混乱，而且内部写CSS样式的格式是不同于标准样式的；</li>
+<li>现在还不是很清楚不同组件组件之间如何有效通信，组件怎么暴露自己的API给外部。</li>
+</ul>
+
+  </section>
+
+  
+  
+
+<section class="post-comments">
+
+    <div class="ds-thread" data-thread-key="2016/05/07/第一个React组件-带记录的输入框/"></div>
+
+    <script type="text/javascript">
+      var duoshuoQuery = {short_name:"junz91"};
+      (function() {
+        var ds = document.createElement('script');
+        ds.type = 'text/javascript';ds.async = true;
+        ds.src = '//static.duoshuo.com/embed.js';
+        ds.charset = 'UTF-8';
+        (document.getElementsByTagName('head')[0] 
+        || document.getElementsByTagName('body')[0]).appendChild(ds);
+      })();
+    </script> 
+
+</section>
+
+
+</article>
+
+
+            <footer class="footer">
+
+    <span class="footer__copyright">&copy; 2014-2015. | 由<a href="https://hexo.io/">Hexo</a>强力驱动 | 主题<a href="https://github.com/someus/huno">Huno</a></span>
+    
+</footer>
+        </div>
+    </div>
+
+    <!-- js files -->
+    <script src="/js/jquery.min.js"></script>
+    <script src="/js/main.js"></script>
+    <script src="/js/scale.fix.js"></script>
+    
+
+    
+    
+
+    <script src="/js/awesome-toc.min.js"></script>
+    <script>
+        $(document).ready(function(){
+            $.awesome_toc({
+                overlay: true,
+                contentId: "post-content",
+            });
+        });
+    </script>
+
+
+    
+    
+    <!--kill ie6 -->
+<!--[if IE 6]>
+  <script src="//letskillie6.googlecode.com/svn/trunk/2/zh_CN.js"></script>
+<![endif]-->
+
+</body>
+</html>

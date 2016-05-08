@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+
+    
+
+    <title>
+      第二个React组件-评论框 | junz91 
+    </title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    
+      <meta name="author" content="Jun Zhao">
+    
+    
+
+    <meta name="description" content="自己实现的一个评论框，包含一个父组件和一个子组件，子组件通过调用父组件传递的函数来发送数据到父组件。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="第二个React组件-评论框 | junz91">
+<meta property="og:url" content="http://yoursite.com/2016/05/08/第二个React组件-评论框/index.html">
+<meta property="og:site_name" content="junz91">
+<meta property="og:description" content="自己实现的一个评论框，包含一个父组件和一个子组件，子组件通过调用父组件传递的函数来发送数据到父组件。">
+<meta property="og:updated_time" content="2016-05-08T14:33:49.641Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="第二个React组件-评论框 | junz91">
+<meta name="twitter:description" content="自己实现的一个评论框，包含一个父组件和一个子组件，子组件通过调用父组件传递的函数来发送数据到父组件。">
+    
+    
+    
+      <link rel="icon" type="image/x-icon" href="/favicon.png">
+    
+    <link rel="stylesheet" href="/css/uno.css">
+    <link rel="stylesheet" href="/css/highlight.css">
+    <link rel="stylesheet" href="/css/archive.css">
+    <link rel="stylesheet" href="/css/china-social-icon.css">
+
+</head>
+<body>
+
+    <span class="mobile btn-mobile-menu">
+        <i class="icon icon-list btn-mobile-menu__icon"></i>
+        <i class="icon icon-x-circle btn-mobile-close__icon hidden"></i>
+    </span>
+
+    
+
+<header class="panel-cover panel-cover--collapsed">
+
+
+  <div class="panel-main">
+
+  
+    <div class="panel-main__inner panel-inverted">
+    <div class="panel-main__content">
+
+        
+
+        <h1 class="panel-cover__title panel-title"><a href="/" title="link to homepage">junz91</a></h1>
+        <hr class="panel-cover__divider" />
+
+        
+
+        <div class="navigation-wrapper">
+
+          <nav class="cover-navigation cover-navigation--primary">
+            <ul class="navigation">
+
+              
+                
+                <li class="navigation__item"><a href="/#blog" title="" class="blog-button">首页</a></li>
+              
+                
+                <li class="navigation__item"><a href="/photo" title="" class="">摄影</a></li>
+              
+                
+                <li class="navigation__item"><a href="/archive" title="" class="">归档</a></li>
+              
+
+            </ul>
+          </nav>
+
+          <!-- ----------------------------
+To add a new social icon simply duplicate one of the list items from below
+and change the class in the <i> tag to match the desired social network
+and then add your link to the <a>. Here is a full list of social network
+classes that you can use:
+
+    icon-social-500px
+    icon-social-behance
+    icon-social-delicious
+    icon-social-designer-news
+    icon-social-deviant-art
+    icon-social-digg
+    icon-social-dribbble
+    icon-social-facebook
+    icon-social-flickr
+    icon-social-forrst
+    icon-social-foursquare
+    icon-social-github
+    icon-social-google-plus
+    icon-social-hi5
+    icon-social-instagram
+    icon-social-lastfm
+    icon-social-linkedin
+    icon-social-medium
+    icon-social-myspace
+    icon-social-path
+    icon-social-pinterest
+    icon-social-rdio
+    icon-social-reddit
+    icon-social-skype
+    icon-social-spotify
+    icon-social-stack-overflow
+    icon-social-steam
+    icon-social-stumbleupon
+    icon-social-treehouse
+    icon-social-tumblr
+    icon-social-twitter
+    icon-social-vimeo
+    icon-social-xbox
+    icon-social-yelp
+    icon-social-youtube
+    icon-social-zerply
+    icon-mail
+
+-------------------------------->
+
+<!-- add social info here -->
+
+
+
+        </div>
+
+      </div>
+
+    </div>
+
+    <div class="panel-cover--overlay"></div>
+  </div>
+</header>
+
+    <div class="content-wrapper">
+        <div class="content-wrapper__inner entry">
+            
+
+<article class="post-container post-container--single">
+
+  <header class="post-header">
+    
+    <h1 class="post-title">第二个React组件-评论框</h1>
+
+    
+
+    <div class="post-meta">
+      <time datetime="2016-05-08" class="post-meta__date date">2016-05-08</time> 
+
+      <span class="post-meta__tags tags">
+
+          
+
+          
+             &#8226; 标签:
+            <font class="tags">
+              <a class="tags-link" href="/tags/React/">React</a>
+            </font>
+          
+
+      </span>
+    </div>
+    
+    
+
+  </header>
+
+  <section id="post-content" class="article-content post">
+    <p>自己实现的一个评论框，包含一个父组件和一个子组件，子组件通过调用父组件传递的函数来发送数据到父组件。</p>
+<a id="more"></a>
+<p>先看效果：</p>
+<iframe height="600" scrolling="no" src="//codepen.io/zhaojun/embed/BKMZXY/?height=600&theme-id=0&default-tab=result&embed-version=2" frameborder="no" allowtransparency="true" allowfullscreen="true" style="width: 100%;">See the Pen <a href="http://codepen.io/zhaojun/pen/BKMZXY/" target="_blank" rel="external">React评论框组件</a> by zhaojun (<a href="http://codepen.io/zhaojun" target="_blank" rel="external">@zhaojun</a>) on <a href="http://codepen.io" target="_blank" rel="external">CodePen</a>.<br></iframe>
+
+<p>父组件架构：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> Comment = React.createClass(&#123;</span><br><span class="line">	getInitialState: <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">	    <span class="comment">//设置用于存放评论内容的state</span></span><br><span class="line">	&#125;,</span><br><span class="line">	getComment: <span class="function"><span class="keyword">function</span>(<span class="params">name, content</span>) </span>&#123;  </span><br><span class="line">		<span class="comment">//用于从子组件获取评论</span></span><br><span class="line">	&#125;,</span><br><span class="line">	render: <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">		<span class="keyword">return</span> (</span><br><span class="line">		    <span class="comment">/******父组件内容******/</span></span><br><span class="line">		    <span class="comment">//嵌套子组件，传递父组件的函数给子组件作为属性</span></span><br><span class="line">		    &lt;CommentInput submitComment=&#123;<span class="keyword">this</span>.getComment&#125;&gt;<span class="xml"><span class="tag">&lt;/<span class="name">CommentInput</span>&gt;</span></span></span><br><span class="line">		);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure></p>
+<p>子组件架构：<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">var CommentInput = React.createClass(&#123;</span><br><span class="line">	handleSubmit: function() &#123;</span><br><span class="line">		//调用从父组件传过来的属性（一个函数）来传递评论内容</span><br><span class="line">		this.props.submitComment(name, content);</span><br><span class="line">	&#125;,</span><br><span class="line">	render: function() &#123;</span><br><span class="line">		return (</span><br><span class="line">		    //调用函数</span><br><span class="line">			&lt;button onClick=&#123;this.handleSubmit&#125;&gt;提交&lt;/button&gt;</span><br><span class="line">		);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure></p>
+<p><strong>总结</strong></p>
+<blockquote>
+<ol>
+<li><strong>子组件向父组件传递消息</strong>：父组件传递函数作为子组件的一个属性，子组件调用这个函数，将数据以形参的方式发送到父组件。若传递的数据是对象的引用，那么父组件修改了对象，子组件中相应的对象也会变化。</li>
+<li><strong>父组件向子组件传递消息</strong>：可以通过设置子组件属性的方式传递，传递的对象在子组件中是只读的。</li>
+<li><code>word-wrap</code>：设置当内容超过容器边界时是否断行，<code>normal</code>表示不换行，<code>break-word</code>表示换行（必要时单词也会被拆分）。</li>
+<li><code>word-break</code>：设置对象内文本的字内换行行为（<em><code>keep-all</code>兼容性不好</em>）：<blockquote>
+<p><strong>normal</strong>：依照亚洲语言和非亚洲语言的文本规则，允许在字内换行。<br><strong>keep-all</strong>：与所有非亚洲语言的normal相同。对于中文，韩文，日文，不允许字断开。适合包含少量亚洲文本的非亚洲文本。<br><strong>break-all</strong>：该行为与亚洲语言的normal相同。也允许非亚洲语言文本行的任意字内断开。该值适合包含一些非亚洲文本的亚洲文本，比如使连续的英文字母间断行。</p>
+</blockquote>
+</li>
+<li><code>white-space</code>：设置对象内空格的处理方式：<blockquote>
+<p><strong>normal</strong>：默认处理方式。<br><strong>pre</strong>：用等宽字体显示预先格式化的文本，不合并文字间的空白距离，当文字超出边界时不换行。可查阅pre对象<br><strong>nowrap</strong>：强制在同一行内显示所有文本，合并文本间的多余空白，直到文本结束或者遭遇br对象。<br><strong>pre-wrap</strong>：用等宽字体显示预先格式化的文本，不合并文字间的空白距离，当文字碰到边界时发生换行。<br><strong>pre-line</strong>：保持文本的换行，不保留文字间的空白距离，当文字碰到边界时发生换行。</p>
+</blockquote>
+</li>
+<li>设置JSX中标签的属性时，切记：<blockquote>
+<ol>
+<li><strong>不能使用保留字</strong>，比如<code>for</code>要换成<code>htmlFor</code>，<code>class</code>要换成<code>className</code>；</li>
+<li><strong>使用小驼峰命名规则</strong>，比如<code>contenteditable</code>要写成<code>contentEditable</code>；</li>
+<li>自定义的属性可以不适用小驼峰，但是尽量建议写成小驼峰。</li>
+</ol>
+</blockquote>
+</li>
+</ol>
+</blockquote>
+
+  </section>
+
+  
+  
+
+<section class="post-comments">
+
+    <div class="ds-thread" data-thread-key="2016/05/08/第二个React组件-评论框/"></div>
+
+    <script type="text/javascript">
+      var duoshuoQuery = {short_name:"junz91"};
+      (function() {
+        var ds = document.createElement('script');
+        ds.type = 'text/javascript';ds.async = true;
+        ds.src = '//static.duoshuo.com/embed.js';
+        ds.charset = 'UTF-8';
+        (document.getElementsByTagName('head')[0] 
+        || document.getElementsByTagName('body')[0]).appendChild(ds);
+      })();
+    </script> 
+
+</section>
+
+
+</article>
+
+
+            <footer class="footer">
+
+    <span class="footer__copyright">&copy; 2014-2015. | 由<a href="https://hexo.io/">Hexo</a>强力驱动 | 主题<a href="https://github.com/someus/huno">Huno</a></span>
+    
+</footer>
+        </div>
+    </div>
+
+    <!-- js files -->
+    <script src="/js/jquery.min.js"></script>
+    <script src="/js/main.js"></script>
+    <script src="/js/scale.fix.js"></script>
+    
+
+    
+    
+
+    <script src="/js/awesome-toc.min.js"></script>
+    <script>
+        $(document).ready(function(){
+            $.awesome_toc({
+                overlay: true,
+                contentId: "post-content",
+            });
+        });
+    </script>
+
+
+    
+    
+    <!--kill ie6 -->
+<!--[if IE 6]>
+  <script src="//letskillie6.googlecode.com/svn/trunk/2/zh_CN.js"></script>
+<![endif]-->
+
+</body>
+</html>
