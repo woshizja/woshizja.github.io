@@ -16,16 +16,16 @@
     
     
 
-    <meta name="description" content="属性和状态详解。">
+    <meta name="description" content="属性，状态和事件详解。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="React学习笔记（三） | junz91">
 <meta property="og:url" content="http://yoursite.com/2016/05/08/React学习笔记（三）/index.html">
 <meta property="og:site_name" content="junz91">
-<meta property="og:description" content="属性和状态详解。">
-<meta property="og:updated_time" content="2016-05-08T13:38:32.703Z">
+<meta property="og:description" content="属性，状态和事件详解。">
+<meta property="og:updated_time" content="2016-05-10T00:50:08.351Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="React学习笔记（三） | junz91">
-<meta name="twitter:description" content="属性和状态详解。">
+<meta name="twitter:description" content="属性，状态和事件详解。">
     
     
     
@@ -175,7 +175,7 @@ classes that you can use:
   </header>
 
   <section id="post-content" class="article-content post">
-    <p>属性和状态详解。</p>
+    <p>属性，状态和事件详解。</p>
 <a id="more"></a>
 <h2 id="一、Props"><a href="#一、Props" class="headerlink" title="一、Props"></a>一、Props</h2><h3 id="1-含义"><a href="#1-含义" class="headerlink" title="1. 含义"></a>1. 含义</h3><blockquote>
 <p>props：传递给组件的对象，用于盛放数据，对于组件来说是只读的。</p>
@@ -201,6 +201,41 @@ classes that you can use:
 </ol>
 </blockquote>
 <h2 id="四、实战"><a href="#四、实战" class="headerlink" title="四、实战"></a>四、实战</h2><p>编写一个文本评论框，见我的另一篇博客。</p>
+<h2 id="五、事件"><a href="#五、事件" class="headerlink" title="五、事件"></a>五、事件</h2><h3 id="1-事件处理函数"><a href="#1-事件处理函数" class="headerlink" title="1. 事件处理函数"></a>1. 事件处理函数</h3><p>事件处理函数包括React自有方法以及用户自定义方法，用<strong>属性</strong>的方式绑定处理函数。事件包括：</p>
+<ul>
+<li><code>onTouchCancel</code>,<code>onTouchEnd</code>,<code>onTouchMove</code>,<code>onTouchStart</code>;</li>
+<li><code>onKeyDown</code>,<code>onKeyPress</code>,<code>onKeyUp</code>;</li>
+<li><code>onCopy</code>,<code>onCut</code>,<code>onPaste</code>;</li>
+<li><code>onChange</code>,<code>onInput</code>,<code>onSubmit</code>;</li>
+<li><code>onFocus</code>,<code>onBlur</code></li>
+<li><code>onScroll</code>,<code>onWheel</code></li>
+<li><code>onDoubleClick</code>,<code>onContextMenu</code>,<code>onMouseOver</code>,<code>onMouseOut</code>,<code>onMouseDown</code>,<code>onMouseUp</code>,<code>onMouseEnter</code>,<code>onMouseLeave</code>,<code>onClick</code></li>
+<li><code>onDrop</code>,<code>onDrag</code></li>
+</ul>
+<h3 id="2-事件对象"><a href="#2-事件对象" class="headerlink" title="2. 事件对象"></a>2. 事件对象</h3><p>React中的<code>Event</code>对象是重新封装过的，含有的几个重要的通用属性：</p>
+<ul>
+<li>target：发生事件的DOM对象；</li>
+<li>isTrusted：是否可信，可信是指事件由用户触发（比如鼠标单击）；</li>
+<li>nativeEvent：原生的事件对象；</li>
+<li>preventDefault：阻止默认行为；</li>
+<li>stopPropagation：阻止事件传播（冒泡和捕获）；</li>
+<li>type：事件类型；</li>
+</ul>
+<p>其它还有很多诸如键盘，鼠标，触摸，滚动等事件特有的属性。</p>
+<h3 id="3-绑定事件"><a href="#3-绑定事件" class="headerlink" title="3. 绑定事件"></a>3. 绑定事件</h3><ul>
+<li>使用属性赋值：<code>onCopy={this.handleCopy}</code>;</li>
+<li>使用事件监听器：<code>this.refs.btn.addEventListener(&#39;click&#39;,this.handleClick);</code></li>
+</ul>
+<h2 id="六、组件协同使用"><a href="#六、组件协同使用" class="headerlink" title="六、组件协同使用"></a>六、组件协同使用</h2><h3 id="1-组件嵌套"><a href="#1-组件嵌套" class="headerlink" title="1. 组件嵌套"></a>1. 组件嵌套</h3><blockquote>
+<p>父组件和子组件之间的嵌套关系。</p>
+</blockquote>
+<p>父组件可以通过修改子组件的属性来实现通信。子组件向父组件通信是间接的，需要在子组件中调用父组件的处理函数，这种机制叫<strong>委托</strong>。<br>组件嵌套的逻辑一般比较清晰，易于理解，封装细节后有助于模块化开发。其缺点在于，如果嵌套关系比较多会导致代码变得很复杂，不宜调试bug。</p>
+<h3 id="2-Mixin"><a href="#2-Mixin" class="headerlink" title="2. Mixin"></a>2. Mixin</h3><blockquote>
+<p>Mixin代表一组方法，用于横向抽离出组件的<strong>相似代码</strong>。</p>
+</blockquote>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> MyMixin=&#123;</span><br><span class="line">  componentWillMount:<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;&#125;,</span><br><span class="line">  methodA:<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;&#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> OtherComponent=React.createClass(</span><br><span class="line">  mixins:[MyMixin],  <span class="comment">//使用mixin，当前组件实例化时会自动执行mixins里面的WillMount函数</span></span><br><span class="line">  methodB:<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;&#125;</span><br><span class="line">);</span><br></pre></td></tr></table></figure>
+<p>Mixin抽离通用代码的方法可以提高代码复用率，实现即插即用的开发流程，修改一处代码，多处都能有效。其缺点在于编写难度高，考虑到兼容性等要求，会导致某些情况下的冗余，同时Mixin打破了组件之间尽量独立的原则。</p>
+<h2 id="七、可控与不可控组件"><a href="#七、可控与不可控组件" class="headerlink" title="七、可控与不可控组件"></a>七、可控与不可控组件</h2><p>将数据直接写在属性里，导致其不可更改，后面只能通过真实的DOM节点来获取属性值，这样的组件是不可控的。<br>如果把属性赋值为state的某个属性，通过修改state属性就可以修改属性值，这样的组件是可控的。</p>
 
   </section>
 

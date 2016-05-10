@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+
+    
+
+    <title>
+      JavaScript的垃圾回收机制简述 | junz91 
+    </title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    
+      <meta name="author" content="Jun Zhao">
+    
+    
+
+    <meta name="description" content="新生代 semispace  新生代 semispace  老生代">
+<meta property="og:type" content="article">
+<meta property="og:title" content="JavaScript的垃圾回收机制简述 | junz91">
+<meta property="og:url" content="http://yoursite.com/2016/05/10/JavaScript的垃圾回收机制简述/index.html">
+<meta property="og:site_name" content="junz91">
+<meta property="og:description" content="新生代 semispace  新生代 semispace  老生代">
+<meta property="og:updated_time" content="2016-05-10T08:21:40.763Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="JavaScript的垃圾回收机制简述 | junz91">
+<meta name="twitter:description" content="新生代 semispace  新生代 semispace  老生代">
+    
+    
+    
+      <link rel="icon" type="image/x-icon" href="/favicon.png">
+    
+    <link rel="stylesheet" href="/css/uno.css">
+    <link rel="stylesheet" href="/css/highlight.css">
+    <link rel="stylesheet" href="/css/archive.css">
+    <link rel="stylesheet" href="/css/china-social-icon.css">
+
+</head>
+<body>
+
+    <span class="mobile btn-mobile-menu">
+        <i class="icon icon-list btn-mobile-menu__icon"></i>
+        <i class="icon icon-x-circle btn-mobile-close__icon hidden"></i>
+    </span>
+
+    
+
+<header class="panel-cover panel-cover--collapsed">
+
+
+  <div class="panel-main">
+
+  
+    <div class="panel-main__inner panel-inverted">
+    <div class="panel-main__content">
+
+        
+
+        <h1 class="panel-cover__title panel-title"><a href="/" title="link to homepage">junz91</a></h1>
+        <hr class="panel-cover__divider" />
+
+        
+
+        <div class="navigation-wrapper">
+
+          <nav class="cover-navigation cover-navigation--primary">
+            <ul class="navigation">
+
+              
+                
+                <li class="navigation__item"><a href="/#blog" title="" class="blog-button">首页</a></li>
+              
+                
+                <li class="navigation__item"><a href="/photo" title="" class="">摄影</a></li>
+              
+                
+                <li class="navigation__item"><a href="/archive" title="" class="">归档</a></li>
+              
+
+            </ul>
+          </nav>
+
+          <!-- ----------------------------
+To add a new social icon simply duplicate one of the list items from below
+and change the class in the <i> tag to match the desired social network
+and then add your link to the <a>. Here is a full list of social network
+classes that you can use:
+
+    icon-social-500px
+    icon-social-behance
+    icon-social-delicious
+    icon-social-designer-news
+    icon-social-deviant-art
+    icon-social-digg
+    icon-social-dribbble
+    icon-social-facebook
+    icon-social-flickr
+    icon-social-forrst
+    icon-social-foursquare
+    icon-social-github
+    icon-social-google-plus
+    icon-social-hi5
+    icon-social-instagram
+    icon-social-lastfm
+    icon-social-linkedin
+    icon-social-medium
+    icon-social-myspace
+    icon-social-path
+    icon-social-pinterest
+    icon-social-rdio
+    icon-social-reddit
+    icon-social-skype
+    icon-social-spotify
+    icon-social-stack-overflow
+    icon-social-steam
+    icon-social-stumbleupon
+    icon-social-treehouse
+    icon-social-tumblr
+    icon-social-twitter
+    icon-social-vimeo
+    icon-social-xbox
+    icon-social-yelp
+    icon-social-youtube
+    icon-social-zerply
+    icon-mail
+
+-------------------------------->
+
+<!-- add social info here -->
+
+
+
+        </div>
+
+      </div>
+
+    </div>
+
+    <div class="panel-cover--overlay"></div>
+  </div>
+</header>
+
+    <div class="content-wrapper">
+        <div class="content-wrapper__inner entry">
+            
+
+<article class="post-container post-container--single">
+
+  <header class="post-header">
+    
+    <h1 class="post-title">JavaScript的垃圾回收机制简述</h1>
+
+    
+
+    <div class="post-meta">
+      <time datetime="2016-05-10" class="post-meta__date date">2016-05-10</time> 
+
+      <span class="post-meta__tags tags">
+
+          
+
+          
+             &#8226; 标签:
+            <font class="tags">
+              <a class="tags-link" href="/tags/JavaScript/">JavaScript</a>
+            </font>
+          
+
+      </span>
+    </div>
+    
+    
+
+  </header>
+
+  <section id="post-content" class="article-content post">
+    <div style="color:#fff;font-size:12px;overflow:hidden;"><br>  <div style="min-width:66px;padding-left:2px;height:40px;line-height:20px;width:18%;background:#cc3;float:left;border-right:1px solid #666;">新生代 semispace</div><br>  <div style="min-width:66px;padding-left:2px;height:40px;line-height:20px;width:18%;background:#cc3;float:left;border-right:1px solid #666;">新生代 semispace</div><br>  <div style="min-width:210px;padding-left:2px;height:40px;line-height:40px;width:60%;background:#c30;float:left;">老生代</div><br></div>
+
+<a id="more"></a>
+<hr>
+<h2 id="一、内存限制"><a href="#一、内存限制" class="headerlink" title="一、内存限制"></a>一、内存限制</h2><p>这里主要是探讨V8引擎的垃圾回收机制。先说一下内存限制，在64位系统中Node大约能使用<strong>1.4GB</strong>内存空间，32位系统为<strong>0.7GB</strong>左右，这就导致Node无法直接操作大内存对象。</p>
+<h2 id="二、对象分配"><a href="#二、对象分配" class="headerlink" title="二、对象分配"></a>二、对象分配</h2><p>在V8中，所有的JavaScript对象都通过<strong>堆</strong>来进行分配，使用Node的<code>process.memoryUsage()</code>函数可以查看内存使用量。需要注意的是，查询到的内存总量是动态分配的：当新建一个对象时发现内存不够用，则向系统申请新的空间，直到达到系统限制。实际上Node提供了接口供我们修改允许的最大内存使用量，但是这个值也不能动态修改。</p>
+<h2 id="三、垃圾回收机制"><a href="#三、垃圾回收机制" class="headerlink" title="三、垃圾回收机制"></a>三、垃圾回收机制</h2><p>V8的垃圾回收机制主要基于<strong>分代式垃圾回收机制</strong>，对不同的分代采取不同的回收算法，以提高性能。</p>
+<h3 id="1-新生代"><a href="#1-新生代" class="headerlink" title="1. 新生代"></a>1. 新生代</h3><p>新生代主要用于存放存活时间比较短的对象，新生代内存空间在64位和32位系统上默认为32MB和16MB。新生代的垃圾回收机制采用的的是<strong>Scavenge算法</strong>，Scavenge具体实现采用的是<strong>Cheney算法</strong>，Cheney将新生代的内存空间一分为二，每一部分空间称为<strong>semispace</strong>。<br>两个semispace中只有一个处于使用中，另一个处于闲置状态，处于使用中的是<strong>From空间</strong>，处于闲置状态的是<strong>To空间</strong>。<br>分配的对象首先是在From空间分配，当开始垃圾回收机制时，先检查From空间中存活的对象，然后将存活对象复制到To空间，非存活对象则被销毁，最后将From空间和To空间交换。<br>Scavenge算法的缺点是只能利用一半的内存空间，在生命周期短的场景下存活对象只占少部分，所以Scavenge算法拥有比较高的时间效率。这是典型的以空间换时间的做法。</p>
+<h3 id="2-晋升"><a href="#2-晋升" class="headerlink" title="2. 晋升"></a>2. 晋升</h3><p>当一个对象经过多次复制任然存活时，它将被认为是生命周期比较长的对象，这种对象会被移动到老生代中，这个过程称为<strong>晋升</strong>。<br>对象晋升的条件主要有两个：</p>
+<ul>
+<li>对象是否经历过Scavenge回收：默认情况下只要经历了一次新生代回收就会被移动到老生代；</li>
+<li>To空间的内存占用率：如果To空间内存占用率超过25%，则对象会被移动到老生代空间（如果To空间内存占用比例较高会影响新对象的分配）。</li>
+</ul>
+<h3 id="3-老生代"><a href="#3-老生代" class="headerlink" title="3. 老生代"></a>3. 老生代</h3><p>老生代主要采用了<strong>Mark-Sweep</strong>和<strong>Mark-Compact</strong>相结合的方式进行垃圾回收。</p>
+<ul>
+<li>Mark-Sweep：标记清除，分为<strong>标记</strong>和<strong>清除</strong>两个阶段。标记阶段会遍历老生代中的所有对象，并标记存活的对象。清除阶段会清除没有被标记的对象。</li>
+<li>Mark-Compact：<strong>标记整理</strong>，经过标记清除后内存会变得碎片化，Mark-Compact将存活的对象往一端移动，整个移动完成之后可以解决内存碎片化的问题。这个过程是很慢的。所以只有当老生代空间不足以对从新生代中晋升过来的对象进行分配时才使用Mark-Compact。</li>
+</ul>
+<h3 id="4-增量式标记"><a href="#4-增量式标记" class="headerlink" title="4. 增量式标记"></a>4. 增量式标记</h3><p>V8执行垃圾回收时需要暂停应用程序，为了降低全堆垃圾回收带来的停顿时间，V8在标记过程中采用了<strong>增量标记</strong>，每标记一段空间，就让应用程序执行一会儿，直到所有标记完成。<br>此外V8还引入了<strong>延迟清理</strong>与<strong>增量式整理</strong>，让清理和整理过程也变成增量式的。</p>
+<h2 id="四、内存泄漏"><a href="#四、内存泄漏" class="headerlink" title="四、内存泄漏"></a>四、内存泄漏</h2><p>通常造成内存泄漏的原因有：</p>
+<ol>
+<li>缓存：使用内存作为缓存时，缓存始终保留在内存中越积越多会严重影响垃圾回收的性能，在Node中要谨慎使用缓存；</li>
+<li>队列消费不及时：队列中的对象本来应该及时清理的，但是由于外部IO太慢等原因，队列任务被挤压，此时相应的对象就得不到释放。</li>
+<li>作用域未释放：典型的场景就是闭包。</li>
+</ol>
+
+  </section>
+
+  
+  
+
+<section class="post-comments">
+
+    <div class="ds-thread" data-thread-key="2016/05/10/JavaScript的垃圾回收机制简述/"></div>
+
+    <script type="text/javascript">
+      var duoshuoQuery = {short_name:"junz91"};
+      (function() {
+        var ds = document.createElement('script');
+        ds.type = 'text/javascript';ds.async = true;
+        ds.src = '//static.duoshuo.com/embed.js';
+        ds.charset = 'UTF-8';
+        (document.getElementsByTagName('head')[0] 
+        || document.getElementsByTagName('body')[0]).appendChild(ds);
+      })();
+    </script> 
+
+</section>
+
+
+</article>
+
+
+            <footer class="footer">
+
+    <span class="footer__copyright">&copy; 2014-2015. | 由<a href="https://hexo.io/">Hexo</a>强力驱动 | 主题<a href="https://github.com/someus/huno">Huno</a></span>
+    
+</footer>
+        </div>
+    </div>
+
+    <!-- js files -->
+    <script src="/js/jquery.min.js"></script>
+    <script src="/js/main.js"></script>
+    <script src="/js/scale.fix.js"></script>
+    
+
+    
+    
+
+    <script src="/js/awesome-toc.min.js"></script>
+    <script>
+        $(document).ready(function(){
+            $.awesome_toc({
+                overlay: true,
+                contentId: "post-content",
+            });
+        });
+    </script>
+
+
+    
+    
+    <!--kill ie6 -->
+<!--[if IE 6]>
+  <script src="//letskillie6.googlecode.com/svn/trunk/2/zh_CN.js"></script>
+<![endif]-->
+
+</body>
+</html>

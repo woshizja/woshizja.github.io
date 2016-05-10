@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+
+    
+
+    <title>
+      Node中部署一次性token | junz91 
+    </title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    
+      <meta name="author" content="Jun Zhao">
+    
+    
+
+    <meta name="description" content="本文探讨使用Node实现token部署的简单原型。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Node中部署一次性token | junz91">
+<meta property="og:url" content="http://yoursite.com/2016/05/10/Node中部署一次性token/index.html">
+<meta property="og:site_name" content="junz91">
+<meta property="og:description" content="本文探讨使用Node实现token部署的简单原型。">
+<meta property="og:image" content="http://yoursite.com/../../../../images/before_CSRF.png">
+<meta property="og:image" content="http://yoursite.com/../../../../images/after_CSRF.png">
+<meta property="og:updated_time" content="2016-05-10T09:24:24.773Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Node中部署一次性token | junz91">
+<meta name="twitter:description" content="本文探讨使用Node实现token部署的简单原型。">
+<meta name="twitter:image" content="http://yoursite.com/../../../../images/before_CSRF.png">
+    
+    
+    
+      <link rel="icon" type="image/x-icon" href="/favicon.png">
+    
+    <link rel="stylesheet" href="/css/uno.css">
+    <link rel="stylesheet" href="/css/highlight.css">
+    <link rel="stylesheet" href="/css/archive.css">
+    <link rel="stylesheet" href="/css/china-social-icon.css">
+
+</head>
+<body>
+
+    <span class="mobile btn-mobile-menu">
+        <i class="icon icon-list btn-mobile-menu__icon"></i>
+        <i class="icon icon-x-circle btn-mobile-close__icon hidden"></i>
+    </span>
+
+    
+
+<header class="panel-cover panel-cover--collapsed">
+
+
+  <div class="panel-main">
+
+  
+    <div class="panel-main__inner panel-inverted">
+    <div class="panel-main__content">
+
+        
+
+        <h1 class="panel-cover__title panel-title"><a href="/" title="link to homepage">junz91</a></h1>
+        <hr class="panel-cover__divider" />
+
+        
+
+        <div class="navigation-wrapper">
+
+          <nav class="cover-navigation cover-navigation--primary">
+            <ul class="navigation">
+
+              
+                
+                <li class="navigation__item"><a href="/#blog" title="" class="blog-button">首页</a></li>
+              
+                
+                <li class="navigation__item"><a href="/photo" title="" class="">摄影</a></li>
+              
+                
+                <li class="navigation__item"><a href="/archive" title="" class="">归档</a></li>
+              
+
+            </ul>
+          </nav>
+
+          <!-- ----------------------------
+To add a new social icon simply duplicate one of the list items from below
+and change the class in the <i> tag to match the desired social network
+and then add your link to the <a>. Here is a full list of social network
+classes that you can use:
+
+    icon-social-500px
+    icon-social-behance
+    icon-social-delicious
+    icon-social-designer-news
+    icon-social-deviant-art
+    icon-social-digg
+    icon-social-dribbble
+    icon-social-facebook
+    icon-social-flickr
+    icon-social-forrst
+    icon-social-foursquare
+    icon-social-github
+    icon-social-google-plus
+    icon-social-hi5
+    icon-social-instagram
+    icon-social-lastfm
+    icon-social-linkedin
+    icon-social-medium
+    icon-social-myspace
+    icon-social-path
+    icon-social-pinterest
+    icon-social-rdio
+    icon-social-reddit
+    icon-social-skype
+    icon-social-spotify
+    icon-social-stack-overflow
+    icon-social-steam
+    icon-social-stumbleupon
+    icon-social-treehouse
+    icon-social-tumblr
+    icon-social-twitter
+    icon-social-vimeo
+    icon-social-xbox
+    icon-social-yelp
+    icon-social-youtube
+    icon-social-zerply
+    icon-mail
+
+-------------------------------->
+
+<!-- add social info here -->
+
+
+
+        </div>
+
+      </div>
+
+    </div>
+
+    <div class="panel-cover--overlay"></div>
+  </div>
+</header>
+
+    <div class="content-wrapper">
+        <div class="content-wrapper__inner entry">
+            
+
+<article class="post-container post-container--single">
+
+  <header class="post-header">
+    
+    <h1 class="post-title">Node中部署一次性token</h1>
+
+    
+
+    <div class="post-meta">
+      <time datetime="2016-05-10" class="post-meta__date date">2016-05-10</time> 
+
+      <span class="post-meta__tags tags">
+
+          
+
+          
+             &#8226; 标签:
+            <font class="tags">
+              <a class="tags-link" href="/tags/Node/">Node</a>
+            </font>
+          
+
+      </span>
+    </div>
+    
+    
+
+  </header>
+
+  <section id="post-content" class="article-content post">
+    <p>本文探讨使用Node实现token部署的简单原型。<br><a id="more"></a></p>
+<h2 id="一、CSRF攻击"><a href="#一、CSRF攻击" class="headerlink" title="一、CSRF攻击"></a>一、CSRF攻击</h2><p>CSRF（Cross-Site Request Forgery）是指跨站请求伪造。通常使用cookie或者sessionID来标识用户的网站中，如果不加防范，攻击者只需要自己的域名下构造一个目标网站相同的表单就可以向服务器提交数据，因为：</p>
+<blockquote>
+<p>在attack.com中构造的表单向target.com提交数据的过程中，浏览器会自动将target.com的cookie附加到请求中，尽管这个请求是来自attack.com的，服务器是不会自动进行判别的。</p>
+</blockquote>
+<p>我自己编写了一个简单的html页面，包含提交数据的表单，其结构如下：<br><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">form</span> <span class="attr">action</span>=<span class="string">"http://localhost:8888/upload"</span> <span class="attr">enctype</span>=<span class="string">"multipart/form-data"</span> <span class="attr">method</span>=<span class="string">"post"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"file"</span> <span class="attr">name</span>=<span class="string">"pic"</span> <span class="attr">accept</span>=<span class="string">"image/*"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">lable</span>&gt;</span>图片名： <span class="tag">&lt;/<span class="name">lable</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"text"</span> <span class="attr">name</span>=<span class="string">"pic_name"</span> <span class="attr">class</span>=<span class="string">"pic_name"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"text"</span> <span class="attr">name</span>=<span class="string">"token"</span> <span class="attr">class</span>=<span class="string">"pic_file"</span> <span class="attr">id</span>=<span class="string">"token_input"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">hr</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"submit"</span> <span class="attr">class</span>=<span class="string">"submit"</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">form</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<p>这个表单只包含三个<code>input</code>，pic用于上传图片文件，pic_name用于填写图片名字，token就是抵御CSRF攻击的随机令牌。接下来把这个html复制一个副本，打开本地服务器，访问正常的域名，此时会得到一个服务器分配的随机令牌，令牌以cookie的形式存放在正常域名目录下。<br>接着我们直接打开本地的html副本，然后选择一个文件点击上传，结果如下图所示：<br><img src="../../../../images/before_CSRF.png" alt="enter description here"></p>
+<p>可以看到网站自动定位到目标网站，当然实际中肯定不会任由网页跳转到目标网站，使用ajax可以很容易的实现异步提交表单。看右边的请求信息中，已经附加上了一个名为“token”的cookie，这个cookie正是在另一个窗口打开的目标网站目录下的cookie，此时如果仅仅依据cookie判断用户身份，那么攻击者就成功伪造了一条请求。</p>
+<h2 id="二、为什么能抵御CSRF攻击？"><a href="#二、为什么能抵御CSRF攻击？" class="headerlink" title="二、为什么能抵御CSRF攻击？"></a>二、为什么能抵御CSRF攻击？</h2><p>通常我们会说：部署随机的一次性令牌可以抵御CSRF攻击。但是仅仅把token放在cookie中是不行的，我们需要在网页中添加一个表单项，用这个表单项来存放这个token，服务器判断身份的时候根据表单数据来判别，而不是根据cookie。这样做能抵御CSRF攻击的基础在于：</p>
+<blockquote>
+<p>因为同源策略，攻击者的网站无法直接获取目标网站的cookie。</p>
+</blockquote>
+<p>同时客户端程序在设置好了表单项token后，完全可以将这个cookie覆盖掉，这样攻击者伪造的表单请求附带的cookie也是错误的。</p>
+<p>在表单中设置token项的客户端程序如下：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"> <span class="built_in">window</span>.onload=<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="built_in">document</span>.cookie);</span><br><span class="line">  <span class="keyword">var</span> cookies_arr=<span class="built_in">document</span>.cookie.split(<span class="string">";"</span>);</span><br><span class="line">  <span class="keyword">for</span>(<span class="keyword">var</span> i=<span class="number">0</span>;i&lt;cookies_arr.length;i++)&#123;</span><br><span class="line">    <span class="keyword">var</span> temp=cookies_arr[i].split(<span class="string">"="</span>);</span><br><span class="line">    <span class="keyword">var</span> key=temp[<span class="number">0</span>];  <span class="comment">//遍历cookie</span></span><br><span class="line">    <span class="keyword">var</span> val=temp[<span class="number">1</span>];</span><br><span class="line">    <span class="keyword">if</span>(key===<span class="string">"token"</span>)&#123;  <span class="comment">//当前cookie为token则赋值表单</span></span><br><span class="line">      <span class="built_in">document</span>.getElementById(<span class="string">"token_input"</span>).value=val;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></p>
+<p>客户端产生token的程序：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> generateRandom=<span class="function"><span class="keyword">function</span> (<span class="params">len</span>)</span>&#123;  <span class="comment">//产生随机token</span></span><br><span class="line">	<span class="keyword">return</span> crypto.randomBytes(<span class="built_in">Math</span>.ceil(len*<span class="number">3</span>/<span class="number">4</span>))</span><br><span class="line">	.toString(<span class="string">'base64'</span>)</span><br><span class="line">	.slice(<span class="number">0</span>,len);</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></p>
+<p>服务端写入token到cookie的程序：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">token=generateRandom(<span class="number">24</span>);</span><br><span class="line"><span class="keyword">var</span> cookie=<span class="string">"token="</span>+token+<span class="string">";Max-Age="</span>+<span class="number">60</span>*<span class="number">10</span>+<span class="string">";Path=/;"</span>;  <span class="comment">//过期时间10分钟，path为根目录。</span></span><br><span class="line">res.setHeader(<span class="string">'Set-Cookie'</span>,cookie);</span><br></pre></td></tr></table></figure></p>
+<p>服务端判断身份的程序：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">form.parse(req,<span class="function"><span class="keyword">function</span>(<span class="params">error,fields,files</span>)</span>&#123;</span><br><span class="line">	<span class="keyword">if</span>(fields.token!==token)&#123;  <span class="comment">//判断token</span></span><br><span class="line">		res.writeHead(<span class="number">403</span>,&#123;<span class="string">'Content-Type'</span>:<span class="string">'text/plain;charset=utf-8'</span>&#125;);</span><br><span class="line">		res.end(<span class="string">"禁止访问"</span>);</span><br><span class="line">		<span class="keyword">return</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	······</span><br></pre></td></tr></table></figure></p>
+<p>再次访问目标网站后的结果：<br><img src="../../../../images/after_CSRF.png" alt="enter description here"></p>
+<p>可以看到表单中已经有部署好的token了。</p>
+<h2 id="三、总结"><a href="#三、总结" class="headerlink" title="三、总结"></a>三、总结</h2><p>这里实现的token部署是非常原始的，远远不能达到上线的程度，比如没有考虑session的存储，各处的程序也没有特别严谨。希望以后能在实践中提高吧。</p>
+
+  </section>
+
+  
+  
+
+<section class="post-comments">
+
+    <div class="ds-thread" data-thread-key="2016/05/10/Node中部署一次性token/"></div>
+
+    <script type="text/javascript">
+      var duoshuoQuery = {short_name:"junz91"};
+      (function() {
+        var ds = document.createElement('script');
+        ds.type = 'text/javascript';ds.async = true;
+        ds.src = '//static.duoshuo.com/embed.js';
+        ds.charset = 'UTF-8';
+        (document.getElementsByTagName('head')[0] 
+        || document.getElementsByTagName('body')[0]).appendChild(ds);
+      })();
+    </script> 
+
+</section>
+
+
+</article>
+
+
+            <footer class="footer">
+
+    <span class="footer__copyright">&copy; 2014-2015. | 由<a href="https://hexo.io/">Hexo</a>强力驱动 | 主题<a href="https://github.com/someus/huno">Huno</a></span>
+    
+</footer>
+        </div>
+    </div>
+
+    <!-- js files -->
+    <script src="/js/jquery.min.js"></script>
+    <script src="/js/main.js"></script>
+    <script src="/js/scale.fix.js"></script>
+    
+
+    
+    
+
+    <script src="/js/awesome-toc.min.js"></script>
+    <script>
+        $(document).ready(function(){
+            $.awesome_toc({
+                overlay: true,
+                contentId: "post-content",
+            });
+        });
+    </script>
+
+
+    
+    
+    <!--kill ie6 -->
+<!--[if IE 6]>
+  <script src="//letskillie6.googlecode.com/svn/trunk/2/zh_CN.js"></script>
+<![endif]-->
+
+</body>
+</html>
