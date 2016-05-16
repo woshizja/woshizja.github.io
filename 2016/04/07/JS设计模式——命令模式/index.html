@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+
+    
+
+    <title>
+      JS设计模式——命令模式 | junz91 
+    </title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    
+      <meta name="author" content="Jun Zhao">
+    
+    
+
+    <meta name="description" content="命令模式用于解耦请求发送者和接收者。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="JS设计模式——命令模式 | junz91">
+<meta property="og:url" content="http://yoursite.com/2016/04/07/JS设计模式——命令模式/index.html">
+<meta property="og:site_name" content="junz91">
+<meta property="og:description" content="命令模式用于解耦请求发送者和接收者。">
+<meta property="og:updated_time" content="2016-05-13T02:04:19.762Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="JS设计模式——命令模式 | junz91">
+<meta name="twitter:description" content="命令模式用于解耦请求发送者和接收者。">
+    
+    
+    
+      <link rel="icon" type="image/x-icon" href="/favicon.png">
+    
+    <link rel="stylesheet" href="/css/uno.css">
+    <link rel="stylesheet" href="/css/highlight.css">
+    <link rel="stylesheet" href="/css/archive.css">
+    <link rel="stylesheet" href="/css/china-social-icon.css">
+
+</head>
+<body>
+
+    <span class="mobile btn-mobile-menu">
+        <i class="icon icon-list btn-mobile-menu__icon"></i>
+        <i class="icon icon-x-circle btn-mobile-close__icon hidden"></i>
+    </span>
+
+    
+
+<header class="panel-cover panel-cover--collapsed">
+
+
+  <div class="panel-main">
+
+  
+    <div class="panel-main__inner panel-inverted">
+    <div class="panel-main__content">
+
+        
+
+        <h1 class="panel-cover__title panel-title"><a href="/" title="link to homepage">junz91</a></h1>
+        <hr class="panel-cover__divider" />
+
+        
+
+        <div class="navigation-wrapper">
+
+          <nav class="cover-navigation cover-navigation--primary">
+            <ul class="navigation">
+
+              
+                
+                <li class="navigation__item"><a href="/#blog" title="" class="blog-button">首页</a></li>
+              
+                
+                <li class="navigation__item"><a href="/photo" title="" class="">摄影</a></li>
+              
+                
+                <li class="navigation__item"><a href="/archive" title="" class="">归档</a></li>
+              
+
+            </ul>
+          </nav>
+
+          <!-- ----------------------------
+To add a new social icon simply duplicate one of the list items from below
+and change the class in the <i> tag to match the desired social network
+and then add your link to the <a>. Here is a full list of social network
+classes that you can use:
+
+    icon-social-500px
+    icon-social-behance
+    icon-social-delicious
+    icon-social-designer-news
+    icon-social-deviant-art
+    icon-social-digg
+    icon-social-dribbble
+    icon-social-facebook
+    icon-social-flickr
+    icon-social-forrst
+    icon-social-foursquare
+    icon-social-github
+    icon-social-google-plus
+    icon-social-hi5
+    icon-social-instagram
+    icon-social-lastfm
+    icon-social-linkedin
+    icon-social-medium
+    icon-social-myspace
+    icon-social-path
+    icon-social-pinterest
+    icon-social-rdio
+    icon-social-reddit
+    icon-social-skype
+    icon-social-spotify
+    icon-social-stack-overflow
+    icon-social-steam
+    icon-social-stumbleupon
+    icon-social-treehouse
+    icon-social-tumblr
+    icon-social-twitter
+    icon-social-vimeo
+    icon-social-xbox
+    icon-social-yelp
+    icon-social-youtube
+    icon-social-zerply
+    icon-mail
+
+-------------------------------->
+
+<!-- add social info here -->
+
+
+
+        </div>
+
+      </div>
+
+    </div>
+
+    <div class="panel-cover--overlay"></div>
+  </div>
+</header>
+
+    <div class="content-wrapper">
+        <div class="content-wrapper__inner entry">
+            
+
+<article class="post-container post-container--single">
+
+  <header class="post-header">
+    
+    <h1 class="post-title">JS设计模式——命令模式</h1>
+
+    
+
+    <div class="post-meta">
+      <time datetime="2016-04-07" class="post-meta__date date">2016-04-07</time> 
+
+      <span class="post-meta__tags tags">
+
+          
+
+          
+             &#8226; 标签:
+            <font class="tags">
+              <a class="tags-link" href="/tags/JavaScript设计模式/">JavaScript设计模式</a>
+            </font>
+          
+
+      </span>
+    </div>
+    
+    
+
+  </header>
+
+  <section id="post-content" class="article-content post">
+    <p>命令模式用于解耦请求发送者和接收者。<br><a id="more"></a></p>
+<blockquote>
+<p>命令是指一个执行某些特定任务的指令。在命令模式中，命令被封装为command对象，接收者与command对象通过命令工厂关联起来。</p>
+</blockquote>
+<h2 id="一、JavaScript的命令模式"><a href="#一、JavaScript的命令模式" class="headerlink" title="一、JavaScript的命令模式"></a>一、JavaScript的命令模式</h2><p>传统的面向对象的编程语言中，命令模式将过程式的请求调用封装在<code>command</code>对象的<code>execute</code>方法中。在JavaScript中我们可以利用<strong>闭包</strong>的特性，将接收者封装在闭包形成的作用域中，执行命令的操作依靠回调函数即可，更加简单。代码如下：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//接收者</span></span><br><span class="line"><span class="keyword">var</span> Menu=&#123;</span><br><span class="line">  refresh:<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">"refresh menu"</span>);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">//命令对象工厂</span></span><br><span class="line"><span class="keyword">var</span> RefreshMenuCommand=<span class="function"><span class="keyword">function</span>(<span class="params">receiver</span>)</span>&#123;</span><br><span class="line">  <span class="keyword">return</span> &#123;  <span class="comment">//接收者被封闭在闭包中</span></span><br><span class="line">    ececute: <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">      receiver.refresh();</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">//组装命令发送者与接收者</span></span><br><span class="line"><span class="keyword">var</span> setCommand=<span class="function"><span class="keyword">function</span>(<span class="params">button,command</span>)</span>&#123;</span><br><span class="line">  button.onclick=<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    command.execute();</span><br><span class="line">  &#125;;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">//实例化一个命令对象</span></span><br><span class="line"><span class="keyword">var</span> refreshMenu=RefreshMenuCommand(Menu);</span><br><span class="line"><span class="comment">//关联接收者和发送者</span></span><br><span class="line">setCommand(button,refreshMenu);</span><br></pre></td></tr></table></figure></p>
+<h2 id="二、利用命令模式实现小球轨迹追踪"><a href="#二、利用命令模式实现小球轨迹追踪" class="headerlink" title="二、利用命令模式实现小球轨迹追踪"></a>二、利用命令模式实现小球轨迹追踪</h2><p>先看效果：：</p>
+<iframe height="650" scrolling="no" src="//codepen.io/zhaojun/embed/EKMBZR/?height=650&theme-id=23840&default-tab=result&embed-version=2" frameborder="no" allowtransparency="true" allowfullscreen="true" style="width: 100%;">See the Pen <a href="http://codepen.io/zhaojun/pen/EKMBZR/" target="_blank" rel="external">命令模式实现小球轨迹显示</a> by zhaojun (<a href="http://codepen.io/zhaojun" target="_blank" rel="external">@zhaojun</a>) on <a href="http://codepen.io" target="_blank" rel="external">CodePen</a>.<br></iframe>
+
+<p>来看关键的几处地方：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//实际执行的任务接收者</span></span><br><span class="line"><span class="keyword">var</span> animations = &#123;</span><br><span class="line">	up: <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">	······</span><br><span class="line">	</span><br><span class="line"><span class="comment">//命令工厂</span></span><br><span class="line"><span class="keyword">var</span> makeCommand = <span class="function"><span class="keyword">function</span>(<span class="params">receiver, state</span>) </span>&#123;</span><br><span class="line">	<span class="keyword">return</span> <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">		receiver[state]();</span><br><span class="line">	&#125;;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">//关联命令接收者和发送者</span></span><br><span class="line">$(<span class="built_in">document</span>).on(<span class="string">"keypress"</span>, <span class="function"><span class="keyword">function</span>(<span class="params">e</span>) </span>&#123;</span><br><span class="line">	<span class="comment">//实例化一个命令对象</span></span><br><span class="line">	<span class="keyword">var</span> command = makeCommand(animations, commands[e.keyCode]);</span><br><span class="line">	<span class="comment">//对象入栈</span></span><br><span class="line">	commandStack.push(command);</span><br><span class="line">	<span class="comment">//执行命令</span></span><br><span class="line">	command();</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure></p>
+<h2 id="三、宏命令"><a href="#三、宏命令" class="headerlink" title="三、宏命令"></a>三、宏命令</h2><p><strong>宏命令</strong>是一组命令的集合，通过执行宏命令的方式可以一次执行一批命令。宏命令适用于需要分批处理命令的情况，执行命令的时候可以针对一组命令做出优化。下面是一个典型的宏命令实现方式：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> MacroCommand=<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">  <span class="keyword">return</span> &#123;</span><br><span class="line">    commandList:[],  <span class="comment">//命令队列，用于存储命令</span></span><br><span class="line">    add: <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;  <span class="comment">//add方法，用于添加命令</span></span><br><span class="line">      <span class="keyword">this</span>.commandList.push(command);</span><br><span class="line">    &#125;,</span><br><span class="line">    exccute: <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;  <span class="comment">//execute方法，用于执行队列中的命令</span></span><br><span class="line">      <span class="keyword">for</span>(<span class="keyword">var</span> i=<span class="number">0</span>,command;command=<span class="keyword">this</span>.comamndList[i++];)&#123;</span><br><span class="line">        command.execute();</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">//使用方法</span></span><br><span class="line"><span class="keyword">var</span> macroCommand=MacroCommand();  <span class="comment">//实例化一个宏命令对象</span></span><br><span class="line">macroCommand.add(command);</span><br><span class="line">······</span><br><span class="line">macroCommand.execute();  <span class="comment">//指令所有命令</span></span><br></pre></td></tr></table></figure></p>
+<h2 id="四、总结"><a href="#四、总结" class="headerlink" title="四、总结"></a>四、总结</h2><ul>
+<li>在command对象中保存一个接收者来执行请求的操作，这种命令对象是<strong>傻瓜命令</strong>；</li>
+<li>在command对象中直接就可以实现请求操作的命令对象是<strong>智能命令</strong>，这种情形和<strong>策略模式</strong>很接近；</li>
+<li>使用<code>setTimeout</code>时要注意：第一个参数表示要执行的函数，<strong>不可带参数</strong>。如果需要向执行的函数传递参数，可以直接写在延迟时间的后面。如果给第一个参数带上参数，它会立即执行，setTimeout得到的是它执行后返回的对象。</li>
+</ul>
+
+  </section>
+
+  
+  
+
+<section class="post-comments">
+
+    <div class="ds-thread" data-thread-key="2016/04/07/JS设计模式——命令模式/"></div>
+
+    <script type="text/javascript">
+      var duoshuoQuery = {short_name:"junz91"};
+      (function() {
+        var ds = document.createElement('script');
+        ds.type = 'text/javascript';ds.async = true;
+        ds.src = '//static.duoshuo.com/embed.js';
+        ds.charset = 'UTF-8';
+        (document.getElementsByTagName('head')[0] 
+        || document.getElementsByTagName('body')[0]).appendChild(ds);
+      })();
+    </script> 
+
+</section>
+
+
+</article>
+
+
+            <footer class="footer">
+
+    <span class="footer__copyright">&copy; 2014-2015. | 由<a href="https://hexo.io/">Hexo</a>强力驱动 | 主题<a href="https://github.com/someus/huno">Huno</a></span>
+    
+</footer>
+        </div>
+    </div>
+
+    <!-- js files -->
+    <script src="/js/jquery.min.js"></script>
+    <script src="/js/main.js"></script>
+    <script src="/js/scale.fix.js"></script>
+    
+
+    
+    
+
+    <script src="/js/awesome-toc.min.js"></script>
+    <script>
+        $(document).ready(function(){
+            $.awesome_toc({
+                overlay: true,
+                contentId: "post-content",
+            });
+        });
+    </script>
+
+
+    
+    
+    <!--kill ie6 -->
+<!--[if IE 6]>
+  <script src="//letskillie6.googlecode.com/svn/trunk/2/zh_CN.js"></script>
+<![endif]-->
+
+</body>
+</html>
